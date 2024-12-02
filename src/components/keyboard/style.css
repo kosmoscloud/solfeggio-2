@@ -1,0 +1,9 @@
+.keyboard {
+    display: block;
+    position: absolute;
+    top: 8%;
+    left: 10%;
+    height: 44%;
+    width: 80%;
+    overflow: hidden;
+}

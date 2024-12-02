@@ -1,0 +1,12 @@
+.black-key {
+    position: absolute;
+    height: 63%;
+    background-color: black;
+    border-radius: 0 0 5px 5px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.black-key:hover {
+    background-color: #333;
+}

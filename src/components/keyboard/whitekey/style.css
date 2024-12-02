@@ -1,0 +1,22 @@
+.white-key {
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.white-key:hover {
+    background-color: #eee;
+}
+
+.label {
+    font-size: 0.5em;
+    color: #ccc;
+    width: 100%;
+    height: auto;
+}

@@ -1,0 +1,18 @@
+.panel-button {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border: 2px solid black;
+    box-shadow: 1vh 1vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.panel-button:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 1vh 1vh 0 #333;
+}

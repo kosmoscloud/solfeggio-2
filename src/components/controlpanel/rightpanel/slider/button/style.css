@@ -1,0 +1,40 @@
+.left, .right {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid #000;
+    background-color: white;
+    z-index: 1;
+}
+
+.left {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    background-image: url('./assets/png/arrow.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.right {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+
+    background-image: url('./assets/png/arrow.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotate(180deg);
+}
+
+.left:hover, .right:hover {
+    background-color: #000;
+}
+
+.left:hover, .right:hover {
+    background-image: url('./assets/png/arrowinv.png');
+}
