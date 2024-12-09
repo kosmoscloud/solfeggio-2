@@ -3,8 +3,9 @@ import "./style.css";
 import PanelHeader from "./header/PanelHeader.jsx";
 import PanelButton from "./button/PanelButton.jsx";
 
-function LeftPanel() {
-    return <div className="left-panel">
+class LeftPanel extends React.Component {
+    render() {
+        return <div className="left-panel">
                 <PanelHeader text="Ćwiczenie: Pojedyncze dźwięki" number={0}/>
                 <PanelButton text="START / RESET" number={1}/>
                 <PanelButton text="NASTĘPNY" number={2}/>
@@ -14,6 +15,7 @@ function LeftPanel() {
                 <PanelButton text="WYJŚCIE" number={6}/>
                 <PanelButton text="PODPOWIEDZ" number={7}/>
             </div>;
+    }
 }
 
 export default LeftPanel;

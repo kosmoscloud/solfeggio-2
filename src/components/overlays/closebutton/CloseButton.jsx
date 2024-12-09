@@ -1,11 +1,14 @@
+import React from 'react';
 import './style.css';
 
-function CloseButton(props) {
-    return (
-        <div className="close-button" onClick={props.onClick}>
-            x
-        </div>
-    );
+class CloseButton extends React.Component {
+    render() {
+        return (
+            <div className="close-button" onClick={this.props.onClick}>
+                x
+            </div>
+        );
+    }
 }
 
 export default CloseButton;

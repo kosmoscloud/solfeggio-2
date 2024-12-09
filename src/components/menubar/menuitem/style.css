@@ -1,0 +1,14 @@
+.menu-item {
+    text-align: left;
+    margin: 0px;
+    padding: 0.5vh;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    font: 400 3vh;
+    text-wrap: nowrap;
+}
+
+.menu-item:hover {
+    background-color: black;
+    color: white;
+}

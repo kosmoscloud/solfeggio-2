@@ -5,14 +5,17 @@ import Timer from "./timer/Timer.jsx";
 import Results from "./results/Results.jsx"
 import Undefined from "./undefined/Undefined.jsx";
 
-function RightPanel() {
-    return <div className="rightPanel">
+class RightPanel extends React.Component {
+
+    render() {
+        return <div className="rightPanel">
                 <Undefined number={9}/> 
                 <Results number={10}/>
                 <Slider text="ODSTĘP" number={11}/>
                 <Slider text="DŁUGOŚĆ DŹWIĘKU" number={12}/>
                 <Timer number={13}/>
             </div>;
+    }
 }
 
 export default RightPanel;
