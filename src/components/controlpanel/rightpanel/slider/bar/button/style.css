@@ -1,6 +1,6 @@
 .left, .right {
     height: 100%;
-    width: 100%;
+    aspect-ratio: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,20 +11,14 @@
 }
 
 .left {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-
-    background-image: url('./assets/png/arrow.png');
+    background-image: url('../../assets/png/arrow.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .right {
-    grid-column: 3 / 4;
-    grid-row: 1 / 2;
-
-    background-image: url('./assets/png/arrow.png');
+    background-image: url('../../assets/png/arrow.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -36,5 +30,5 @@
 }
 
 .left:hover, .right:hover {
-    background-image: url('./assets/png/arrowinv.png');
+    background-image: url('../../assets/png/arrowinv.png');
 }

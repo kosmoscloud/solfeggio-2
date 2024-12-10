@@ -1,0 +1,8 @@
+.dot {
+    position: relative;
+    bottom: 10%;
+    width: 1.5em;
+    aspect-ratio: 1;
+    background-color: #ccc;
+    border-radius: 50%;
+}

@@ -7,8 +7,8 @@ class Overlay extends React.Component {
         return (
         <div className="overlay">
             <div className="overlay-content">
-            <CloseButton onClick={this.toggleVisibility}/>
-            {this.props.children}
+                <CloseButton onClick={this.toggleVisibility}/>
+                {this.props.children}
             </div>
         </div>
         );

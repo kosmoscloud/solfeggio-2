@@ -10,6 +10,8 @@
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     background-color: white;
+    margin-bottom: 1%;
+    flex-shrink: 1.4;
 }
 
 .filler {

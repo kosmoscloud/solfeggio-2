@@ -1,9 +1,15 @@
 import React from "react";
 import "./style.css";
-import BlackKey from "./blackkey/BlackKey.jsx"
-import WhiteKey from "./whitekey/WhiteKey.jsx"
+import Key from "./key/Key.jsx";
 
 class Keyboard extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            keys: this.generateKeys(48, 90)
+        };
+    }
 
     generateWhiteKeys = (notes) => {
         const keys = [];
@@ -11,12 +17,10 @@ class Keyboard extends React.Component {
         const offset = 100 / (notes.length);
     
         for (let i in notes) {
-            let noteName = this.recognizeNoteName(notes[i]);
-        
-            const key = <WhiteKey
+            const key = <Key isWhite={true}
                 left={offset * i + "%"}
                 width={offset + "%"}
-                note={noteName}
+                key={i}
             />;
             keys.push(key);
         }
@@ -30,28 +34,21 @@ class Keyboard extends React.Component {
         let i = 0;
     
         for (let note in notes) {
-            let noteName = this.recognizeNoteName(notes[note]);
-    
-            if (noteName === "C#" || noteName === "F#") {
+
+            if (note % 12 === 1 || note % 12 === 3 || note % 12 === 6 || note % 12 === 8 || note % 12 === 10) {
                 i += 1;
             }
     
-            const key = <BlackKey
+            const key = <Key isWhite={false}
                 left={offset * i - offset * 0.275 + "%"}
                 width={offset * 3 / 5 + "%"}
-                note={noteName}    
+                key={i}
             />;
             keys.push(key);
             i += 1;
         }
     
         return keys;
-    }
-    
-    recognizeNoteName(note) {
-        const noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-    
-        return noteNames[note % 12];
     }
     
     generateKeys(lowNote, highNote) {
@@ -71,10 +68,10 @@ class Keyboard extends React.Component {
     
         const offset = 100 / whiteKeys_notes.length;
     
-        const keys = [];
-    
-        keys.push(this.generateWhiteKeys(whiteKeys_notes));
-        keys.push(this.generateBlackKeys(blackKeys_notes, offset));
+        const keys = {
+            whiteKeys: this.generateWhiteKeys(whiteKeys_notes),
+            blackKeys: this.generateBlackKeys(blackKeys_notes, offset)
+        };
     
         return keys;
     }
@@ -82,7 +79,8 @@ class Keyboard extends React.Component {
     render() {
         return (
             <div className="keyboard">
-                {this.generateKeys(45, 80).map((key) => key)}
+                {this.state.keys.whiteKeys}
+                {this.state.keys.blackKeys}
             </div>
         );
     }

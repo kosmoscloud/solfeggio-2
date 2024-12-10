@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    cursor: pointer;
 }
 
 .white-key:hover {
@@ -19,4 +20,20 @@
     color: #ccc;
     width: 100%;
     height: auto;
+}
+
+.black-key {
+    position: absolute;
+    height: 63%;
+    background-color: black;
+    border-radius: 0 0 5px 5px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+.black-key:hover {
+    background-color: #333;
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import './style.css';
 import { openAboutOverlay } from '../overlays/about/About';
 import { MenuItem } from './menuitem/MenuItem';
-import { MenuSeparator } from './menuseparator/MenuSeparator';
 
 class MenuBar extends React.Component {
 
@@ -75,10 +74,15 @@ class MenuBar extends React.Component {
                                 </p>
                                 {this.state.openedMenu===menuName && (
                                     <div className="menu-list">
-                                        {Object.keys(this.menus[menuName]).map((menuItemName) => {
-                                            return <MenuItem name={menuItemName} />
+                                    { Object.keys(this.menus[menuName]).map((menuItemName) => {
+                                            return <MenuItem key={menuItemName} name={menuItemName} onClick={() => {
+                                                if (this.menus[menuName][menuItemName] !== null) {
+                                                    this.menus[menuName][menuItemName]();
+                                                }
+                                                this.setState({ openedMenu: null });
+                                            }} />
                                         }
-                                        )}
+                                    )}
                                     </div>
                                 )}
                             </div>

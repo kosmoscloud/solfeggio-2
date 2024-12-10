@@ -4,7 +4,9 @@ import "./style.css";
 class Button extends React.Component {
 
     render() {
-        <div className={props.direction}/>
+        return (
+            <div className={this.props.direction} onClick={this.props.onClick}/>
+        );
     }
 }
 
