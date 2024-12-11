@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import { openAboutOverlay } from '../overlays/about/About';
 import { MenuItem } from './menuitem/MenuItem';
+import { run } from '../../exercises/singleNoteExercise';
 
 class MenuBar extends React.Component {
 
@@ -14,11 +15,9 @@ class MenuBar extends React.Component {
             'Pliki': {
                         'Załaduj konfigurację': null,
                         'Zapisz konfigurację': null,
-                        '-': null,
-                        'Koniec': null
                     },
             'Ćwiczenia': {
-                        'Pojedynczy dźwięk': null,
+                        'Pojedynczy dźwięk': () => { run(); },
                         'Interwał': null,
                         'Melodia rosnąca': null,
                         'Melodia': null,

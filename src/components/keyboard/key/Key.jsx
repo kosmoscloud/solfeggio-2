@@ -7,8 +7,9 @@ class Key extends React.Component {
     constructor(props) {
         super(props);
         this.isWhite = props.isWhite;
+        this.midiNote = props.midiNote;
         this.state = {
-            isMarked: false
+            isMarked: props.isMarked
         };
     }
 
@@ -20,14 +21,25 @@ class Key extends React.Component {
         this.setState({isMarked: value});
     }
 
+    playNote = () => {
+        this.toggleIsMarked();
+
+        if (this.props.onClick) {
+            this.props.onClick(this.midiNote);
+        }
+
+        setTimeout(() => {
+            this.toggleIsMarked();
+        }, 300);
+    }
+
     toggleIsMarked = () => {
         this.setState({isMarked: !this.state.isMarked});
-        console.log(this.state.isMarked);
     }
 
     render() {
         return (
-            <div className={this.isWhite ? 'white-key' : 'black-key'} style={{left: this.props.left, width: this.props.width}} onClick={this.toggleIsMarked}>
+            <div className={this.isWhite ? 'white-key' : 'black-key'} style={{left: this.props.left, width: this.props.width}} onClick={this.playNote}>
                 {this.state.isMarked && <Dot/>}
             </div>
         );
@@ -35,3 +47,4 @@ class Key extends React.Component {
 }
 
 export default Key;
+

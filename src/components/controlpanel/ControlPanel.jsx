@@ -8,7 +8,7 @@ class ControlPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isVisible: true
+            isVisible: false
         };
     }
 
@@ -30,3 +30,10 @@ class ControlPanel extends React.Component {
 }
 
 export default ControlPanel;
+export function openControlPanel() {
+    document.querySelector('.control-panel').style.visibility = 'visible';
+}
+
+export function closeControlPanel() {
+    document.querySelector('.control-panel').style.visibility = 'hidden';
+}
