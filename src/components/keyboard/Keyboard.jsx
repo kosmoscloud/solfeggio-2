@@ -1,53 +1,57 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./style.css";
 import Key from "./key/Key.jsx";
 import SoundGenerator from "../../generators/SoundGenerator.js";
+import { VisibilityContext } from "../../managers/VisibilityManager.jsx";
+import { UserHistoryContext } from "../../managers/ExercisesManager.jsx";
+import { ExerciseContext } from "../../managers/ExercisesManager.jsx";
 
-class Keyboard extends React.Component {
+function Keyboard({ onNotePlayed }) {
+    const { visibleComponents } = useContext(VisibilityContext);
+    const soundGenerator = new SoundGenerator();
+    const { keyRange } = useContext(ExerciseContext);
+    const keys = generateKeys(50, 90);
+    const isVisible = visibleComponents.includes('Keyboard');
+    const { userHistory, updateHistory } = React.useContext(UserHistoryContext);
 
-    constructor(props) {
-        super(props);
-        this.soundGenerator = new SoundGenerator();
-        this.state = {
-            visible: false,
-            keys: this.generateKeys(48, 90),
-        };
+    function handleKeyClick(midiNote) {
+        soundGenerator.playSineWave(midiNote);
+        updateHistory(midiNote);
+        if (onNotePlayed) {
+            onNotePlayed(midiNote);
+        }
     }
 
-    handleKeyClick = (midiNote) => {
-        this.soundGenerator.playSineWave(midiNote);
-    }
-
-    generateWhiteKeys = (notes) => {
+    function generateWhiteKeys(notes) {
         return notes.map((note, i) =>
-            new Key({
-                isWhite: true,
-                left: `${100 / notes.length * i}%`,
-                width: `${100 / notes.length}%`,
-                midiNote: note,
-                key: i,
-                onClick: this.handleKeyClick,
-                isMarked: false
-            }));
-    };
+            <Key
+                isWhite={true}
+                left={`${100 / notes.length * i}%`}
+                width={`${100 / notes.length}%`}
+                midiNote={note}
+                key={'w'+i}
+                onClick={handleKeyClick}
+                isMarked={false}
+            />);
+    }
     
-    generateBlackKeys = (notes, offset) => {
+    function generateBlackKeys(notes, offset) {
         let blanks = 0;
         return notes.map((note, i) => {
             if (note % 12 === 1 || note % 12 === 6) blanks++;
-            return new Key({
-                isWhite: false,
-                midiNote: note,
-                left: `${offset * (i + blanks) - offset * 0.275}%`,
-                width: `${offset * 3 / 5}%`,
-                key: blanks + i++,
-                onClick: this.handleKeyClick,
-                isMarked: false
-            });
+            return <Key
+                isWhite={false}
+                midiNote={note}
+                left={`${offset * (i + blanks) - offset * 0.275}%`}
+                width={`${offset * 3 / 5}%`}
+                key={'b'+blanks + i++}
+                onClick={handleKeyClick}
+                isMarked={false}
+            />;
         });
     }
     
-    generateKeys(lowNote, highNote) {
+    function generateKeys(lowNote, highNote) {
         const whiteKeyOffsets = [0, 2, 4, 5, 7, 9, 11];
         const blackKeyOffsets = [1, 3, 6, 8, 10];
     
@@ -63,20 +67,14 @@ class Keyboard extends React.Component {
         }
     
         const offset = 100 / whiteKeys_notes.length;
-        return [ this.generateWhiteKeys(whiteKeys_notes, offset), this.generateBlackKeys(blackKeys_notes, offset) ];
+        return [ generateWhiteKeys(whiteKeys_notes, offset), generateBlackKeys(blackKeys_notes, offset) ];
     }
 
-    render() {
-        return (
-            <div className="keyboard" style={{visibility: this.state.visible ? 'visible' : 'hidden'}}>
-                {this.state.keys.flat().map(key => key.render())}
-            </div>
-        );
-    }
-}
-
-export function openKeyboard() {
-    document.querySelector('.keyboard').style.visibility = 'visible';
+    return (
+        <div className="keyboard">
+            {keys.flat().map(key => key)}
+        </div>
+    );
 }
 
 export default Keyboard;

@@ -1,93 +1,89 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './style.css';
-import { openAboutOverlay } from '../overlays/about/About';
 import { MenuItem } from './menuitem/MenuItem';
-import { run } from '../../exercises/singleNoteExercise';
+import { VisibilityContext } from '../../managers/VisibilityManager';
+import { ActiveExerciseContext } from '../../managers/ExercisesManager';
 
-class MenuBar extends React.Component {
+function MenuBar({isOpen}) {
+    const { showComponent } = useContext(VisibilityContext);
+    const { startExercise } = useContext(ActiveExerciseContext);
+    const [visible, setVisible] = React.useState(isOpen);
+    const [openedMenu, setOpenedMenu] = React.useState(null);
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            openedMenu: null
-        };
-        this.menus = { 
-            'Pliki': {
-                        'Załaduj konfigurację': null,
-                        'Zapisz konfigurację': null,
-                    },
-            'Ćwiczenia': {
-                        'Pojedynczy dźwięk': () => { run(); },
-                        'Interwał': null,
-                        'Melodia rosnąca': null,
-                        'Melodia': null,
-                        'Trójdźwięk': null,
-                        'Akord z septymą': null,
-                        'Akord z noną': null,
-                        'Akord z undecymą': null,
-                        'Akord przypadkowy': null,
-                    },
-            'Zapytania': {
-                        'Interwały': null,
-                        'Rodzaje trójdźwięków': null,
-                        'Rodzaje akordów z septymą': null,
-                        'Przewroty trójdźwięków': null,
-                        'Przewroty trójdźwięków z septymą': null,
-                    },
-            'Zakresy': {
-                        'C1 - C2': null,
-                        'C2 - C3': null,
-                        'C3 - C4': null,
-                        'C4 - C5': null,
-                        'C5 - C6': null,
-                        'C6 - C7': null,
-                        'C7 - C8': null,
-            },
-            'Opcje': {
-                        'Ustawienia': null,
-                        'Pomoc': null,
-                        'O programie': () => { openAboutOverlay(); this.setState({ openedMenu: null }); },
-            }
-        };
-        this.updateOpenedMenu = (menuName) => {
-            if (this.state.openedMenu === menuName) {
-                this.setState({ openedMenu: null });
-            }
-            else {
-                this.setState({ openedMenu: menuName });
-            }
+    React.useEffect(() => {
+        setVisible(isOpen);
+    }, [isOpen]);
+
+    const menus = {
+        'Pliki': {
+            'Załaduj konfigurację': null,
+            'Zapisz konfigurację': null,
+        },
+        'Ćwiczenia': {
+            'Pojedynczy dźwięk': () => startExercise('SingleNote'),
+            'Interwał': null,
+            'Melodia rosnąca': null,
+            'Melodia': null,
+            'Trójdźwięk': null,
+            'Akord z septymą': null,
+            'Akord z noną': null,
+            'Akord z undecymą': null,
+            'Akord przypadkowy': null,
+        },
+        'Zapytania': {
+            'Interwały': null,
+            'Rodzaje trójdźwięków': null,
+            'Rodzaje akordów z septymą': null,
+            'Przewroty trójdźwięków': null,
+            'Przewroty trójdźwięków z septymą': null,
+        },
+        'Zakresy': {
+            'Ustaw zakres': null
+        },
+        'Opcje': {
+            'Ustawienia': null,
+            'Pomoc': null,
+            'O programie': () => showComponent('About')
+        }
+    };
+
+    const updateOpenedMenu = (menuName) => {
+        if (openedMenu === menuName) {
+            setOpenedMenu(null);
+        } else {
+            setOpenedMenu(menuName);
         }
     }
 
-    render() {
-        return  <div className="menu-bar">
-                    {Object.keys(this.menus).map((menuName) =>
-                            <div className="menu-container" key={menuName}>
-                                <p 
-                                    className={this.state.openedMenu===menuName ? 'opened-menu' : 'closed-menu'}
-                                    onClick={() => {
-                                        this.updateOpenedMenu(menuName);
-                                    }}
-                                >
-                                    {menuName}
-                                </p>
-                                {this.state.openedMenu===menuName && (
-                                    <div className="menu-list">
-                                    { Object.keys(this.menus[menuName]).map((menuItemName) => {
-                                            return <MenuItem key={menuItemName} name={menuItemName} onClick={() => {
-                                                if (this.menus[menuName][menuItemName] !== null) {
-                                                    this.menus[menuName][menuItemName]();
-                                                }
-                                                this.setState({ openedMenu: null });
-                                            }} />
-                                        }
-                                    )}
-                                    </div>
-                                )}
-                            </div>
-                        )}
+    return (
+        <div className="menu-bar">
+            {Object.keys(menus).map((menuName) =>
+                <div className="menu-container" key={menuName}>
+                    <p
+                        className={openedMenu === menuName ? 'opened-menu' : 'closed-menu'}
+                        onClick={() => {
+                            updateOpenedMenu(menuName);
+                        }}
+                    >
+                        {menuName}
+                    </p>
+                    {openedMenu === menuName && (
+                        <div className="menu-list">
+                            {Object.keys(menus[menuName]).map((menuItemName) => {
+                                return <MenuItem key={menuItemName} name={menuItemName} onClick={() => {
+                                    if (menus[menuName][menuItemName] !== null) {
+                                        menus[menuName][menuItemName]();
+                                    }
+                                    setOpenedMenu(null);
+                                }} />
+                            }
+                            )}
+                        </div>
+                    )}
                 </div>
-    }
+            )}
+        </div>
+    );
 
 }
 

@@ -1,18 +1,19 @@
-import './App.css';
+import './style.css';
 import MenuBar from './components/menubar/MenuBar.jsx';
 import ControlPanel from './components/controlpanel/ControlPanel.jsx';
 import Keyboard from './components/keyboard/Keyboard.jsx';
 import About from './components/overlays/about/About.jsx';
+import ExercisesManager from './managers/ExercisesManager.jsx';
 
-function App() {
+function Solfeggio2() {
   return (
     <div className="solfeggio2">
-      <MenuBar />
-      <ControlPanel />
-      <Keyboard />
-      <About />
+      <ExercisesManager>
+          <MenuBar isOpen={true} />
+          <About />
+      </ExercisesManager>
     </div>
   );
 }
 
-export default App;
+export default Solfeggio2;

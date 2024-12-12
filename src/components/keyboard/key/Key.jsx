@@ -2,48 +2,29 @@ import React from "react";
 import "./style.css";
 import Dot from "../dot/Dot.jsx";
 
-class Key extends React.Component {
+function Key({onClick, isWhite, left, width, midiNote}) {
+    
+        const [isPlaying, setIsPlaying] = React.useState(false);
+    
+        function playNote() {
+            setIsPlaying(true);
 
-    constructor(props) {
-        super(props);
-        this.isWhite = props.isWhite;
-        this.midiNote = props.midiNote;
-        this.state = {
-            isMarked: props.isMarked
-        };
-    }
-
-    get isMarked() {
-        return this.state.isMarked;
-    }
-
-    set isMarked(value) {
-        this.setState({isMarked: value});
-    }
-
-    playNote = () => {
-        this.toggleIsMarked();
-
-        if (this.props.onClick) {
-            this.props.onClick(this.midiNote);
+            if (onClick) {
+                onClick(midiNote);
+            }
+            
+            setTimeout(() => {
+                setIsPlaying(false);
+            }, 300);
         }
-
-        setTimeout(() => {
-            this.toggleIsMarked();
-        }, 300);
-    }
-
-    toggleIsMarked = () => {
-        this.setState({isMarked: !this.state.isMarked});
-    }
-
-    render() {
+    
         return (
-            <div className={this.isWhite ? 'white-key' : 'black-key'} style={{left: this.props.left, width: this.props.width}} onClick={this.playNote}>
-                {this.state.isMarked && <Dot/>}
+            <div className={isWhite ? 'white-key' : 'black-key'} style={{left: left, width: width}} onClick={playNote}>
+                {isPlaying && <Dot/>}
+                {isWhite && <div className="label">{midiNote}</div>}
+                {!isWhite && <div className="label">{midiNote}</div>}
             </div>
         );
-    }
 }
 
 export default Key;

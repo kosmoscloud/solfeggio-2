@@ -2,85 +2,60 @@ import React from 'react';
 import './style.css';
 import Button from './button/Button';
 
-class Bar extends React.Component {
+function Bar (props) {
+    const [value, setValue] = React.useState(0);
+    const sliderAreaRef = React.useRef();
+    const sliderBlockRef = React.useRef();
 
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-        this.state = {
-            isDragging: false,
-            value: 0
-        };
-        this.sliderAreaRef = React.createRef();
-        this.sliderBlockRef = React.createRef();
+    const changeStateValue = (addValue) => () => {
+        if (!props.enabled) return;
+        const newValue = Math.min(100, Math.max(0, value + addValue));
+        setValue(newValue);
+        updateBlockPosition(newValue);
     }
 
-    changeStateValue = (value) => {
-        return () => {
-            let newValue = this.state.value + value;
-            if (newValue < 0) newValue = 0;
-            if (newValue > 100) newValue = 100;
-            this.setState({ value: newValue });
-            this.updateBlockPosition(newValue);
-            console.log('new value:', newValue);
-        };
+    const updateBlockPosition = (newValue) => {
+        const { offsetWidth: areaWidth } = sliderAreaRef.current;
+        const { offsetWidth: blockWidth, style } = sliderBlockRef.current;
+        style.left = `${(newValue / 100) * (areaWidth - blockWidth)}px`;
     }
 
-    updateBlockPosition(newValue) {
-        const sliderArea = this.sliderAreaRef.current;
+    const handleMouseDown = (e) => {
+        const sliderArea = sliderAreaRef.current;
+        const sliderBlock = sliderBlockRef.current;
         const sliderAreaWidth = sliderArea.offsetWidth;
-        const sliderBlock = this.sliderBlockRef.current;
         const sliderBlockWidth = sliderBlock.offsetWidth;
-        const newLeft = (newValue / 100) * (sliderAreaWidth - sliderBlockWidth);
-        sliderBlock.style.left = `${newLeft}px`;
-    }
-
-    handleClick(e) {
-        const sliderArea = e.target.closest('.slider-area');
-        const sliderAreaWidth = sliderArea.offsetWidth;
-        const sliderBlock = e.target.closest('.slider-block');
-        const sliderBlockWidth = sliderBlock.offsetWidth;
-
-        this.setState({ isDragging: true });
 
         const onMouseMove = (e) => {
-            if (this.state.isDragging) {
-
-                const sliderAreaRect = sliderArea.getBoundingClientRect();
-                let newLeft = e.clientX - sliderAreaRect.left - sliderBlockWidth / 2;
-
-                if (newLeft < 0) newLeft = 0;
-                if (newLeft > sliderAreaWidth - sliderBlockWidth) newLeft = sliderAreaWidth - sliderBlockWidth;
-
+                const { left, width } = sliderArea.getBoundingClientRect();
+                const newLeft = Math.min(Math.max(0, e.clientX - left - sliderBlockWidth / 2), sliderAreaWidth - sliderBlockWidth);
                 const newValue = (newLeft / (sliderAreaWidth - sliderBlockWidth)) * 100;
                 sliderBlock.style.left = `${newLeft}px`;
-                this.setState({ value: newValue });
-            }
+                setValue(newValue);
         };
 
         const onMouseUp = () => {
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
-            this.setState({ isDragging: false });
         };
 
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
+
+        e.preventDefault();
     }
 
-    render() {
-        return (
-            <div className="slider-bar">
-                <Button direction="left" onClick={this.changeStateValue(-1)}/>
-                <div className="slider-area" ref={this.sliderAreaRef}>
-                    <div className="slider-block" onMouseDown={this.handleClick} ref={this.sliderBlockRef}>
-                        {Math.round(this.state.value, 2)}
-                    </div>
+    return (
+        <div className={props.enabled ? "slider-bar" : "disabled-slider-bar"}>
+            <Button direction="left" enabled={props.enabled} onClick={changeStateValue(-1)}/>
+            <div className={props.enabled ? "slider-area" : "disabled-slider-area"} ref={sliderAreaRef}>
+                <div className={props.enabled ? "slider-block" : "disabled-slider-block"} onMouseDown={props.enabled ? handleMouseDown : null} ref={sliderBlockRef}>
+                    {Math.round(value)}
                 </div>
-                <Button direction="right" onClick={this.changeStateValue(1)}/>
             </div>
-        );
-    }
+            <Button direction="right" enabled={props.enabled} onClick={changeStateValue(1)}/>
+        </div>
+    );
 }
 
 export default Bar;

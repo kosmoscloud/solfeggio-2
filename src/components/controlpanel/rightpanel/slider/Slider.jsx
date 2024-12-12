@@ -2,19 +2,20 @@ import React from "react";
 import "./style.css";
 import Header from "./header/Header";
 import Bar from "./bar/Bar";
+import { ExerciseContext } from "../../../../managers/ExercisesManager";
 
-class Slider extends React.Component {
+function Slider(props) {
+    const { enabledComponents } = React.useContext(ExerciseContext);
+    const enabled = enabledComponents.includes(props.sliderid);
 
-    render() {
-        return (
-            <div className={"box"+this.props.number} onClick={this.handleMouseDown}>
+    return (
+        <div className={"box"+props.number} sliderid={props.sliderId}>
                 <div className="slider">
-                    <Header text={this.props.text}/>
-                    <Bar />
+                    <Header text={props.text} enabled={enabled}/>
+                    <Bar enabled={enabled}/>
                 </div>
             </div>
-        );
-    };
+    );
 }
 
 export default Slider;

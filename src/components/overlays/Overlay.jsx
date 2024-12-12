@@ -1,23 +1,17 @@
 import React from "react";
 import "./style.css";
 import CloseButton from "./closebutton/CloseButton";
+import { VisibilityContext } from "../../managers/VisibilityManager";
 
-class Overlay extends React.Component {
-    render() {
-        return (
-        <div className="overlay">
+function Overlay({children, parentComponent}) {
+    const { visibleComponents, showComponent, hideComponent } = React.useContext(VisibilityContext);
+
+    return <div className="overlay" style={{visibility: visibleComponents.includes(parentComponent) ? 'visible' : 'hidden'}}>
             <div className="overlay-content">
-                <CloseButton onClick={this.toggleVisibility}/>
-                {this.props.children}
+                <CloseButton onClick={() => hideComponent(parentComponent)} />
+                {children}
             </div>
-        </div>
-        );
-    }
-
-    toggleVisibility() {
-        const overlay = document.querySelector('.overlay');
-        overlay.style.visibility = overlay.style.visibility === 'hidden' ? 'visible' : 'hidden';
-    }
+        </div>;
 }
 
 export default Overlay;

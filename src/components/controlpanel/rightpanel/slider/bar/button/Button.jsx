@@ -1,13 +1,11 @@
 import React from "react";
 import "./style.css";
 
-class Button extends React.Component {
+function Button(props) {
 
-    render() {
-        return (
-            <div className={this.props.direction} onClick={this.props.onClick}/>
-        );
-    }
+    return (
+        <div className={props.enabled ? props.direction : ("disabled-" + props.direction)} onClick={props.onClick}/>
+    );
 }
 
 export default Button;

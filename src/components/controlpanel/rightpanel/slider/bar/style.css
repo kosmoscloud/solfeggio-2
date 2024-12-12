@@ -1,9 +1,8 @@
-.slider-bar {
+.slider-bar, .disabled-slider-bar {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ccc;
     height: 100%;
     width: 100%;
     border: 2px solid black;
@@ -12,7 +11,15 @@
     z-index: 1;
 }
 
-.slider-area {
+.slider-bar {
+    background-color: #ccc;
+}
+
+.disabled-slider-bar {
+    background-color: #888;
+}
+
+.slider-area, .disabled-slider-area {
     display: flex;
     justify-content: left;
     align-items: center;
@@ -20,17 +27,25 @@
     height: 100%;
 }
 
-.slider-block {
+.slider-block, .disabled-slider-block {
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    background-color: white;
     height: 100%;
     aspect-ratio: 2;
     border: 2px solid black;
     z-index: 1;
+}
+
+.slider-block {
+    background-color: white;
+}
+
+.disabled-slider-block {
+    background-color: #888;
+    cursor: default;
 }
 
 .slider-block:hover {

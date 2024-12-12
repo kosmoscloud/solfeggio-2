@@ -1,19 +1,21 @@
 import React from 'react';
 import './style.css'
+import { ExerciseContext } from '../../../../managers/ExercisesManager';
 
-class Timer extends React.Component {
+function Timer(props) {
 
-  render() {
-    return (
-      <div className={"box"+this.props.number}>
-        <div className="timer">
-          <div className="timer-background"/> 
-          <div className="timer-progress-bar"/>
-          <div className="timer-text">CZAS</div>
-        </div>
+  const { enabledComponents } = React.useContext(ExerciseContext);
+  const enabled = enabledComponents.includes('timer');
+
+  return (
+    <div className={"box"+props.number}>
+      <div className={enabled ? "timer" : "disabled-timer"}>
+        <div className={enabled ? "timer-background" : "disabled-timer-background"}/> 
+        <div className={enabled ? "timer-progress-bar" : "disabled-timer-progress-bar"}/>
+        <div className={enabled ? "timer-text" : "disabled-timer-text"}>CZAS</div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Timer;
