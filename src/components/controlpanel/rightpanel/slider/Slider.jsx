@@ -12,7 +12,7 @@ function Slider(props) {
         <div className={"box"+props.number} sliderid={props.sliderId}>
                 <div className="slider">
                     <Header text={props.text} enabled={enabled}/>
-                    <Bar enabled={enabled}/>
+                    <Bar enabled={enabled} initialValue={50} onChange={props.onChange}/>
                 </div>
             </div>
     );

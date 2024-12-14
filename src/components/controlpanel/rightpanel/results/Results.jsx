@@ -1,7 +1,6 @@
 import React from 'react';
-import './style.css';
 import { ResultsContext } from '../../../../managers/ExercisesManager';
-import { useEffect } from 'react';
+import './style.css';
 
 function Results(props) {
     const { notesResults, examplesResults } = React.useContext(ResultsContext);
@@ -14,7 +13,7 @@ function Results(props) {
                         WYNIKI
                     </div>
                     <div className="results-description">
-                        DOBRZE:ŹLE
+                        DOBRZE:OGÓŁEM
                     </div>
                 </div>
                 <div className="results-table">

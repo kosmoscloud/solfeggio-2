@@ -1,0 +1,21 @@
+.ok-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    width: 4%;
+    height: 7%;
+    cursor: pointer;
+    z-index: 100;
+    font-size: 150%;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-button:hover {
+    background-color: black;
+    color: white;
+}

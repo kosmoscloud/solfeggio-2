@@ -1,8 +1,17 @@
 .dot {
-    position: relative;
+    position: absolute;
     bottom: 10%;
     width: 1.5em;
     aspect-ratio: 1;
-    background-color: #ccc;
+    background-color: #888;
+    opacity: 0.5;
     border-radius: 50%;
+}
+
+.played {
+    background-color: #ccc;
+}
+
+.marked {
+    background-color: #888;
 }

@@ -1,6 +1,4 @@
 import React, { useState, createContext } from 'react';
-import VisibilityManager from '../managers/VisibilityManager';
-import SingleNoteExercise from '../exercises/SingleNoteExercise';
 
 export const ExerciseContext = createContext();
 export const ActiveExerciseContext = createContext();
@@ -71,26 +69,20 @@ function ExercisesManager({ children }) {
     }
 
     const renderActiveExercise = () => {
-        switch (activeExercise) {
-            case 'SingleNote':
-                return <SingleNoteExercise />;
-            // Add cases for other exercises here
-            default:
-                return null;
+        if (activeExercise) {
+            return activeExercise;
         }
     }
 
     return (
-        <VisibilityManager>
-            <ActiveExerciseContext.Provider value={{ activeExercise, startExercise, stopExercise }}>
-                <ResultsContext.Provider value={{ notesResults, examplesResults, updateNotesResults, updateExamplesResults, resetNotesResults, resetExamplesResults }}>
-                    <UserHistoryContext.Provider value={{ userHistory, updateHistory }}>
-                        {children}
-                        {renderActiveExercise()}
-                    </UserHistoryContext.Provider>
-                </ResultsContext.Provider>
-            </ActiveExerciseContext.Provider>
-        </VisibilityManager>
+        <ActiveExerciseContext.Provider value={{ activeExercise, startExercise, stopExercise }}>
+            <ResultsContext.Provider value={{ notesResults, examplesResults, updateNotesResults, updateExamplesResults, resetNotesResults, resetExamplesResults }}>
+                <UserHistoryContext.Provider value={{ userHistory, updateHistory }}>
+                    {children}
+                    {renderActiveExercise()}
+                </UserHistoryContext.Provider>
+            </ResultsContext.Provider>
+        </ActiveExerciseContext.Provider>
     );
 }
 

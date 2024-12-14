@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActiveExerciseContext, ResultsContext } from '../managers/ExercisesManager';
+import { ResultsContext } from '../managers/ExercisesManager';
 import Keyboard from '../components/keyboard/Keyboard';
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
 
 function SingleNoteExercise() {
-    const { activeExercise, stopExercise } = useContext(ActiveExerciseContext);
+    const exerciseName = 'Pojedynczy dźwięk';
     const { updateNotesResults, updateExamplesResults,
         resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
 
@@ -14,70 +14,51 @@ function SingleNoteExercise() {
     const [playedNote, setPlayedNote] = useState(null);
 
     const enabledComponents = ['startreset', 'exit', 'next', 'repeat'];
-    const keyRange = { low: 50, high: 80 };
+    const keyRange = { low: 48, high: 90 };
 
     const soundGenerator = new SoundGenerator();
 
+    // one time effect on render
     useEffect(() => {
-        if (activeExercise !== 'SingleNote') {
-            stopExercise();
-        }
-    }, [activeExercise, stopExercise]);
+        startExercise();
+        // eslint-disable-next-line
+    }, []);
 
     const startExercise = () => {
         resetNotesResults();
         resetExamplesResults();
-        console.log('Starting exercise');
         nextExample();
     }
 
     const nextExample = () => {
         const randomMidiNote = Math.floor(Math.random() * (keyRange.high - keyRange.low + 1)) + keyRange.low;
+        console.log(randomMidiNote);
         setGeneratedNote(randomMidiNote);
+        soundGenerator.playSineWave(randomMidiNote);
     }
 
     const repeatExample = () => {
         soundGenerator.playSineWave(generatedNote);
     }
 
-    useEffect(() => {
-        console.log('Generated note:', generatedNote);
-        if (generatedNote) {
-            soundGenerator.playSineWave(generatedNote);
-        } else {
-            console.log('Generated note is null', generatedNote);
-            setTimeout(() => {
-                nextExample();
-            }, 500);
-        }
-    }, [generatedNote]);
-
     const handleNotePlayed = (midiNote) => {
         setPlayedNote(midiNote);
     };
 
     useEffect(() => {
-        if (generatedNote) {
-            const isCorrect = checkNoteCorrectness(playedNote);
+        if (generatedNote && playedNote !== null) {
+            const isCorrect = playedNote === generatedNote
             updateNotesResults(isCorrect);
             updateExamplesResults(isCorrect);
+            setPlayedNote(null);
+            if (isCorrect) setTimeout(() => nextExample(), 500);
         }
+        // disabling because the lack of better solution
+        // eslint-disable-next-line
     }, [playedNote]);
 
-    const checkNoteCorrectness = (midiNote) => {
-        if (!generatedNote) {
-            return false;
-        }
-        const correctNote = generatedNote;
-        const isCorrect = midiNote === correctNote;
-        if (isCorrect) {
-            setGeneratedNote(null);
-        }
-        return isCorrect;
-    };
-
     return (
-        <ExerciseContext.Provider value={{enabledComponents, keyRange, startExercise, nextExample, repeatExample}}>
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, startExercise, nextExample, repeatExample}}>
             <Keyboard onNotePlayed={handleNotePlayed} />
             <ControlPanel/>
         </ExerciseContext.Provider>

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './style.css';
 import Button from './button/Button';
+import { use } from 'react';
 
 function Bar (props) {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(props.initialValue);
     const sliderAreaRef = React.useRef();
     const sliderBlockRef = React.useRef();
 
@@ -20,6 +21,10 @@ function Bar (props) {
         style.left = `${(newValue / 100) * (areaWidth - blockWidth)}px`;
     }
 
+    useEffect(() => {
+        updateBlockPosition(value);
+    }, []);
+
     const handleMouseDown = (e) => {
         const sliderArea = sliderAreaRef.current;
         const sliderBlock = sliderBlockRef.current;
@@ -29,9 +34,10 @@ function Bar (props) {
         const onMouseMove = (e) => {
                 const { left, width } = sliderArea.getBoundingClientRect();
                 const newLeft = Math.min(Math.max(0, e.clientX - left - sliderBlockWidth / 2), sliderAreaWidth - sliderBlockWidth);
-                const newValue = (newLeft / (sliderAreaWidth - sliderBlockWidth)) * 100;
+                const newValue = Math.round((newLeft / (sliderAreaWidth - sliderBlockWidth)) * 100);
                 sliderBlock.style.left = `${newLeft}px`;
                 setValue(newValue);
+                props.onChange(newValue);
         };
 
         const onMouseUp = () => {

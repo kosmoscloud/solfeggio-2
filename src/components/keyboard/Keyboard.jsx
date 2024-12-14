@@ -1,73 +1,59 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "./style.css";
 import Key from "./key/Key.jsx";
 import SoundGenerator from "../../generators/SoundGenerator.js";
-import { VisibilityContext } from "../../managers/VisibilityManager.jsx";
-import { UserHistoryContext } from "../../managers/ExercisesManager.jsx";
 import { ExerciseContext } from "../../managers/ExercisesManager.jsx";
 
 function Keyboard({ onNotePlayed }) {
-    const { visibleComponents } = useContext(VisibilityContext);
     const soundGenerator = new SoundGenerator();
-    const { keyRange } = useContext(ExerciseContext);
-    const keys = generateKeys(50, 90);
-    const isVisible = visibleComponents.includes('Keyboard');
-    const { userHistory, updateHistory } = React.useContext(UserHistoryContext);
+    const { keyRange, markedNotes, playedMelody } = useContext(ExerciseContext);
+    const keys = generateKeys(keyRange.low - 5, keyRange.high + 5);
 
     function handleKeyClick(midiNote) {
         soundGenerator.playSineWave(midiNote);
-        updateHistory(midiNote);
         if (onNotePlayed) {
             onNotePlayed(midiNote);
         }
     }
-
-    function generateWhiteKeys(notes) {
-        return notes.map((note, i) =>
-            <Key
-                isWhite={true}
-                left={`${100 / notes.length * i}%`}
-                width={`${100 / notes.length}%`}
-                midiNote={note}
-                key={'w'+i}
-                onClick={handleKeyClick}
-                isMarked={false}
-            />);
-    }
-    
-    function generateBlackKeys(notes, offset) {
-        let blanks = 0;
-        return notes.map((note, i) => {
-            if (note % 12 === 1 || note % 12 === 6) blanks++;
-            return <Key
-                isWhite={false}
-                midiNote={note}
-                left={`${offset * (i + blanks) - offset * 0.275}%`}
-                width={`${offset * 3 / 5}%`}
-                key={'b'+blanks + i++}
-                onClick={handleKeyClick}
-                isMarked={false}
-            />;
-        });
-    }
     
     function generateKeys(lowNote, highNote) {
-        const whiteKeyOffsets = [0, 2, 4, 5, 7, 9, 11];
-        const blackKeyOffsets = [1, 3, 6, 8, 10];
-    
-        const whiteKeys_notes = [];
-        const blackKeys_notes = [];
-    
+        const whiteKeyOffsets = [0, 2, 4, 5, 7, 9, 11], blackKeyOffsets = [1, 3, 6, 8, 10];
+        const whiteKeys_notes = [], blackKeys_notes = [];
+
+        const whiteKeys_length =
+            Array.from({ length: highNote - lowNote + 1 }, (_, i) => lowNote + i).filter(note => whiteKeyOffsets.includes(note % 12)).length;
+
         for (let i = lowNote; i <= highNote; i++) {
             if (whiteKeyOffsets.includes(i % 12)) {
-                whiteKeys_notes.push(i);
+                whiteKeys_notes.push(
+                    <Key 
+                        isWhite={true}
+                        left={`${100 / whiteKeys_length * whiteKeys_notes.length}%`}
+                        width={`${100 / whiteKeys_length}%`}
+                        midiNote={i}
+                        key={i}
+                        onClick={handleKeyClick}
+                        isMarked={markedNotes.includes(i)}
+                        isPlayed={playedMelody.includes(i)}
+                    />
+                );
             } else if (blackKeyOffsets.includes(i % 12)) {
-                blackKeys_notes.push(i);
+                blackKeys_notes.push(
+                    <Key 
+                        isWhite={false}
+                        midiNote={i}
+                        left={`${100 / whiteKeys_length * whiteKeys_notes.length - (100 / whiteKeys_length / 3.5)}%`}
+                        width={`${100 / whiteKeys_length * 3 / 5}%`}
+                        key={i}
+                        onClick={handleKeyClick}
+                        isMarked={markedNotes.includes(i)}
+                        isPlayed={playedMelody.includes(i)}
+                    />
+                );
             }
         }
-    
-        const offset = 100 / whiteKeys_notes.length;
-        return [ generateWhiteKeys(whiteKeys_notes, offset), generateBlackKeys(blackKeys_notes, offset) ];
+
+        return [ whiteKeys_notes, blackKeys_notes ];
     }
 
     return (

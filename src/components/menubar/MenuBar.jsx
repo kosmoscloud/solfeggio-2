@@ -1,18 +1,17 @@
 import React, { useContext } from 'react';
 import './style.css';
 import { MenuItem } from './menuitem/MenuItem';
-import { VisibilityContext } from '../../managers/VisibilityManager';
+import { OverlaysContext } from '../../managers/OverlaysManager';
 import { ActiveExerciseContext } from '../../managers/ExercisesManager';
+import About from '../overlays/about/About';
+import Ranges from '../overlays/ranges/Ranges';
+import SingleNoteExercise from '../../exercises/SingleNoteExercise';
+import MelodyExercise from '../../exercises/MelodyExercise';
 
-function MenuBar({isOpen}) {
-    const { showComponent } = useContext(VisibilityContext);
+function MenuBar() {
+    const { showOverlay } = useContext(OverlaysContext);
     const { startExercise } = useContext(ActiveExerciseContext);
-    const [visible, setVisible] = React.useState(isOpen);
-    const [openedMenu, setOpenedMenu] = React.useState(null);
-
-    React.useEffect(() => {
-        setVisible(isOpen);
-    }, [isOpen]);
+    const [ openedMenu, setOpenedMenu ] = React.useState(null);
 
     const menus = {
         'Pliki': {
@@ -20,14 +19,16 @@ function MenuBar({isOpen}) {
             'Zapisz konfigurację': null,
         },
         'Ćwiczenia': {
-            'Pojedynczy dźwięk': () => startExercise('SingleNote'),
+            'Pojedynczy dźwięk': () => startExercise(<SingleNoteExercise />),
             'Interwał': null,
-            'Melodia rosnąca': null,
-            'Melodia': null,
+            'Melodia rosnąca': () => startExercise(<MelodyExercise type='ascending'/>),
+            'Melodia opadająca': () => startExercise(<MelodyExercise type='descending'/>),
+            'Melodia': () => startExercise(<MelodyExercise type='random'/>),
             'Trójdźwięk': null,
             'Akord z septymą': null,
             'Akord z noną': null,
             'Akord z undecymą': null,
+            'Akord z tercdecymą': null,
             'Akord przypadkowy': null,
         },
         'Zapytania': {
@@ -38,12 +39,25 @@ function MenuBar({isOpen}) {
             'Przewroty trójdźwięków z septymą': null,
         },
         'Zakresy': {
-            'Ustaw zakres': null
+            'Zakres i skala muzyczna': () => showOverlay(<Ranges/>),
+            '-': null,
+            'Długość melodii': null,
+            'Długość melodii rosnącej': null,
+            '--': null,
+            'Trójdźwięki': null,
+            'Akordy z septymą': null,
+            'Akordy z noną': null,
+            'Akordy z undecymą': null,
+            'Akordy z tercdecymą': null,
+            'Przewroty trójdźwięków': null,
+            'Przewroty akordów z septymą': null,
+            '---': null,
+            'Akordy przypadkowe': null
         },
         'Opcje': {
             'Ustawienia': null,
             'Pomoc': null,
-            'O programie': () => showComponent('About')
+            'O programie': () => showOverlay(<About/>)
         }
     };
 

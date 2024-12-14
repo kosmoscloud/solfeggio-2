@@ -2,11 +2,13 @@ import React from "react";
 import "./style.css";
 import PanelHeader from "./header/PanelHeader.jsx";
 import PanelButton from "./button/PanelButton.jsx";
+import { ExerciseContext } from "../../../managers/ExercisesManager";
 
 function LeftPanel() {
-    
+    const { exerciseName } = React.useContext(ExerciseContext);
+
     return <div className="left-panel">
-            <PanelHeader text="Ćwiczenie: Pojedyncze dźwięki" number={0}/>
+            <PanelHeader text={"Ćwiczenie: "+exerciseName} number={0}/>
             <PanelButton text="START / RESET" number={1} buttonid="startreset"/>
             <PanelButton text="NASTĘPNY" number={2} buttonid="next"/>
             <PanelButton text="POWTÓRZ" number={3} buttonid="repeat"/>

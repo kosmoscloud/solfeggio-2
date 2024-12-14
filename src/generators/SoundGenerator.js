@@ -21,6 +21,22 @@ class SoundGenerator {
         gainNode.gain.exponentialRampToValueAtTime(0.0001, this.audioContext.currentTime + duration);
         oscillator.stop(this.audioContext.currentTime + duration);
     }
+
+    playSequence(sequence, duration = 1, noteLength = 1) {
+        const playNote = async (note) => {
+            this.playSineWave(note, noteLength);
+            return new Promise(resolve => setTimeout(resolve, duration * 10));
+        };
+
+        const playMelodySequentially = async () => {
+            for (let note of sequence) {
+                await playNote(note);
+            }
+        };
+
+        playMelodySequentially();
+    }
+
 }
 
 export default SoundGenerator;

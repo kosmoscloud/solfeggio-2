@@ -6,9 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Solfeggio2 />
-  </React.StrictMode>
+  <Solfeggio2 />
 );
 
 reportWebVitals(); // pass some log function to log the metrics

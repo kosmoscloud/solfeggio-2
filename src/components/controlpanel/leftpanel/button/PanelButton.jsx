@@ -5,7 +5,7 @@ import { ActiveExerciseContext } from "../../../../managers/ExercisesManager";
 
 function PanelButton(props) {
 
-    const { enabledComponents, startExercise, nextExample, repeatExample } = React.useContext(ExerciseContext);
+    const { enabledComponents, startExercise, nextExample, repeatExample, undoNote, showHint } = React.useContext(ExerciseContext);
     const { stopExercise } = React.useContext(ActiveExerciseContext);
 
     const onClick = () => {
@@ -18,6 +18,12 @@ function PanelButton(props) {
                 break;
             case "repeat":
                 repeatExample();
+                break;
+            case "undo":
+                undoNote();
+                break;
+            case "hint":
+                showHint();
                 break;
             case "exit":
                 stopExercise();
