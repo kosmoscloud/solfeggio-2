@@ -2,11 +2,10 @@ import React, { useContext } from "react";
 import "./style.css";
 import Key from "./key/Key.jsx";
 import SoundGenerator from "../../generators/SoundGenerator.js";
-import { ExerciseContext } from "../../managers/ExercisesManager.jsx";
 
-function Keyboard({ onNotePlayed }) {
+function Keyboard({ overlay, onNotePlayed, context }) {
     const soundGenerator = new SoundGenerator();
-    const { keyRange, markedNotes, playedMelody } = useContext(ExerciseContext);
+    const { keyRange, markedNotes, playedMelody } = useContext(context);
     const keys = generateKeys(keyRange.low - 5, keyRange.high + 5);
 
     function handleKeyClick(midiNote) {
@@ -33,8 +32,8 @@ function Keyboard({ onNotePlayed }) {
                         midiNote={i}
                         key={i}
                         onClick={handleKeyClick}
-                        isMarked={markedNotes.includes(i)}
-                        isPlayed={playedMelody.includes(i)}
+                        isMarked={markedNotes ? markedNotes.includes(i): false}
+                        isPlayed={playedMelody ? playedMelody.includes(i): false}
                     />
                 );
             } else if (blackKeyOffsets.includes(i % 12)) {
@@ -46,8 +45,8 @@ function Keyboard({ onNotePlayed }) {
                         width={`${100 / whiteKeys_length * 3 / 5}%`}
                         key={i}
                         onClick={handleKeyClick}
-                        isMarked={markedNotes.includes(i)}
-                        isPlayed={playedMelody.includes(i)}
+                        isMarked={markedNotes ? markedNotes.includes(i) : false}
+                        isPlayed={playedMelody ? playedMelody.includes(i) : false}
                     />
                 );
             }
@@ -57,7 +56,7 @@ function Keyboard({ onNotePlayed }) {
     }
 
     return (
-        <div className="keyboard">
+        <div className="keyboard" style={{ zIndex: overlay ? 100 : 'auto' }}>
             {keys.flat().map(key => key)}
         </div>
     );

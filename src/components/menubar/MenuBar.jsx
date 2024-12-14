@@ -5,6 +5,7 @@ import { OverlaysContext } from '../../managers/OverlaysManager';
 import { ActiveExerciseContext } from '../../managers/ExercisesManager';
 import About from '../overlays/about/About';
 import Ranges from '../overlays/ranges/Ranges';
+import MelodyLength from '../overlays/melodylength/MelodyLength';
 import SingleNoteExercise from '../../exercises/SingleNoteExercise';
 import MelodyExercise from '../../exercises/MelodyExercise';
 
@@ -14,9 +15,10 @@ function MenuBar() {
     const [ openedMenu, setOpenedMenu ] = React.useState(null);
 
     const menus = {
-        'Pliki': {
-            'Załaduj konfigurację': null,
-            'Zapisz konfigurację': null,
+        'solfeggio-2': {
+            'Ustawienia': null,
+            'Pomoc': null,
+            'O programie': () => showOverlay(<About/>),
         },
         'Ćwiczenia': {
             'Pojedynczy dźwięk': () => startExercise(<SingleNoteExercise />),
@@ -38,11 +40,9 @@ function MenuBar() {
             'Przewroty trójdźwięków': null,
             'Przewroty trójdźwięków z septymą': null,
         },
-        'Zakresy': {
+        'Ustawienia': {
             'Zakres i skala muzyczna': () => showOverlay(<Ranges/>),
-            '-': null,
-            'Długość melodii': null,
-            'Długość melodii rosnącej': null,
+            'Długość melodii': () => showOverlay(<MelodyLength/>),
             '--': null,
             'Trójdźwięki': null,
             'Akordy z septymą': null,
@@ -53,11 +53,6 @@ function MenuBar() {
             'Przewroty akordów z septymą': null,
             '---': null,
             'Akordy przypadkowe': null
-        },
-        'Opcje': {
-            'Ustawienia': null,
-            'Pomoc': null,
-            'O programie': () => showOverlay(<About/>)
         }
     };
 

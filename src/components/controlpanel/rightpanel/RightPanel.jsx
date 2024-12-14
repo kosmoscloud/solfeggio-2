@@ -13,8 +13,8 @@ function RightPanel() {
         <div className="rightPanel">
             <Alarm number={9}/>
             <Results number={10}/>
-            <Slider text="ODSTĘP" number={11} sliderid="notespacing" onChange={setNoteSpacing}/>
-            <Slider text="DŁUGOŚĆ DŹWIĘKU" number={12} sliderid="notelength" onChange={setNoteLength}/>
+            <Slider text="ODSTĘP" number={11} sliderid="notespacing" onChange={setNoteSpacing} context={ExerciseContext}/>
+            <Slider text="DŁUGOŚĆ DŹWIĘKU" number={12} sliderid="notelength" onChange={setNoteLength} context={ExerciseContext}/>
             <Timer number={13}/>
         </div>
     );

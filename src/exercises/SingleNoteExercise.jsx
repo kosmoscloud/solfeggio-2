@@ -4,6 +4,7 @@ import Keyboard from '../components/keyboard/Keyboard';
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
+import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 
 function SingleNoteExercise() {
     const exerciseName = 'Pojedynczy dźwięk';
@@ -14,7 +15,8 @@ function SingleNoteExercise() {
     const [playedNote, setPlayedNote] = useState(null);
 
     const enabledComponents = ['startreset', 'exit', 'next', 'repeat'];
-    const keyRange = { low: 48, high: 90 };
+    const { effectiveScale } = useContext(GlobalSettingsContext);
+    const keyRange = { low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] };
 
     const soundGenerator = new SoundGenerator();
 
@@ -31,7 +33,8 @@ function SingleNoteExercise() {
     }
 
     const nextExample = () => {
-        const randomMidiNote = Math.floor(Math.random() * (keyRange.high - keyRange.low + 1)) + keyRange.low;
+        //const randomMidiNote = Math.floor(Math.random() * (keyRange.high - keyRange.low + 1)) + keyRange.low;
+        const randomMidiNote = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
         console.log(randomMidiNote);
         setGeneratedNote(randomMidiNote);
         soundGenerator.playSineWave(randomMidiNote);
@@ -59,7 +62,7 @@ function SingleNoteExercise() {
 
     return (
         <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, startExercise, nextExample, repeatExample}}>
-            <Keyboard onNotePlayed={handleNotePlayed} />
+            <Keyboard onNotePlayed={handleNotePlayed} context={ExerciseContext} />
             <ControlPanel/>
         </ExerciseContext.Provider>
     );

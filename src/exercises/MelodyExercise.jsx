@@ -4,19 +4,21 @@ import Keyboard from '../components/keyboard/Keyboard';
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
+import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 
 function MelodyExercise(props) {
     const exerciseName = 'Melodia' + (props.type === 'ascending' ? ' rosnąca' : props.type === 'descending' ? ' opadająca' : '');
     const { updateNotesResults, updateExamplesResults,
         resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
 
-    const melodyLength = 3;
+    const { melodyLength } = useContext(GlobalSettingsContext);
     const [generatedMelody, setGeneratedMelody] = useState([]);
     const [playedMelody, setPlayedMelody] = useState([]);
     const [markedNotes, setMarkedNotes] = useState([]);
 
     const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
-    const keyRange = { low: 48, high: 90 };
+    const { effectiveScale } = useContext(GlobalSettingsContext);
+    const keyRange = { low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] };
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
 
@@ -35,11 +37,11 @@ function MelodyExercise(props) {
     }
 
     const playMelody = (melody) => {
-        soundGenerator.playSequence(melody, noteSpacing + 30, noteLength / 50 + 0.02);
+        soundGenerator.playSequence(melody, noteSpacing * 10 + 50, noteLength / 50 + 0.02);
     }
 
     const nextExample = () => {
-        const randomMelody = Array.from({ length: melodyLength }, () => Math.floor(Math.random() * (keyRange.high - keyRange.low + 1)) + keyRange.low);
+        const randomMelody = Array.from({ length: melodyLength }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
         if (props.type === 'ascending') randomMelody.sort((a, b) => a - b)
         if (props.type === 'descending') randomMelody.sort((a, b) => b - a)
         setGeneratedMelody(randomMelody);
@@ -81,7 +83,7 @@ function MelodyExercise(props) {
 
     return (
         <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, playedMelody, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength}}>
-            <Keyboard onNotePlayed={handleNotePlayed} />
+            <Keyboard onNotePlayed={handleNotePlayed} context={ExerciseContext} />
             <ControlPanel/>
         </ExerciseContext.Provider>
     );

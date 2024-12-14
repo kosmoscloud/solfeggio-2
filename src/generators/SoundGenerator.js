@@ -22,19 +22,15 @@ class SoundGenerator {
         oscillator.stop(this.audioContext.currentTime + duration);
     }
 
-    playSequence(sequence, duration = 1, noteLength = 1) {
+    async playSequence(sequence, spacing = 1000, noteLength = 1) {
         const playNote = async (note) => {
             this.playSineWave(note, noteLength);
-            return new Promise(resolve => setTimeout(resolve, duration * 10));
+            return new Promise(resolve => setTimeout(resolve, spacing));
         };
 
-        const playMelodySequentially = async () => {
-            for (let note of sequence) {
-                await playNote(note);
-            }
-        };
-
-        playMelodySequentially();
+        for (let note of sequence) {
+            await playNote(note);
+        }
     }
 
 }

@@ -4,13 +4,15 @@ import Button from './button/Button';
 import { use } from 'react';
 
 function Bar (props) {
-    const [value, setValue] = React.useState(props.initialValue);
+    const min = props.min || 0;
+    const max = props.max || 100;
+    const [value, setValue] = React.useState(props.initialValue || (min + max) / 2);
     const sliderAreaRef = React.useRef();
     const sliderBlockRef = React.useRef();
 
     const changeStateValue = (addValue) => () => {
         if (!props.enabled) return;
-        const newValue = Math.min(100, Math.max(0, value + addValue));
+        const newValue = Math.min(max, Math.max(min, value + addValue));
         setValue(newValue);
         updateBlockPosition(newValue);
     }
@@ -34,7 +36,7 @@ function Bar (props) {
         const onMouseMove = (e) => {
                 const { left, width } = sliderArea.getBoundingClientRect();
                 const newLeft = Math.min(Math.max(0, e.clientX - left - sliderBlockWidth / 2), sliderAreaWidth - sliderBlockWidth);
-                const newValue = Math.round((newLeft / (sliderAreaWidth - sliderBlockWidth)) * 100);
+                const newValue = Math.round((newLeft / (sliderAreaWidth - sliderBlockWidth)) * (max - min) + min);
                 sliderBlock.style.left = `${newLeft}px`;
                 setValue(newValue);
                 props.onChange(newValue);
