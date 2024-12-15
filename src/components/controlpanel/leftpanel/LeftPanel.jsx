@@ -8,14 +8,22 @@ function LeftPanel() {
     const { exerciseName } = React.useContext(ExerciseContext);
 
     return <div className="left-panel">
-            <PanelHeader text={"Ćwiczenie: "+exerciseName} number={0}/>
-            <PanelButton text="START / RESET" number={1} buttonid="startreset"/>
-            <PanelButton text="NASTĘPNY" number={2} buttonid="next"/>
-            <PanelButton text="POWTÓRZ" number={3} buttonid="repeat"/>
-            <PanelButton text="KONTYNUUJ" number={4} buttonid="continue"/>
-            <PanelButton text="COFNIJ NUTĘ" number={5} buttonid="undo"/>
-            <PanelButton text="WYJŚCIE" number={6} buttonid="exit"/>
-            <PanelButton text="PODPOWIEDZ" number={7} buttonid="hint"/>
+            <PanelHeader text={"Ćwiczenie: "+exerciseName}/>
+            <div className="buttons-panel">
+                <div className="buttons-column">
+                    <PanelButton text="START / RESET" buttonid="startreset"/>
+                    <PanelButton text="KONTYNUUJ" buttonid="continue"/>
+                    <PanelButton text="WYJŚCIE" buttonid="exit"/>
+                </div>
+                <div className="buttons-column">
+                    <div className="buttons-row">
+                        <PanelButton text="NASTĘPNY" buttonid="next"/>
+                        <PanelButton text="POWTÓRZ" buttonid="repeat"/>
+                    </div>
+                    <PanelButton text="COFNIJ NUTĘ" buttonid="undo"/>
+                    <PanelButton text="PODPOWIEDZ" buttonid="hint"/>
+                </div>
+            </div>
         </div>;
 }
 

@@ -1,32 +1,27 @@
-.panel-button {
+.panel-button, .disabled-panel-button {
     width: 100%;
     height: 100%;
     cursor: pointer;
     border: 2px solid black;
     box-shadow: 1vh 1vh;
 
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.panel-button {
     background-color: white;
+}
+
+.disabled-panel-button {
+    background-color: #333;
+    cursor: default;
 }
 
 .panel-button:hover {
     background-color: black;
     color: white;
     box-shadow: 1vh 1vh 0 #333;
-}
-
-.disabled-panel-button {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    border: 2px solid black;
-    box-shadow: 1vh 1vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #333;
-    cursor: default;
 }

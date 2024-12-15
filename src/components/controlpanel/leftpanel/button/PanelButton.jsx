@@ -34,9 +34,7 @@ function PanelButton(props) {
     }
 
     return (
-        <div className={"box"+props.number}>
-            <div className={enabledComponents.includes(props.buttonid) ? "panel-button" : "disabled-panel-button"} key={props.buttonid} onClick={onClick}>{props.text}</div>
-        </div>
+        <div className={enabledComponents.includes(props.buttonid) ? "panel-button" : "disabled-panel-button"} key={props.buttonid} onClick={onClick}>{props.text}</div>
     );
 }
 
