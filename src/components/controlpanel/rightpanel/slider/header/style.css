@@ -1,16 +1,11 @@
 .header, .disabled-header {
+    flex: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
     text-align: center;
-    width: 100%;
-    height: 100%;
     border: 2px solid #000;
     cursor: default;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    margin-bottom: 1%;
-    flex-shrink: 1.4;
 }
 
 .header {

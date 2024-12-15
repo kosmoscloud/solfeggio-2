@@ -1,13 +1,9 @@
 .slider-bar, .disabled-slider-bar {
-    position: relative;
+    flex: 3;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+
     border: 2px solid black;
-    border-left: 0;
-    border-right: 0;
     z-index: 1;
 }
 
@@ -20,11 +16,10 @@
 }
 
 .slider-area, .disabled-slider-area {
+    flex: 8;
     display: flex;
     justify-content: left;
     align-items: center;
-    width: 100%;
-    height: 100%;
 }
 
 .slider-block, .disabled-slider-block {
@@ -51,16 +46,4 @@
 .slider-block:hover {
     background-color: #000;
     color: white;
-}
-
-.slider-left-button, .slider-right-button {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: 2px solid #000;
-    background-color: white;
-    z-index: 1;
 }

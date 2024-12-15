@@ -11,10 +11,20 @@ function RightPanel() {
 
     return (
         <div className="rightPanel">
-            <Alarm />
-            <Results />
-            <Slider text="ODSTĘP" sliderid="notespacing" onChange={setNoteSpacing} context={ExerciseContext}/>
-            <Slider text="DŁUGOŚĆ DŹWIĘKU" sliderid="notelength" onChange={setNoteLength} context={ExerciseContext}/>
+            <div className="results-sliders-column">
+                <div className="alarm-results-row">
+                    <div className="alarm-flex">
+                        <Alarm />
+                    </div>
+                    <div className="results-flex">
+                        <Results />
+                    </div>
+                </div>
+                <div className="slider-column">
+                    <Slider text="ODSTĘP" sliderid="notespacing" onChange={setNoteSpacing} context={ExerciseContext}/>
+                    <Slider text="DŁUGOŚĆ DŹWIĘKU" sliderid="notelength" onChange={setNoteLength} context={ExerciseContext}/>
+                </div>
+            </div>
             <Timer />
         </div>
     );
