@@ -8,12 +8,10 @@ function Timer(props) {
   const enabled = enabledComponents.includes('timer');
 
   return (
-    <div className={"box"+props.number}>
-      <div className={enabled ? "timer" : "disabled-timer"}>
-        <div className={enabled ? "timer-background" : "disabled-timer-background"}/> 
-        <div className={enabled ? "timer-progress-bar" : "disabled-timer-progress-bar"}/>
-        <div className={enabled ? "timer-text" : "disabled-timer-text"}>CZAS</div>
-      </div>
+    <div className={enabled ? "timer" : "disabled-timer"}>
+      <div className={enabled ? "timer-background" : "disabled-timer-background"}/> 
+      <div className={enabled ? "timer-progress-bar" : "disabled-timer-progress-bar"}/>
+      <div className={enabled ? "timer-text" : "disabled-timer-text"}>CZAS</div>
     </div>
   );
 }

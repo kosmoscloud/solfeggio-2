@@ -19,10 +19,8 @@ function Alarm(props) {
   }, [notesResults.notesTotal, notesResults.notesCorrect]);
   
   return (
-    <div className={"box"+props.number}>
-      <div className="alarm">
-        <div className={"alarm-display" + (isAlarm ? "-lit" : "")}/>
-      </div>
+    <div className="alarm">
+      <div className={"alarm-display" + (isAlarm ? "-lit" : "")}/>
     </div>
   );
 }
