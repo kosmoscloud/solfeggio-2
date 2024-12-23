@@ -1,6 +1,6 @@
 .triads {
     position: fixed;
-    top: 75%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
@@ -13,25 +13,28 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    white-space: nowrap;
 }
 
 .triadtypeselector {
-    flex: 1;
+    flex: 2;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
     flex-direction: column;
-    padding: 5%;
+    padding: 2%;
+    padding-right: 0;
     gap: 10%;
 }
 
 .triadinversionselector {
-    flex: 1;
+    flex: 2;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
     flex-direction: column;
     padding: 5%;
+    padding-right: 0;
     gap: 10%;
 }
 

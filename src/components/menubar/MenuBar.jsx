@@ -8,6 +8,9 @@ import Ranges from '../overlays/ranges/Ranges';
 import MelodyLength from '../overlays/melodylength/MelodyLength';
 import Triads from '../overlays/triads/Triads';
 import Sevenths from '../overlays/sevenths/Sevenths';
+import Ninths from '../overlays/ninths/Ninths';
+import Elevenths from '../overlays/elevenths/Elevenths';
+import Thirteenths from '../overlays/thirteenths/Thirteenths';
 import SingleNoteExercise from '../../exercises/SingleNoteExercise';
 import MelodyExercise from '../../exercises/MelodyExercise';
 import IntervalExercise from '../../exercises/IntervalExercise';
@@ -19,7 +22,7 @@ function MenuBar() {
     const [ openedMenu, setOpenedMenu ] = React.useState(null);
 
     const menus = {
-        'solfeggio-2': {
+        'S2': {
             'Ustawienia': null,
             'Pomoc': null,
             'O programie': () => showOverlay(<About/>),
@@ -50,10 +53,16 @@ function MenuBar() {
             '--': null,
             'Trójdźwięki': () => showOverlay(<Triads/>),
             'Akordy z septymą': () => showOverlay(<Sevenths/>),
-            'Akordy z noną': null,
-            'Akordy z undecymą': null,
-            'Akordy z tercdecymą': null,
+            'Akordy z noną': () => showOverlay(<Ninths/>),
+            'Akordy z undecymą': () => showOverlay(<Elevenths/>),
+            'Akordy z tercdecymą': () => showOverlay(<Thirteenths/>),
             'Akordy przypadkowe': null
+        },
+        'Zgłoś błąd': {
+            'Ogólny': null,
+            'Błąd w ćwiczeniu': null,
+            'Błąd w zapytaniu': null,
+            'Błąd w ustawieniach': null
         }
     };
 

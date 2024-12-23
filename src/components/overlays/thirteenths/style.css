@@ -1,10 +1,10 @@
-.sevenths {
+.thirteenths {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    height: 40%;
+    width: 60%;
+    height: 50%;
     background-color: white;
     z-index: 99;
     border: 2px solid black;
@@ -16,7 +16,7 @@
     white-space: nowrap;
 }
 
-.seventhstypeselector {
+.thirteenthstypeselector {
     flex: 5;
     display: flex;
     justify-content: space-around;
@@ -26,17 +26,17 @@
     gap: 10%;
 }
 
-.seventhstypeselector-columns {
+.thirteenthstypeselector-columns {
     height: 100%;
     width: 100%;
     flex: 1;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
     flex-direction: row;
 }
 
-.seventhstypeselector-column {
+.thirteenthstypeselector-column {
     flex: 1;
     display: flex;
     justify-content: space-around;
@@ -46,7 +46,7 @@
     height: 100%;
 }
 
-.seventhsinversionselector {
+.thirteenthsinversionselector {
     flex: 2;
     display: flex;
     justify-content: space-around;

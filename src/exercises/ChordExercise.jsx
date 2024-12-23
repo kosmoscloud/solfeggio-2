@@ -26,6 +26,7 @@ function ChordExercise({type}) {
 
     const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
     const { effectiveScale, enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
+    // eslint-disable-next-line
     const possibleChords = React.useMemo(() => calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]), [effectiveScale, enabledChords, enabledInversions, type]);
     const keyRange = React.useMemo(() => ({ low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] }), [effectiveScale]);
     const [noteSpacing, setNoteSpacing] = useState(50);
@@ -91,6 +92,7 @@ function ChordExercise({type}) {
     }, [playedChord]);
     
     function calculatePossibleChords(effectiveScale, enabledChords, enabledInversions) {
+
         console.log('Calculating possible chords');
         let options = chordTypes[type];
 

@@ -42,7 +42,7 @@ function Sevenths() {
         <SeventhsContext.Provider value={{setEnabledSevenths, setEnabledSeventhsInversions}}>
             <div className="sevenths">
                 <div className='seventhstypeselector'>
-                    Czterodźwięk:
+                    Akordy z septymą:
                     <div className='seventhstypeselector-columns'>
                         <div className='seventhstypeselector-column'>
                             <Checkbox label="Durowy (7<)" isChecked={tempEnabledSevenths.includes('maj7')} onClick={() => toggleSeventhChord('maj7')}/>
@@ -59,7 +59,7 @@ function Sevenths() {
                     </div>
                 </div>
                 <div className='seventhsinversionselector'>
-                    Przewrót:
+                    Przewroty:
                     <Checkbox label="Postać zas." isChecked={tempEnabledSeventhsInversions.includes(0)} onClick={() => toggleInversion(0)}/>
                     <Checkbox label="I przewrót" isChecked={tempEnabledSeventhsInversions.includes(1)} onClick={() => toggleInversion(1)}/>
                     <Checkbox label="II przewrót" isChecked={tempEnabledSeventhsInversions.includes(2)} onClick={() => toggleInversion(2)}/>
