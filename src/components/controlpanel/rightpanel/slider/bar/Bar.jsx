@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import './style.css';
 import Button from './button/Button';
-import { use } from 'react';
 
 function Bar (props) {
     const min = props.min || 0;
@@ -25,6 +24,7 @@ function Bar (props) {
 
     useEffect(() => {
         updateBlockPosition(value);
+    //eslint-disable-next-line
     }, []);
 
     const handleMouseDown = (e) => {
@@ -34,7 +34,7 @@ function Bar (props) {
         const sliderBlockWidth = sliderBlock.offsetWidth;
 
         const onMouseMove = (e) => {
-                const { left, width } = sliderArea.getBoundingClientRect();
+                const { left } = sliderArea.getBoundingClientRect();
                 const newLeft = Math.min(Math.max(0, e.clientX - left - sliderBlockWidth / 2), sliderAreaWidth - sliderBlockWidth);
                 const newValue = Math.round((newLeft / (sliderAreaWidth - sliderBlockWidth)) * (max - min) + min);
                 sliderBlock.style.left = `${newLeft}px`;

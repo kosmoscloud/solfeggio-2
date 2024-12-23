@@ -20,14 +20,14 @@ function ChordExercise({type}) {
     const { updateNotesResults, updateExamplesResults,
         resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
 
-    const [generatedChord, setGeneratedChord] = useState([]);
+    const [generatedChord, setGeneratedChord] = useState([0]);
     const [playedChord, setPlayedChord] = useState([]);
     const [markedNotes, setMarkedNotes] = useState([]);
 
     const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
     const { effectiveScale, enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
-    const possibleChords = calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
-    const keyRange = { low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] };
+    const possibleChords = React.useMemo(() => calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]), [effectiveScale, enabledChords, enabledInversions, type]);
+    const keyRange = React.useMemo(() => ({ low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] }), [effectiveScale]);
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
 
@@ -51,13 +51,11 @@ function ChordExercise({type}) {
 
     const nextExample = () => {
         const randomChord = possibleChords[Math.floor(Math.random() * possibleChords.length)];
-        if (randomChord === generatedChord) return nextExample();
-        console.log(randomChord);
         randomChord.sort((a, b) => a - b);
+        if (randomChord.toString() === generatedChord.toString()) return nextExample();
         setGeneratedChord(randomChord);
         setMarkedNotes([randomChord[0]]);
         playChord(randomChord);
-        console.log(randomChord);
     }
 
     const repeatExample = () => {
@@ -93,9 +91,9 @@ function ChordExercise({type}) {
     }, [playedChord]);
     
     function calculatePossibleChords(effectiveScale, enabledChords, enabledInversions) {
+        console.log('Calculating possible chords');
         let options = chordTypes[type];
 
-        console.log('enabled chords', enabledChords, 'enabled inversions', enabledInversions, 'options', options);
         options = Object.keys(options)
             .filter(chordType => enabledChords.includes(chordType))
             .reduce((arr, key) => {

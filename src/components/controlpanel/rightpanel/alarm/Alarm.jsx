@@ -16,7 +16,7 @@ function Alarm() {
       }, 300);
     }
     setCorrectTotalDifference(notesResults.notesTotal - notesResults.notesCorrect);
-  }, [notesResults.notesTotal, notesResults.notesCorrect]);
+  }, [notesResults.notesTotal, notesResults.notesCorrect, correctTotalDifference]);
   
   return (
     <div className="alarm">
