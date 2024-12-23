@@ -1,0 +1,23 @@
+name: gh-pages-CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: Deploy React to GitHub Pages
+      # You may pin to the exact commit or the version.
+      # uses: bitovi/github-actions-react-to-github-pages@4cf343888989e21112bce7e59156242a0e1defb3
+      uses: bitovi/github-actions-react-to-github-pages@v1.2.4        
