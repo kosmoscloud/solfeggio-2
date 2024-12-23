@@ -1,0 +1,62 @@
+.sevenths {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 40%;
+    background-color: white;
+    z-index: 99;
+    border: 2px solid black;
+    box-shadow: 1vh 1vh;
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.seventhstypeselector {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 2%;
+    gap: 10%;
+}
+
+.seventhstypeselector-columns {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.seventhstypeselector-column {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10%;
+    height: 100%;
+}
+
+.seventhsinversionselector {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 2%;
+    gap: 10%;
+}
+
+.acceptcancel {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}

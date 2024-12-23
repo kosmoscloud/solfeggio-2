@@ -1,12 +1,21 @@
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    flex: 1;
+    margin-left: 5%;
+}
+
 .checkbox, .checkbox-checked {
-    width: 2.5rem;
-    height: 2.5rem;
+    height: 3vh;
+    aspect-ratio: 1;
     cursor: pointer;
     font-size: 100%;
     border: 3px solid black;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     box-shadow: 1vh 1vh;
 }
 
@@ -18,4 +27,8 @@
 .checkbox-checked {
     background-color: black;
     color: white;
+}
+
+.checkbox-label {
+    text-align: left;
 }

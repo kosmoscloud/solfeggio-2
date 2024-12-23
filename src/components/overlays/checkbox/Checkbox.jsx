@@ -8,7 +8,11 @@ function Checkbox(props) {
     }, [props.isChecked]);
 
     return (
-        <div className={'checkbox' + (props.isChecked ? '-checked' : "")} onClick={props.onClick} />
+        <div className="checkbox-container">
+            <div className={'checkbox' + (props.isChecked ? '-checked' : "")} onClick={props.onClick} />
+            <div className="checkbox-label">{props.label}</div>
+        </div>
+        
     );
 }
 

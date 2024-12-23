@@ -1,10 +1,10 @@
-.melodylength {
+.triads {
     position: fixed;
     top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 30%;
+    width: 60%;
+    height: 40%;
     background-color: white;
     z-index: 99;
     border: 2px solid black;
@@ -15,15 +15,27 @@
     justify-content: space-around;
 }
 
-.slidercontainer {
-    flex: 2;
-    display: 'flex';
+.triadtypeselector {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
     padding: 5%;
-    padding-top: 11%;
-    padding-bottom: 11%;
+    gap: 10%;
 }
 
-.acceptcancelplay {
+.triadinversionselector {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 5%;
+    gap: 10%;
+}
+
+.acceptcancel {
     flex: 1;
     display: flex;
     justify-content: space-around;

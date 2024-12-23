@@ -1,0 +1,16 @@
+select {
+    font-family: 'Press Start 2P', cursive;
+    padding: 3%;
+    cursor: pointer;
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 0;
+    color: black;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.select-label {
+    text-align: left;
+}

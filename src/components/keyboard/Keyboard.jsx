@@ -56,7 +56,7 @@ function Keyboard({ overlay, onNotePlayed, context }) {
     }
 
     return (
-        <div className="keyboard" style={{ zIndex: overlay ? 100 : 'auto' }}>
+        <div className="keyboard" style={{ zIndex: overlay ? 99 : 'auto' }}>
             {keys.flat().map(key => key)}
         </div>
     );

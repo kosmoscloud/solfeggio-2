@@ -20,11 +20,13 @@ function MelodyLength() {
     return (
         <MelodyLengthContext.Provider value={setTempMelodyLength}>
             <div className="melodylength">
-                <div className="acceptcancelplay">
+                <div className="slidercontainer">
+                    <Slider initialValue={() => tempMelodyLength} context={MelodyLengthContext} onChange={setTempMelodyLength} min={3} max={10} text="Długość melodii"/>
+                </div>
+                <div className="acceptcancelplay" style={{flex: 1}}>
                     <Button label="OK" onClick={acceptChanges}/>
                     <Button label="Anuluj" onClick={hideOverlay}/>
                 </div>
-                <Slider initialValue={() => tempMelodyLength} context={MelodyLengthContext} onChange={setTempMelodyLength} min={3} max={10} text="Długość melodii"/>
             </div>
         </MelodyLengthContext.Provider>
     );

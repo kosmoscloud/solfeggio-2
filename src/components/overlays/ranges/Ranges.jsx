@@ -6,6 +6,7 @@ import { OverlaysContext } from '../../../managers/OverlaysManager';
 import Keyboard from '../../keyboard/Keyboard';
 import './style.css';
 import SoundGenerator from '../../../generators/SoundGenerator';
+import Select from '../select/Select';
 
 const RangesContext = createContext();
 
@@ -54,30 +55,29 @@ function Ranges() {
             <RangesContext.Provider value={{ firstNote, setFirstNote, lastNote, setLastNote, scale, setScale, keyRange, markedNotes }}>
                 <Keyboard context={RangesContext} onNotePlayed={onNotePlayed} overlay={true}/>
                 <div className = "ranges">
-                    <div className = "rangelimits">
-                        <Checkbox value={tempFirstNote} onClick={() => setIsListeningForFirstNote(true)} isChecked={isListeningForFirstNote}/>
-                        Pierwsza nuta
-                        <Checkbox value={tempLastNote} onClick={() => setIsListeningForLastNote(true)} isChecked={isListeningForLastNote}/>
-                        Ostatnia nuta
-                    </div>
-                    <div className="rangescale">
-                        <select value={tempScale} onChange={e => setTempScale(e.target.value)}>
-                            <option value="major">Dur</option>
-                            <option value="minor">Moll</option>
-                            <option value="blues">Blues</option>
-                            <option value="pentatonic">Pięciotonowa</option>
-                            <option value="chromatic">Chromatyczna</option>
-                            <option value="harmonicMinor">Moll Harm.</option>
-                            <option value="melodicMinor">Moll Mel.</option>
-                            <option value="wholeTone">Całotonowa</option>
-                        </select>
-                        Skala
+                    <div className = "settingscolumn">
+                        <div className = "rangelimits">
+                            <Checkbox value={tempFirstNote} label="Pierwsza nuta" onClick={() => setIsListeningForFirstNote(true)} isChecked={isListeningForFirstNote}/>
+                            <Checkbox value={tempLastNote} label="Ostatnia nuta" onClick={() => setIsListeningForLastNote(true)} isChecked={isListeningForLastNote}/>
+                        </div>
+                        <div className="rangescale">
+                            <Select value={tempScale} label="Skala" onChange={e => setTempScale(e.target.value)}>
+                                <option value="major">Dur</option>
+                                <option value="minor">Moll</option>
+                                <option value="blues">Blues</option>
+                                <option value="pentatonic">Pięciotonowa</option>
+                                <option value="chromatic">Chromatyczna</option>
+                                <option value="harmonicMinor">Moll Harm.</option>
+                                <option value="melodicMinor">Moll Mel.</option>
+                                <option value="wholeTone">Całotonowa</option>
+                            </Select>
+                        </div>
                     </div>
                     <div className="acceptcancelplay">
                         <Button label="OK" onClick={acceptChanges}/>
                         <Button label="Anuluj" onClick={hideOverlay}/>
-                        <Checkbox onClick={playTempScale} isChecked={isPlaybackChecked}/>
-                        <div>Graj skalę</div>
+                        <Checkbox label="Graj skalę" onClick={playTempScale} isChecked={isPlaybackChecked}/>
+                        
                     </div>
                 </div>
             </RangesContext.Provider>

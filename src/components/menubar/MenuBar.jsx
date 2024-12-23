@@ -6,8 +6,12 @@ import { ActiveExerciseContext } from '../../managers/ExercisesManager';
 import About from '../overlays/about/About';
 import Ranges from '../overlays/ranges/Ranges';
 import MelodyLength from '../overlays/melodylength/MelodyLength';
+import Triads from '../overlays/triads/Triads';
+import Sevenths from '../overlays/sevenths/Sevenths';
 import SingleNoteExercise from '../../exercises/SingleNoteExercise';
 import MelodyExercise from '../../exercises/MelodyExercise';
+import IntervalExercise from '../../exercises/IntervalExercise';
+import ChordExercise from '../../exercises/ChordExercise';
 
 function MenuBar() {
     const { showOverlay } = useContext(OverlaysContext);
@@ -22,12 +26,12 @@ function MenuBar() {
         },
         'Ćwiczenia': {
             'Pojedynczy dźwięk': () => startExercise(<SingleNoteExercise />),
-            'Interwał': null,
+            'Interwał': () => startExercise(<IntervalExercise />),
             'Melodia rosnąca': () => startExercise(<MelodyExercise type='ascending'/>),
             'Melodia opadająca': () => startExercise(<MelodyExercise type='descending'/>),
             'Melodia': () => startExercise(<MelodyExercise type='random'/>),
-            'Trójdźwięk': null,
-            'Akord z septymą': null,
+            'Trójdźwięk': () => startExercise(<ChordExercise type='triads'/>),
+            'Akord z septymą': () => startExercise(<ChordExercise type='sevenths'/>),
             'Akord z noną': null,
             'Akord z undecymą': null,
             'Akord z tercdecymą': null,
@@ -44,14 +48,11 @@ function MenuBar() {
             'Zakres i skala muzyczna': () => showOverlay(<Ranges/>),
             'Długość melodii': () => showOverlay(<MelodyLength/>),
             '--': null,
-            'Trójdźwięki': null,
-            'Akordy z septymą': null,
+            'Trójdźwięki': () => showOverlay(<Triads/>),
+            'Akordy z septymą': () => showOverlay(<Sevenths/>),
             'Akordy z noną': null,
             'Akordy z undecymą': null,
             'Akordy z tercdecymą': null,
-            'Przewroty trójdźwięków': null,
-            'Przewroty akordów z septymą': null,
-            '---': null,
             'Akordy przypadkowe': null
         }
     };

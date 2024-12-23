@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css'
 import { ResultsContext } from '../../../../managers/ExercisesManager';
 
-function Alarm(props) {
+function Alarm() {
   
   const { notesResults } = React.useContext(ResultsContext);
   const [ correctTotalDifference, setCorrectTotalDifference ] = React.useState(notesResults.notesTotal - notesResults.notesCorrect);
