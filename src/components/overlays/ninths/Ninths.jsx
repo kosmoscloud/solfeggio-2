@@ -25,10 +25,7 @@ function Ninths() {
         else setTempEnabledNinths([...tempEnabledNinths, type]);
     }
 
-    const toggleInversion = (inversion) => {
-        if(tempEnabledNinthsInversions.includes(inversion)) setTempEnabledNinthsInversions(tempEnabledNinthsInversions.filter(inv => inv !== inversion));
-        else setTempEnabledNinthsInversions([...tempEnabledNinthsInversions, inversion]);
-    }
+    const toggleInversion = () => setTempEnabledNinthsInversions(tempEnabledNinthsInversions.length > 1 ? [0] : [0, 1, 2, 3]);
 
     useEffect(() => {
         console.log(tempEnabledNinths)
@@ -45,19 +42,19 @@ function Ninths() {
                     Akordy z noną:
                     <div className='ninthstypeselector-columns'>
                         <div className='ninthstypeselector-column'>
-                            <Checkbox label="3w, 7w, 9w" isChecked={tempEnabledNinths.includes('maj7')} onClick={() => toggleNinthChord('maj7')}/>
-                            <Checkbox label="3w, 7m, 9w" isChecked={tempEnabledNinths.includes('dom7')} onClick={() => toggleNinthChord('dom7')}/>
-                            <Checkbox label="3m, 7w, 9w" isChecked={tempEnabledNinths.includes('min7')} onClick={() => toggleNinthChord('min7')}/>
-                            <Checkbox label="3m, 7m, 9w" isChecked={tempEnabledNinths.includes('minmaj7')} onClick={() => toggleNinthChord('minmaj7')}/>
-                            <Checkbox label="3w, 7m, 9m" isChecked={tempEnabledNinths.includes('minmaj7')} onClick={() => toggleNinthChord('minmaj7')}/>
-                            <Checkbox label="3w, 7m, 9zw" isChecked={tempEnabledNinths.includes('minmaj7')} onClick={() => toggleNinthChord('minmaj7')}/>
+                            <Checkbox label="3w, 7w, 9w" isChecked={tempEnabledNinths.includes('3w7w9w')} onClick={() => toggleNinthChord('3w7w9w')}/>
+                            <Checkbox label="3w, 7m, 9w" isChecked={tempEnabledNinths.includes('3w7m9w')} onClick={() => toggleNinthChord('3w7m9w')}/>
+                            <Checkbox label="3m, 7w, 9w" isChecked={tempEnabledNinths.includes('3m7w9w')} onClick={() => toggleNinthChord('3m7w9w')}/>
+                            <Checkbox label="3m, 7m, 9w" isChecked={tempEnabledNinths.includes('3m7m9w')} onClick={() => toggleNinthChord('3m7m9w')}/>
+                            <Checkbox label="3w, 7m, 9m" isChecked={tempEnabledNinths.includes('3w7m9m')} onClick={() => toggleNinthChord('3w7m9m')}/>
+                            <Checkbox label="3w, 7m, 9zw" isChecked={tempEnabledNinths.includes('3w7m9zw')} onClick={() => toggleNinthChord('3w7m9zw')}/>
                         </div>
                         <div className='ninthstypeselector-column'>
-                            <Checkbox label="5cz, 7w, 9w" isChecked={tempEnabledNinths.includes('minmaj7')} onClick={() => toggleNinthChord('minmaj7')}/>
-                            <Checkbox label="5cz, 7m, 9w" isChecked={tempEnabledNinths.includes('minmaj7')} onClick={() => toggleNinthChord('minmaj7')}/>
-                            <Checkbox label="5zm, 7m, 9w" isChecked={tempEnabledNinths.includes('minmaj7')} onClick={() => toggleNinthChord('minmaj7')}/>
+                            <Checkbox label="5cz, 7w, 9w" isChecked={tempEnabledNinths.includes('5cz7w9w')} onClick={() => toggleNinthChord('5cz7w9w')}/>
+                            <Checkbox label="5cz, 7m, 9w" isChecked={tempEnabledNinths.includes('5cz7m9w')} onClick={() => toggleNinthChord('5cz7m9w')}/>
+                            <Checkbox label="5zm, 7m, 9w" isChecked={tempEnabledNinths.includes('5zm7m9w')} onClick={() => toggleNinthChord('5zm7m9w')}/>
                             Przewroty
-                            <Checkbox label="używaj przewrotów" isChecked={tempEnabledNinthsInversions.length > 0} onClick={() => setTempEnabledNinthsInversions(tempEnabledNinthsInversions.length > 0 ? [] : [0, 1, 2, 3])}/>
+                            <Checkbox label="używaj przewrotów" isChecked={tempEnabledNinthsInversions.length > 1} onClick={() => toggleInversion()}/>
                         </div>
                     </div>
                 </div>

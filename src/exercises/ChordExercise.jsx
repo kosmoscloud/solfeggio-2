@@ -6,6 +6,9 @@ import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 import chordTypes from './ChordTypes';
+import Alert from '../components/alert/Alert';
+import Ranges from '../components/overlays/ranges/Ranges';
+import { OverlaysContext } from '../managers/OverlaysManager';
 
 function ChordExercise({type}) {
     const exerciseNames = {
@@ -19,15 +22,23 @@ function ChordExercise({type}) {
     const exerciseName = exerciseNames[type] || '???';
     const { updateNotesResults, updateExamplesResults,
         resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
-
     const [generatedChord, setGeneratedChord] = useState([0]);
     const [playedChord, setPlayedChord] = useState([]);
     const [markedNotes, setMarkedNotes] = useState([]);
+    const { showOverlay, showAlert } = useContext(OverlaysContext);
 
     const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
     const { effectiveScale, enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     // eslint-disable-next-line
-    const possibleChords = React.useMemo(() => calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]), [effectiveScale, enabledChords, enabledInversions, type]);
+    const possibleChords = React.useMemo(() => {
+        const possibleChords = calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type])
+        if (possibleChords.length === 0) {
+            showAlert(<Alert text="Nie można wygenerować akordów z podanymi ustawieniami." />);
+            showOverlay(<Ranges/>);
+            return [];
+        }
+        return possibleChords;
+    }, [effectiveScale, enabledChords, enabledInversions, type]);
     const keyRange = React.useMemo(() => ({ low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] }), [effectiveScale]);
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
@@ -47,6 +58,7 @@ function ChordExercise({type}) {
     }
 
     const playChord = (chord) => {
+        console.log('Playing chord', chord);
         soundGenerator.playSimultaneously(chord, noteSpacing * 10 + 50, noteLength / 50 + 0.02);
     }
 
@@ -65,7 +77,7 @@ function ChordExercise({type}) {
 
     const handleNotePlayed = (midiNote) => {
         setPlayedChord([...playedChord, midiNote]);
-        updateNotesResults(midiNote === generatedChord[playedChord.length]);
+        updateNotesResults(generatedChord.includes(midiNote));
     };
 
     const undoNote = () => {
@@ -111,11 +123,15 @@ function ChordExercise({type}) {
         for (let i = 0; i < effectiveScale.length; i++) {
             options.forEach(option => {
                 const root = effectiveScale[i];
-                const chord = option.map(interval => root + interval);
+                const chord = option.reduce((acc, interval) => {
+                    const lastNote = acc[acc.length - 1] || root;
+                    acc.push(lastNote + interval);
+                    return acc;
+                }, [root]);
                 if (chord.every(note => effectiveScale.includes(note))) chords.push(chord);                        
             });
         }
-        console.log(chords);
+
         return chords;
     }
 

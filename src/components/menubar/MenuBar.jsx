@@ -35,7 +35,7 @@ function MenuBar() {
             'Melodia': () => startExercise(<MelodyExercise type='random'/>),
             'Trójdźwięk': () => startExercise(<ChordExercise type='triads'/>),
             'Akord z septymą': () => startExercise(<ChordExercise type='sevenths'/>),
-            'Akord z noną': null,
+            'Akord z noną': () => startExercise(<ChordExercise type='ninths'/>),
             'Akord z undecymą': null,
             'Akord z tercdecymą': null,
             'Akord przypadkowy': null,

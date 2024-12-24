@@ -4,7 +4,7 @@ export const GlobalSettingsContext = createContext();
 
 function GlobalSettingsManager({ children }) {
     
-    const [ firstNote, setFirstNote ] = useState(60);
+    const [ firstNote, setFirstNote ] = useState(48);
     const [ lastNote, setLastNote ] = useState(72);
     const [ scale, setScale ] = useState('chromatic');
     const [ effectiveScale, setEffectiveScale ] = useState([]);
@@ -12,16 +12,16 @@ function GlobalSettingsManager({ children }) {
     const [ enabledChords, setEnabledChords ] = useState({
         'triads': ['maj', 'min'],
         'sevenths': ['maj7', 'dom7', 'min7'],
-        'ninths': ['maj9', 'dom9', 'min9'],
+        'ninths': ['3w7w9w', '3w7m9w', '3m7w9w', '3m7m9w', '3w7m9m', '3w7m9zw'],
         'elevenths': ['maj11', 'dom11', 'min11'],
         'thirteenths': ['maj13', 'dom13', 'min13']
     });
     const [ enabledInversions, setEnabledInversions ] = useState({
-        'triads': [1],
-        'sevenths': [1],
-        'ninths': [1],
-        'elevenths': [1],
-        'thirteenths': [1]
+        'triads': [0,1,2],
+        'sevenths': [0,1,2,3],
+        'ninths': [0],
+        'elevenths': [0],
+        'thirteenths': [0]
     });
 
     const setEnabledTriads = (enabledTriads) => {
@@ -65,8 +65,7 @@ function GlobalSettingsManager({ children }) {
     }
 
     useEffect(() => {
-        const newEffectiveScale = calculateEffectiveScale(firstNote, lastNote, scale);
-        setEffectiveScale(newEffectiveScale);
+        setEffectiveScale(calculateEffectiveScale(firstNote, lastNote, scale));
     }, [firstNote, lastNote, scale]);
 
     return (
@@ -81,22 +80,21 @@ function GlobalSettingsManager({ children }) {
 
 function calculateEffectiveScale(firstNote, lastNote, scale) {
     const scaleIntervals = {
-        major: [0, 2, 4, 5, 7, 9, 11],
-        minor: [0, 2, 3, 5, 7, 8, 10],
-        blues: [0, 3, 5, 6, 7, 10],
-        pentatonic: [0, 2, 4, 7, 9],
-        chromatic: Array.from({ length: 12 }, (_, i) => i),
-        harmonicMinor: [0, 2, 3, 5, 7, 8, 11],
-        melodicMinor: [0, 2, 3, 5, 7, 9, 11],
-        wholeTone: [0, 2, 4, 6, 8, 10]
+        major: [2, 2, 1, 2, 2, 2, 1],
+        minor: [2, 1, 2, 2, 1, 2, 2],
+        blues: [3, 2, 1, 1, 3, 2],
+        pentatonic: [2, 2, 3, 2, 3],
+        chromatic: [1],
+        harmonicMinor: [2, 1, 2, 2, 1, 3, 1],
+        melodicMinor: [2, 1, 2, 2, 2, 2, 1],
+        wholeTone: [2, 2, 2, 2, 2, 2]
     };
     const scaleOffsets = scaleIntervals[scale];
     const effectiveScale = [];
-    for (let i = firstNote; i <= lastNote; i++) {
-        if (scaleOffsets.includes(i % 12)) {
-            effectiveScale.push(i);
-        }
+    for (let currentNote = firstNote; currentNote <= lastNote; currentNote += scaleOffsets[effectiveScale.length % scaleOffsets.length]) {
+        effectiveScale.push(currentNote);
     }
+    
     return effectiveScale;
 }
 

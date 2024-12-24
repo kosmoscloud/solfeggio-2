@@ -47,7 +47,7 @@ function Elevenths() {
                         <div className='eleventhstypeselector-column'>
                             <Checkbox label="3w, 7w, 11cz" isChecked={tempEnabledElevenths.includes('maj7')} onClick={() => toggleEleventhChord('maj7')}/>
                             <Checkbox label="3w, 7m, 11cz" isChecked={tempEnabledElevenths.includes('dom7')} onClick={() => toggleEleventhChord('dom7')}/>
-                            <Checkbox label="3m, 7e, 11cz" isChecked={tempEnabledElevenths.includes('min7')} onClick={() => toggleEleventhChord('min7')}/>
+                            <Checkbox label="3m, 7w, 11cz" isChecked={tempEnabledElevenths.includes('min7')} onClick={() => toggleEleventhChord('min7')}/>
                             <Checkbox label="3m, 7m, 11cz" isChecked={tempEnabledElevenths.includes('minmaj7')} onClick={() => toggleEleventhChord('minmaj7')}/>
                         </div>
                         <div className='eleventhstypeselector-column'>
