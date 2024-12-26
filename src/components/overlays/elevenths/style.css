@@ -56,10 +56,13 @@
     gap: 10%;
 }
 
-.acceptcancel {
-    flex: 2;
+.eleventhsacceptcancel {
+    flex: 1;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
+    padding: 5%;
+    gap: 30%;
+    height: 50%;
 }

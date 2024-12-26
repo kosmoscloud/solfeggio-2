@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import './style.css';
 import { MenuItem } from './menuitem/MenuItem';
 import { OverlaysContext } from '../../managers/OverlaysManager';
-import { ActiveExerciseContext } from '../../managers/ExercisesManager';
+import { ExerciseManager } from '../../managers/ExercisesManager';
 import About from '../overlays/about/About';
 import Ranges from '../overlays/ranges/Ranges';
 import MelodyLength from '../overlays/melodylength/MelodyLength';
@@ -18,7 +18,7 @@ import ChordExercise from '../../exercises/ChordExercise';
 
 function MenuBar() {
     const { showOverlay } = useContext(OverlaysContext);
-    const { startExercise } = useContext(ActiveExerciseContext);
+    const { startExercise } = useContext(ExerciseManager);
     const [ openedMenu, setOpenedMenu ] = React.useState(null);
 
     const menus = {
@@ -36,8 +36,8 @@ function MenuBar() {
             'Trójdźwięk': () => startExercise(<ChordExercise type='triads'/>),
             'Akord z septymą': () => startExercise(<ChordExercise type='sevenths'/>),
             'Akord z noną': () => startExercise(<ChordExercise type='ninths'/>),
-            'Akord z undecymą': null,
-            'Akord z tercdecymą': null,
+            'Akord z undecymą': () => startExercise(<ChordExercise type='elevenths'/>),
+            'Akord z tercdecymą': () => startExercise(<ChordExercise type='thirteenths'/>),
             'Akord przypadkowy': null,
         },
         'Zapytania': {

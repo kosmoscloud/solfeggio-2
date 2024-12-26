@@ -1,9 +1,8 @@
 import React, { useState, createContext } from 'react';
 
+export const ExerciseManager = createContext();
 export const ExerciseContext = createContext();
-export const ActiveExerciseContext = createContext();
 export const ResultsContext = createContext();
-export const UserHistoryContext = createContext();
 
 function ExercisesManager({ children }) {
     const [activeExercise, setActiveExercise] = useState(null);
@@ -15,10 +14,6 @@ function ExercisesManager({ children }) {
         examplesCorrect: 0,
         examplesTotal: 0
     });
-    const [userHistory, setUserHistory] = useState({
-        lastNotePlayed: null,
-        last10Notes: []
-    });
 
     const startExercise = (exercise) => {
         setActiveExercise(exercise);
@@ -28,61 +23,34 @@ function ExercisesManager({ children }) {
         setActiveExercise(null);
     }
 
-    const updateNotesResults = (correct) => {
-        const newNotesResults = {
-            notesCorrect: correct ? notesResults.notesCorrect + 1 : notesResults.notesCorrect,
-            notesTotal: notesResults.notesTotal + 1
+    const updateResults = (type, correct) => {
+        const results = type === 'notes' ? notesResults : examplesResults;
+        const newResults = {
+            ...results,
+            [`${type}Correct`]: correct ? results[`${type}Correct`] + 1 : results[`${type}Correct`],
+            [`${type}Total`]: results[`${type}Total`] + 1
         };
-        setNotesResults(newNotesResults);
+        type === 'notes' ? setNotesResults(newResults) : setExamplesResults(newResults);
     }
 
-    const resetNotesResults = () => {
-        setNotesResults({
-            notesCorrect: 0,
-            notesTotal: 0
-        });
-    }
-
-    const updateExamplesResults = (correct) => {
-        const newExamplesResults = {
-            examplesCorrect: correct ? examplesResults.examplesCorrect + 1 : examplesResults.examplesCorrect,
-            examplesTotal: examplesResults.examplesTotal + 1
-        };
-        setExamplesResults(newExamplesResults);
-    }
-
-    const resetExamplesResults = () => {
-        setExamplesResults({
-            examplesCorrect: 0,
-            examplesTotal: 0
-        });
-    }
-
-    const updateHistory = (note) => {
-        setUserHistory((prevHistory) => {
-            const newHistory = {
-                lastNotePlayed: note,
-                last10Notes: [note, ...prevHistory.last10Notes].slice(0, 10)
-            };
-            return newHistory;
-        });
-    }
-
-    const renderActiveExercise = () => {
-        if (activeExercise) {
-            return activeExercise;
-        }
+    const resetResults = (type) => {
+        type === 'notes' ? setNotesResults({ notesCorrect: 0, notesTotal: 0 }) : setExamplesResults({ examplesCorrect: 0, examplesTotal: 0 });
     }
 
     return (
-        <ActiveExerciseContext.Provider value={{ activeExercise, startExercise, stopExercise }}>
-            <ResultsContext.Provider value={{ notesResults, examplesResults, updateNotesResults, updateExamplesResults, resetNotesResults, resetExamplesResults }}>
-                <UserHistoryContext.Provider value={{ userHistory, updateHistory }}>
-                    {children}
-                    {renderActiveExercise()}
-                </UserHistoryContext.Provider>
+        <ExerciseManager.Provider value={{ activeExercise, startExercise, stopExercise }}>
+            <ResultsContext.Provider value={{ 
+                notesResults, 
+                examplesResults, 
+                updateNotesResults: (correct) => updateResults('notes', correct), 
+                updateExamplesResults: (correct) => updateResults('examples', correct), 
+                resetNotesResults: () => resetResults('notes'), 
+                resetExamplesResults: () => resetResults('examples') 
+            }}>
+                {children}
+                {activeExercise}
             </ResultsContext.Provider>
-        </ActiveExerciseContext.Provider>
+        </ExerciseManager.Provider>
     );
 }
 

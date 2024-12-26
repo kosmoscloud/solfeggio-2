@@ -16,17 +16,19 @@
 }
 
 .slidercontainer {
-    flex: 2;
+    flex: 3;
     display: 'flex';
     padding: 5%;
-    padding-top: 11%;
-    padding-bottom: 11%;
+    padding-top: 7%;
+    padding-bottom: 7%;
 }
 
-.acceptcancelplay {
+.melodylengthacceptcancel {
     flex: 1;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
+    gap: 20%;
+    padding: 5%;
 }

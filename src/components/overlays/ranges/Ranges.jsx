@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import Button from '../buttons/button/Button';
-import Checkbox from '../checkbox/Checkbox';
+import Button from '../../button/Button';
+import Checkbox from '../../checkbox/Checkbox';
 import { calculateEffectiveScale, GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
 import { OverlaysContext } from '../../../managers/OverlaysManager';
 import Keyboard from '../../keyboard/Keyboard';

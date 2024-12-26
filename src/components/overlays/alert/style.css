@@ -1,0 +1,32 @@
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 30%;
+    min-height: 30%;
+    background-color: white;
+    z-index: 99;
+    border: 2px solid black;
+    box-shadow: 1vh 1vh;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.alert-content {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.alert-button-container {
+    width: 100%;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}

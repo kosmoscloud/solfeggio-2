@@ -6,7 +6,7 @@ import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 import chordTypes from './ChordTypes';
-import Alert from '../components/alert/Alert';
+import Alert from '../components/overlays/alert/Alert';
 import Ranges from '../components/overlays/ranges/Ranges';
 import { OverlaysContext } from '../managers/OverlaysManager';
 
@@ -31,14 +31,15 @@ function ChordExercise({type}) {
     const { effectiveScale, enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     // eslint-disable-next-line
     const possibleChords = React.useMemo(() => {
-        const possibleChords = calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type])
-        if (possibleChords.length === 0) {
-            showAlert(<Alert text="Nie można wygenerować akordów z podanymi ustawieniami." />);
-            showOverlay(<Ranges/>);
-            return [];
-        }
-        return possibleChords;
+        return calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
     }, [effectiveScale, enabledChords, enabledInversions, type]);
+
+    useEffect(() => {
+        if (possibleChords.length === 0) {
+            showAlert(<Alert text="Wybrana skala nie zawiera żadnego akordu. Wybierz skalę ponownie." />);
+            showOverlay(<Ranges/>);
+        }
+    }, [possibleChords, showAlert, showOverlay]);
     const keyRange = React.useMemo(() => ({ low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] }), [effectiveScale]);
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
@@ -64,6 +65,7 @@ function ChordExercise({type}) {
 
     const nextExample = () => {
         const randomChord = possibleChords[Math.floor(Math.random() * possibleChords.length)];
+        console.log(randomChord)
         randomChord.sort((a, b) => a - b);
         if (randomChord.toString() === generatedChord.toString()) return nextExample();
         setGeneratedChord(randomChord);
@@ -136,7 +138,7 @@ function ChordExercise({type}) {
     }
 
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, playedChord, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength}}>
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength}}>
             <Keyboard onNotePlayed={handleNotePlayed} context={ExerciseContext} />
             <ControlPanel/>
         </ExerciseContext.Provider>

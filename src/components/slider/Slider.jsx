@@ -3,9 +3,7 @@ import "./style.css";
 import Header from "./header/Header";
 import Bar from "./bar/Bar";
 
-function Slider({ text, number, sliderid, onChange, min, max, initialValue, context }) {
-    const { enabledComponents } = React.useContext(context);
-    const enabled = enabledComponents ? enabledComponents.includes(sliderid) : true;
+function Slider({ text, enabled = true, onChange, min, max, initialValue }) {
 
     return (
         <div className="slider">
