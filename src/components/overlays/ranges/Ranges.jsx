@@ -74,10 +74,11 @@ function Ranges() {
                         </div>
                     </div>
                     <div className="acceptcancelplay">
-                        <Button label="OK" onClick={acceptChanges}/>
-                        <Button label="Anuluj" onClick={hideOverlay}/>
-                        <Checkbox label="Graj skalę" onClick={playTempScale} isChecked={isPlaybackChecked}/>
-                        
+                        <div className="rangesacceptcancel">
+                            <Button label="OK" onClick={acceptChanges}/>
+                            <Button label="Anuluj" onClick={hideOverlay}/>
+                        </div>
+                        <Checkbox label="Graj skalę" onClick={playTempScale} isChecked={isPlaybackChecked}/>  
                     </div>
                 </div>
             </RangesContext.Provider>

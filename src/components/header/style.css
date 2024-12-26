@@ -1,0 +1,32 @@
+.header, .disabled-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #000;
+    cursor: default;
+}
+
+.header {
+    background-color: white;
+}
+
+.disabled-header {
+    background-color: #888;
+}
+
+.header-filler, .disabled-header-filler {
+    height: 75%;
+    margin: 1%;
+    min-width: 30%;
+}
+
+.header-filler {
+    background-color: #ccc;
+}
+
+.disabled-header-filler {
+    background-color: #333;
+}

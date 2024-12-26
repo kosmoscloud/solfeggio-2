@@ -1,0 +1,66 @@
+.quiz-input-intervals {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    height: 40%;
+    width: 80%;
+    gap: 8%;
+}
+
+.quiz-input-triads {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 15%;
+    left: 30%;
+    height: 40%;
+    width: 40%;
+    gap: 8%;
+}
+
+.quiz-input-sevenths {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    height: 40%;
+    width: 80%;
+    gap: 8%;
+}
+
+.quiz-input-inversions {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 15%;
+    left: 30%;
+    height: 40%;
+    width: 40%;
+    gap: 8%;
+}
+
+.quiz-input-header {
+    width: 100%;
+    display: flex;
+    flex: 1;
+}
+
+.quiz-input-buttons {
+    height: 100%;
+    width: 100%;
+    flex: 4;
+    flex-direction: column;
+    display: flex;
+    gap: 8%;
+}
+
+.quiz-input-buttons-row {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import PanelHeader from "./header/PanelHeader.jsx";
+import Header from "../../header/Header.jsx";
 import Button from "../../button/Button.jsx";
 import { ExerciseContext } from "../../../managers/ExercisesManager";
 import { ExerciseManager } from "../../../managers/ExercisesManager";
@@ -10,7 +10,9 @@ function LeftPanel() {
     const { stopExercise } = React.useContext(ExerciseManager);
 
     return <div className="left-panel">
-            <PanelHeader text={"Ćwiczenie: "+exerciseName}/>
+            <div className="header-container">
+                <Header text={"Ćwiczenie: "+exerciseName}/>
+            </div>
             <div className="buttons-panel">
                 <div className="buttons-column">
                     <Button label="START / RESET" onClick={() => startExercise()} isEnabled={enabledComponents.includes('startreset')}/>

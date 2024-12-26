@@ -1,10 +1,8 @@
 import React from 'react'
 import './style.css'
 
-class Dot extends React.Component {
-    render() {
-        return <div className={`dot ${this.props.type}`}/>
-    }
+function Dot ({ type }) {
+    return <div className={`dot ${type}`}/>
 }
 
 export default Dot;

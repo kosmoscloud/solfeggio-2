@@ -6,14 +6,13 @@ import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 
-function MelodyExercise(props) {
-    const exerciseName = 'Melodia' + (props.type === 'ascending' ? ' rosnąca' : props.type === 'descending' ? ' opadająca' : '');
+function IntervalQuiz() {
+    const quizName = 'Zapytanie: Interwały';
     const { updateNotesResults, updateExamplesResults,
         resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
 
-    const { melodyLength } = useContext(GlobalSettingsContext);
-    const [generatedMelody, setGeneratedMelody] = useState([]);
-    const [playedNotes, setPlayedNotes] = useState([]);
+    const [generatedInterval, setGeneratedInterval] = useState([]);
+    const [playedInterval, setPlayedInterval] = useState([]);
     const [markedNotes, setMarkedNotes] = useState([]);
 
     const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
@@ -28,7 +27,7 @@ function MelodyExercise(props) {
     useEffect(() => {
         startExercise();
         // eslint-disable-next-line
-    }, [props.type]);
+    }, []);
 
     const startExercise = () => {
         resetNotesResults();
@@ -36,43 +35,42 @@ function MelodyExercise(props) {
         nextExample();
     }
 
-    const playMelody = (melody) => {
-        soundGenerator.playSequence(melody, noteSpacing * 10 + 50, noteLength / 50 + 0.02);
+    const playInterval = (interval) => {
+        soundGenerator.playSimultaneously(interval, noteSpacing * 10 + 50, noteLength / 50 + 0.02);
     }
 
     const nextExample = () => {
-        const randomMelody = Array.from({ length: melodyLength }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
-        if (props.type === 'ascending') randomMelody.sort((a, b) => a - b)
-        if (props.type === 'descending') randomMelody.sort((a, b) => b - a)
-        setGeneratedMelody(randomMelody);
-        setPlayedNotes([]);
-        setMarkedNotes([randomMelody[0]]);
-        playMelody(randomMelody);
+        const randomInterval = Array.from({ length: 2 }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
+        randomInterval.sort((a, b) => a - b);
+        setGeneratedInterval(randomInterval);
+        setMarkedNotes([randomInterval[0]]);
+        playInterval(randomInterval);
+        console.log(randomInterval);
     }
 
     const repeatExample = () => {
-        playMelody(generatedMelody);
+        playInterval(generatedInterval);
     }
 
     const handleNotePlayed = (midiNote) => {
-        setPlayedNotes([...playedNotes, midiNote]);
-        updateNotesResults(midiNote === generatedMelody[playedNotes.length]);
+        setPlayedInterval([...playedInterval, midiNote]);
+        updateNotesResults(midiNote === generatedInterval[playedInterval.length]);
     };
 
     const undoNote = () => {
-        setPlayedNotes(playedNotes.slice(0, -1));
+        setPlayedInterval(playedInterval.slice(0, -1));
     }
 
     const showHint = () => {
-        if (markedNotes.length === generatedMelody.length) return;
-        setMarkedNotes([...markedNotes, generatedMelody[markedNotes.length]]);
+        if (markedNotes.length === generatedInterval.length) return;
+        setMarkedNotes([...markedNotes, generatedInterval[markedNotes.length]]);
     }
 
     useEffect(() => {
-        if (playedNotes.length === melodyLength) {
-            const isCorrect = generatedMelody.every((note, index) => note === playedNotes[index]);
+        if (playedInterval.length === 2) {
+            const isCorrect = playedInterval.sort().toString() === generatedInterval.sort().toString();
             updateExamplesResults(isCorrect);
-            setPlayedNotes([]);
+            setPlayedInterval([]);
             if (isCorrect) setTimeout(() => nextExample(), 500) 
             else {
                 setTimeout(() => repeatExample(), 500)
@@ -80,14 +78,14 @@ function MelodyExercise(props) {
         }
         // disabling because the lack of better solution
         // eslint-disable-next-line
-    }, [playedNotes]);
+    }, [playedInterval]);
 
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, playedNotes, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength}}>
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, playedInterval, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength}}>
             <Keyboard onNotePlayed={handleNotePlayed} context={ExerciseContext} />
             <ControlPanel/>
         </ExerciseContext.Provider>
     );
 }
 
-export default MelodyExercise;
+export default IntervalQuiz;

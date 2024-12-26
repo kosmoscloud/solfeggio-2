@@ -12,7 +12,7 @@ function IntervalExercise() {
         resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
 
     const [generatedInterval, setGeneratedInterval] = useState([]);
-    const [playedInterval, setPlayedInterval] = useState([]);
+    const [playedNotes, setPlayedNotes] = useState([]);
     const [markedNotes, setMarkedNotes] = useState([]);
 
     const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
@@ -53,12 +53,12 @@ function IntervalExercise() {
     }
 
     const handleNotePlayed = (midiNote) => {
-        setPlayedInterval([...playedInterval, midiNote]);
-        updateNotesResults(midiNote === generatedInterval[playedInterval.length]);
+        setPlayedNotes([...playedNotes, midiNote]);
+        updateNotesResults(midiNote === generatedInterval[playedNotes.length]);
     };
 
     const undoNote = () => {
-        setPlayedInterval(playedInterval.slice(0, -1));
+        setPlayedNotes(playedNotes.slice(0, -1));
     }
 
     const showHint = () => {
@@ -67,10 +67,10 @@ function IntervalExercise() {
     }
 
     useEffect(() => {
-        if (playedInterval.length === 2) {
-            const isCorrect = playedInterval.sort().toString() === generatedInterval.sort().toString();
+        if (playedNotes.length === 2) {
+            const isCorrect = playedNotes.sort().toString() === generatedInterval.sort().toString();
             updateExamplesResults(isCorrect);
-            setPlayedInterval([]);
+            setPlayedNotes([]);
             if (isCorrect) setTimeout(() => nextExample(), 500) 
             else {
                 setTimeout(() => repeatExample(), 500)
@@ -78,10 +78,10 @@ function IntervalExercise() {
         }
         // disabling because the lack of better solution
         // eslint-disable-next-line
-    }, [playedInterval]);
+    }, [playedNotes]);
 
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, playedInterval, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength}}>
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, playedNotes, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength}}>
             <Keyboard onNotePlayed={handleNotePlayed} context={ExerciseContext} />
             <ControlPanel/>
         </ExerciseContext.Provider>

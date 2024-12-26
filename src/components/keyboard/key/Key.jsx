@@ -27,7 +27,8 @@ function Key({onClick, isWhite, left, width, midiNote, isMarked, isPlayed}) {
             <div className={isWhite ? 'white-key' : 'black-key'} style={{left: left, width: width}} onClick={playNote}>
                 {isPlaying && <Dot/>}
                 {isMarked && <Dot type="marked"/>}
-                {isPlayed && <Dot type="played"/>}
+                {(isPlayed && isWhite) && <div style={{position: "absolute", width: "100%", height: "100%", backgroundColor: "rgba(0, 0, 0, 0.1)"}}/>}
+                {(isPlayed && !isWhite) && <div style={{position: "absolute", width: "100%", height: "100%", backgroundColor: "rgba(255, 255, 255, 0.3)"}}/>}
                 {label && <div className="label">{label}</div>}
             </div>
         );

@@ -5,7 +5,7 @@ import SoundGenerator from "../../generators/SoundGenerator.js";
 
 function Keyboard({ overlay, onNotePlayed, context }) {
     const soundGenerator = new SoundGenerator();
-    const { keyRange, markedNotes, playedMelody } = useContext(context);
+    const { keyRange, markedNotes, playedNotes } = useContext(context);
     const keys = generateKeys(keyRange.low - 5, keyRange.high + 5);
 
     function handleKeyClick(midiNote) {
@@ -33,7 +33,7 @@ function Keyboard({ overlay, onNotePlayed, context }) {
                         key={i}
                         onClick={handleKeyClick}
                         isMarked={markedNotes ? markedNotes.includes(i): false}
-                        isPlayed={playedMelody ? playedMelody.includes(i): false}
+                        isPlayed={playedNotes ? playedNotes.includes(i): false}
                     />
                 );
             } else if (blackKeyOffsets.includes(i % 12)) {
@@ -46,7 +46,7 @@ function Keyboard({ overlay, onNotePlayed, context }) {
                         key={i}
                         onClick={handleKeyClick}
                         isMarked={markedNotes ? markedNotes.includes(i) : false}
-                        isPlayed={playedMelody ? playedMelody.includes(i) : false}
+                        isPlayed={playedNotes ? playedNotes.includes(i) : false}
                     />
                 );
             }
