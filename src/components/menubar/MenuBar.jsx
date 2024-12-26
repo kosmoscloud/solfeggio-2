@@ -6,15 +6,16 @@ import { ExerciseManager } from '../../managers/ExercisesManager';
 import About from '../overlays/about/About';
 import Ranges from '../overlays/ranges/Ranges';
 import MelodyLength from '../overlays/melodylength/MelodyLength';
-import Triads from '../overlays/triads/Triads';
-import Sevenths from '../overlays/sevenths/Sevenths';
-import Ninths from '../overlays/ninths/Ninths';
-import Elevenths from '../overlays/elevenths/Elevenths';
-import Thirteenths from '../overlays/thirteenths/Thirteenths';
+import Triads from '../overlays/chords/triads/Triads';
+import Sevenths from '../overlays/chords/sevenths/Sevenths';
+import Ninths from '../overlays/chords/ninths/Ninths';
+import Elevenths from '../overlays/chords/elevenths/Elevenths';
+import Thirteenths from '../overlays/chords/thirteenths/Thirteenths';
 import SingleNoteExercise from '../../exercises/SingleNoteExercise';
 import MelodyExercise from '../../exercises/MelodyExercise';
 import IntervalExercise from '../../exercises/IntervalExercise';
 import ChordExercise from '../../exercises/ChordExercise';
+import Random from '../overlays/chords/random/Random';
 
 function MenuBar() {
     const { showOverlay } = useContext(OverlaysContext);
@@ -38,7 +39,7 @@ function MenuBar() {
             'Akord z noną': () => startExercise(<ChordExercise type='ninths'/>),
             'Akord z undecymą': () => startExercise(<ChordExercise type='elevenths'/>),
             'Akord z tercdecymą': () => startExercise(<ChordExercise type='thirteenths'/>),
-            'Akord przypadkowy': null,
+            'Akord przypadkowy': () => startExercise(<ChordExercise type='random'/>),
         },
         'Zapytania': {
             'Interwały': null,
@@ -56,7 +57,7 @@ function MenuBar() {
             'Akordy z noną': () => showOverlay(<Ninths/>),
             'Akordy z undecymą': () => showOverlay(<Elevenths/>),
             'Akordy z tercdecymą': () => showOverlay(<Thirteenths/>),
-            'Akordy przypadkowe': null
+            'Akordy przypadkowe': () => showOverlay(<Random/>)
         },
         'Zgłoś błąd': {
             'Ogólny': null,

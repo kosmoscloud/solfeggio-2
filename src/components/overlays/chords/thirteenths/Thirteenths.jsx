@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Button from '../../button/Button';
-import { GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../../managers/OverlaysManager';
-import Checkbox from '../../checkbox/Checkbox';
+import Button from '../../../button/Button';
+import { GlobalSettingsContext } from '../../../../managers/GlobalSettingsManager';
+import { OverlaysContext } from '../../../../managers/OverlaysManager';
+import Checkbox from '../../../checkbox/Checkbox';
 import './style.css';
 
 function Thirteenths() {

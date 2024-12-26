@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import Button from '../../button/Button';
-import { GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../../managers/OverlaysManager';
+import Button from '../../../button/Button';
+import { GlobalSettingsContext } from '../../../../managers/GlobalSettingsManager';
+import { OverlaysContext } from '../../../../managers/OverlaysManager';
 import './style.css';
-import Checkbox from '../../checkbox/Checkbox';
+import Checkbox from '../../../checkbox/Checkbox';
 
 function Triads() {
     const { hideOverlay } = useContext(OverlaysContext); 

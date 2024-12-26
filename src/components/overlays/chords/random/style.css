@@ -1,0 +1,39 @@
+.random {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45%;
+    height: 30%;
+    background-color: white;
+    z-index: 99;
+    border: 2px solid black;
+    box-shadow: 1vh 1vh;
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    white-space: nowrap;
+}
+
+.randomtypeselector {
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 2%;
+    padding-right: 0;
+    gap: 10%;
+}
+
+.randomacceptcancel {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 5%;
+    gap: 30%;
+    height: 50%;
+}

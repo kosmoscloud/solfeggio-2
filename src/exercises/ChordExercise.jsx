@@ -31,6 +31,7 @@ function ChordExercise({type}) {
     const { effectiveScale, enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     // eslint-disable-next-line
     const possibleChords = React.useMemo(() => {
+        if (type==='random') return [0];
         return calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
     }, [effectiveScale, enabledChords, enabledInversions, type]);
 
@@ -64,7 +65,22 @@ function ChordExercise({type}) {
     }
 
     const nextExample = () => {
-        const randomChord = possibleChords[Math.floor(Math.random() * possibleChords.length)];
+        const randomChord = (() => {
+            if (type === 'random') {
+                const randomLength = enabledChords['random'][Math.floor(Math.random() * enabledChords['random'].length)];
+                const randomChord = [];
+                for (let i = 0; i < randomLength; i++) {
+                    let randomNote;
+                    do {
+                        randomNote = Math.floor(Math.random() * 12) + effectiveScale[0];
+                    } while (randomChord.includes(randomNote));
+                    randomChord.push(randomNote);
+                }
+                return randomChord;
+            } else {
+                return possibleChords[Math.floor(Math.random() * possibleChords.length)];
+            }
+        })();
         console.log(randomChord)
         randomChord.sort((a, b) => a - b);
         if (randomChord.toString() === generatedChord.toString()) return nextExample();
@@ -107,12 +123,10 @@ function ChordExercise({type}) {
     
     function calculatePossibleChords(effectiveScale, enabledChords, enabledInversions) {
 
-        console.log('Calculating possible chords');
         let options = chordTypes[type];
-
         options = Object.keys(options)
-            .filter(chordType => enabledChords.includes(chordType))
-            .reduce((arr, key) => {
+        .filter(chordType => enabledChords.includes(chordType))
+        .reduce((arr, key) => {
             Object.keys(options[key])
                 .filter(inversion => enabledInversions.includes(parseInt(inversion)))
                 .forEach(invKey => {
@@ -133,7 +147,7 @@ function ChordExercise({type}) {
                 if (chord.every(note => effectiveScale.includes(note))) chords.push(chord);                        
             });
         }
-
+        console.log(chords)
         return chords;
     }
 

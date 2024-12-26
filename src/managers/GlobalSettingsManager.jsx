@@ -13,7 +13,8 @@ function GlobalSettingsManager({ children }) {
         sevenths: ['maj7', 'dom7', 'min7'],
         ninths: ['3w7w9w', '3w7m9w', '3m7w9w', '3m7m9w', '3w7m9m', '3w7m9zw'],
         elevenths: ['3w7w11cz', '3w7m11cz'],
-        thirteenths: ['3w13w7w', '3m13w7w', '3w13w7m', '3m13w7m', '3w13w9w']
+        thirteenths: ['3w13w7w', '3m13w7w', '3w13w7m', '3m13w7m', '3w13w9w'],
+        random: ['2', '3', '4']
     });
     const [enabledInversions, setEnabledInversions] = useState({
         triads: [0, 1, 2],
