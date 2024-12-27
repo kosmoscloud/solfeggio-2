@@ -4,20 +4,22 @@ import Header from "../../header/Header.jsx";
 import Button from "../../button/Button.jsx";
 import { ExerciseContext } from "../../../managers/ExercisesManager";
 import { ExerciseManager } from "../../../managers/ExercisesManager";
+import { ResultsContext } from "../../../managers/ExercisesManager";
 
 function LeftPanel() {
     const { exerciseName, startExercise, nextExample, repeatExample, undoNote, showHint, enabledComponents } = React.useContext(ExerciseContext);
     const { stopExercise } = React.useContext(ExerciseManager);
+    const { resetNotesResults, resetExamplesResults } = React.useContext(ResultsContext);
 
     return <div className="left-panel">
-            <div className="header-container">
-                <Header text={"Ćwiczenie: "+exerciseName}/>
+            <div className="header-container">                
+                <Header text={"Ćwiczenie: "+ exerciseName}/>
             </div>
             <div className="buttons-panel">
                 <div className="buttons-column">
                     <Button label="START / RESET" onClick={() => startExercise()} isEnabled={enabledComponents.includes('startreset')}/>
                     <Button label="KONTYNUUJ" isEnabled={enabledComponents.includes('continue')}/>
-                    <Button label="WYJŚCIE" onClick={() => stopExercise()} isEnabled={enabledComponents.includes('exit')}/>
+                    <Button label="WYJŚCIE" onClick={() => {stopExercise(); resetNotesResults(); resetExamplesResults()}} isEnabled={enabledComponents.includes('exit')}/>
                 </div>
                 <div className="buttons-column">
                     <div className="buttons-row">

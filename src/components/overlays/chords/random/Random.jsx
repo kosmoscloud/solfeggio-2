@@ -24,9 +24,9 @@ function Random() {
         <div className="random">
             <div className='randomtypeselector'>
                 Akordy przypadkowe:
-                <Checkbox label="Dwudźwięk" isChecked={tempEnabledRandomChords.includes('2')} onClick={() => toggleRandom('2')}/>
-                <Checkbox label="Trójdźwięk" isChecked={tempEnabledRandomChords.includes('3')} onClick={() => toggleRandom('3')}/>
-                <Checkbox label="Czterodźwięk" isChecked={tempEnabledRandomChords.includes('4')} onClick={() => toggleRandom('4')}/>
+                <Checkbox label="Dwudźwięk" isChecked={tempEnabledRandomChords.includes(2)} onClick={() => toggleRandom(2)}/>
+                <Checkbox label="Trójdźwięk" isChecked={tempEnabledRandomChords.includes(3)} onClick={() => toggleRandom(3)}/>
+                <Checkbox label="Czterodźwięk" isChecked={tempEnabledRandomChords.includes(4)} onClick={() => toggleRandom(4)}/>
             </div>
             <div className="randomacceptcancel">
                 <Button label="OK" onClick={acceptChanges}/>

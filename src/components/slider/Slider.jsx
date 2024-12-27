@@ -10,7 +10,9 @@ function Slider({ text, enabled = true, onChange, min, max, initialValue }) {
             <div className="slider-header">
                 <Header text={text} enabled={enabled}/>
             </div>
-            <Bar enabled={enabled} initialValue={initialValue} onChange={onChange} min={min} max={max}/>
+            <div className="slider-content">
+                <Bar enabled={enabled} initialValue={initialValue} onChange={onChange} min={min} max={max}/>
+            </div>
         </div>
     );
 }

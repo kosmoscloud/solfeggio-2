@@ -16,7 +16,7 @@ function MelodyExercise(props) {
     const [playedNotes, setPlayedNotes] = useState([]);
     const [markedNotes, setMarkedNotes] = useState([]);
 
-    const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
+    const [ enabledComponents, setEnabledComponents ] = useState(['startreset']);
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const keyRange = { low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] };
     const [noteSpacing, setNoteSpacing] = useState(50);
@@ -31,6 +31,7 @@ function MelodyExercise(props) {
     }, [props.type]);
 
     const startExercise = () => {
+        setEnabledComponents(['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength']);
         resetNotesResults();
         resetExamplesResults();
         nextExample();

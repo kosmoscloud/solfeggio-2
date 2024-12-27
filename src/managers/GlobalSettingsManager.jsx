@@ -23,6 +23,9 @@ function GlobalSettingsManager({ children }) {
         elevenths: [0],
         thirteenths: [0]
     });
+    const [intervalsN, setIntervalsN] = useState(2);
+    const [triadsN, setTriadsN] = useState(2);
+    const [seventhsN, setSeventhsN] = useState(2);
 
     const setEnabledChordsByType = (type, chords) => {
         setEnabledChords({ ...enabledChords, [type]: chords });
@@ -41,7 +44,10 @@ function GlobalSettingsManager({ children }) {
             firstNote, setFirstNote, lastNote, setLastNote,
             scale, setScale, effectiveScale, melodyLength, setMelodyLength,
             enabledChords, setEnabledChordsByType,
-            enabledInversions, setEnabledInversionsByType
+            enabledInversions, setEnabledInversionsByType,
+            intervalsN, setIntervalsN,
+            triadsN, setTriadsN,
+            seventhsN, setSeventhsN
         }}>
             {children}
         </GlobalSettingsContext.Provider>

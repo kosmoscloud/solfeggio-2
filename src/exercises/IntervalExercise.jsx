@@ -14,8 +14,7 @@ function IntervalExercise() {
     const [generatedInterval, setGeneratedInterval] = useState([]);
     const [playedNotes, setPlayedNotes] = useState([]);
     const [markedNotes, setMarkedNotes] = useState([]);
-
-    const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
+    const [enabledComponents, setEnabledComponents] = useState(['startreset']);
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const keyRange = { low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] };
     const [noteSpacing, setNoteSpacing] = useState(50);
@@ -23,13 +22,8 @@ function IntervalExercise() {
 
     const soundGenerator = new SoundGenerator();
 
-    // one time effect on render
-    useEffect(() => {
-        startExercise();
-        // eslint-disable-next-line
-    }, []);
-
     const startExercise = () => {
+        setEnabledComponents(['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength']);
         resetNotesResults();
         resetExamplesResults();
         nextExample();

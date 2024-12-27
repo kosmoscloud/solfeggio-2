@@ -14,19 +14,14 @@ function SingleNoteExercise() {
     const [generatedNote, setGeneratedNote] = useState(null);
     const [playedNote, setPlayedNote] = useState(null);
 
-    const enabledComponents = ['startreset', 'exit', 'next', 'repeat'];
+    const [enabledComponents, setEnabledComponents] = useState(['startreset']);
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const keyRange = { low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] };
 
     const soundGenerator = new SoundGenerator();
 
-    // one time effect on render
-    useEffect(() => {
-        startExercise();
-        // eslint-disable-next-line
-    }, []);
-
     const startExercise = () => {
+        setEnabledComponents(['startreset', 'exit', 'next', 'repeat']);
         resetNotesResults();
         resetExamplesResults();
         nextExample();

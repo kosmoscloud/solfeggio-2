@@ -22,8 +22,8 @@ class SoundGenerator {
         oscillator.stop(this.audioContext.currentTime + duration);
     }
 
-    async playSimultaneously(notes) {
-        notes.forEach(note => this.playSineWave(note));
+    async playSimultaneously(notes, duration = 1) {
+        notes.forEach(note => this.playSineWave(note, duration));
     }
 
     async playSequence(sequence, spacing = 1000, noteLength = 1) {
@@ -34,6 +34,17 @@ class SoundGenerator {
 
         for (let note of sequence) {
             await playNote(note);
+        }
+    }
+
+    async playChords(chords, spacing = 1000, noteLength = 1) {
+        const playChord = async (chord) => {
+            this.playSimultaneously(chord, noteLength);
+            return new Promise(resolve => setTimeout(resolve, spacing));
+        }
+
+        for (let chord of chords) {
+            await playChord(chord);
         }
     }
 

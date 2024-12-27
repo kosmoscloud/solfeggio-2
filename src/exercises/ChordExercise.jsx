@@ -27,7 +27,7 @@ function ChordExercise({type}) {
     const [markedNotes, setMarkedNotes] = useState([]);
     const { showOverlay, showAlert } = useContext(OverlaysContext);
 
-    const enabledComponents = ['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'];
+    const [enabledComponents, setEnabledComponents] = useState(['startreset']);
     const { effectiveScale, enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     // eslint-disable-next-line
     const possibleChords = React.useMemo(() => {
@@ -47,6 +47,7 @@ function ChordExercise({type}) {
     const soundGenerator = new SoundGenerator();
 
     const startExercise = () => {
+        setEnabledComponents(['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'])
         resetNotesResults();
         resetExamplesResults();
         nextExample();
@@ -104,16 +105,14 @@ function ChordExercise({type}) {
         const chords = [];
         if (type === 'random') {
             enabledChords.forEach(chordLength => {
-                const chord = [];
-                for (let i = 0; i < chordLength; i++) {
-                    let randomNote;
-                    while (chord.length < chordLength) {
-                        randomNote = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
-                        if (chord.includes(randomNote)) continue;
-                        chord.push(randomNote);
+                for (let j = 0; j < 512; j++) {
+                    const randomNotes = new Set();
+                    while (randomNotes.size < chordLength) {
+                        const randomNote = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
+                        randomNotes.add(randomNote);
                     }
+                    chords.push([...randomNotes]);
                 }
-                chords.push(chord);
             });
         } else {
             options = chordTypes[type];

@@ -16,6 +16,10 @@ import MelodyExercise from '../../exercises/MelodyExercise';
 import IntervalExercise from '../../exercises/IntervalExercise';
 import ChordExercise from '../../exercises/ChordExercise';
 import Random from '../overlays/chords/random/Random';
+import IntervalsQuiz from '../../quizzes/IntervalsQuiz';
+import TriadsQuiz from '../../quizzes/TriadsQuiz';
+import SeventhsQuiz from '../../quizzes/SeventhsQuiz';
+import TriadsInversionsQuiz from '../../quizzes/TriadsInversionsQuiz';
 
 function MenuBar() {
     const { showOverlay } = useContext(OverlaysContext);
@@ -42,10 +46,10 @@ function MenuBar() {
             'Akord przypadkowy': () => startExercise(<ChordExercise type='random'/>),
         },
         'Zapytania': {
-            'Interwały': null,
-            'Rodzaje trójdźwięków': null,
-            'Rodzaje akordów z septymą': null,
-            'Przewroty trójdźwięków': null,
+            'Interwały': () => startExercise(<IntervalsQuiz />),
+            'Rodzaje trójdźwięków': () => startExercise(<TriadsQuiz />),
+            'Rodzaje akordów z septymą': () => startExercise(<SeventhsQuiz />),
+            'Przewroty trójdźwięków': () => startExercise(<TriadsInversionsQuiz />),
             'Przewroty trójdźwięków z septymą': null,
         },
         'Ustawienia': {

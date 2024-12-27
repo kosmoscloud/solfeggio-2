@@ -6,3 +6,15 @@
     justify-content: space-between;
     gap: 8%;
 }
+
+.slider-header {
+    height: 100%;
+    display: flex;
+    flex: 1;
+}
+
+.slider-content {
+    height: 100%;
+    display: flex;
+    flex: 4;
+}
