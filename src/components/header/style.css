@@ -7,6 +7,7 @@
     height: 100%;
     border: 2px solid #000;
     cursor: default;
+    white-space: nowrap;
 }
 
 .header {
@@ -18,9 +19,9 @@
 }
 
 .header-filler, .disabled-header-filler {
+    flex: 1;
     height: 75%;
     margin: 1%;
-    min-width: 30%;
 }
 
 .header-filler {
@@ -29,4 +30,9 @@
 
 .disabled-header-filler {
     background-color: #333;
+}
+
+p {
+    margin-left: 2%;
+    margin-right: 2%;
 }

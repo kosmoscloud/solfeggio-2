@@ -3,7 +3,7 @@ import { ResultsContext } from '../managers/ExercisesManager';
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
-import QuizInput from '../components/quizinput/QuizInput';
+import TriadsInput from '../components/quizinput/TriadsInput';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 import chordTypes from '../exercises/ChordTypes';
 
@@ -14,7 +14,7 @@ function TriadsQuiz() {
     const [triadsToPlay, setTriadsToPlay] = useState([]);
     const [guessedTriads, setGuessedTriads] = useState([]);
     const { triadsN } = useContext(GlobalSettingsContext);
-    const possibleChords = ['maj', 'min', 'aug', 'dim'];
+    const enabledTriads = useContext(GlobalSettingsContext).enabledChords['triads'];
 
     const [enabledComponents, setEnabledComponents] = useState(['startreset']);
     const effectiveScale = Array.from({length: 24}, (_, i) => i + 52);
@@ -38,7 +38,7 @@ function TriadsQuiz() {
         const randomNotes = []
         const randomInversions = []
         for (let i = 0; i < triadsN; i++) {
-            randomTriads.push(possibleChords[Math.floor(Math.random() * possibleChords.length)]);
+            randomTriads.push(enabledTriads[Math.floor(Math.random() * enabledTriads.length)]);
             randomNotes.push(effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
             randomInversions.push(Math.floor(Math.random() * 3));
         }
@@ -82,8 +82,8 @@ function TriadsQuiz() {
     }, [guessedTriads]);
 
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedTriads, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
-            <QuizInput onResponseSelected={handleResponseMade} layout='triads' />
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedTriads, enabledTriads, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
+            <TriadsInput onResponseSelected={handleResponseMade} />
             <ControlPanel/>
         </ExerciseContext.Provider>
     );

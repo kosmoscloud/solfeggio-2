@@ -13,7 +13,7 @@ function LeftPanel() {
 
     return <div className="left-panel">
             <div className="header-container">                
-                <Header text={"Ćwiczenie: "+ exerciseName}/>
+                <Header text={exerciseName}/>
             </div>
             <div className="buttons-panel">
                 <div className="buttons-column">

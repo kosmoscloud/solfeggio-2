@@ -20,6 +20,7 @@ import IntervalsQuiz from '../../quizzes/IntervalsQuiz';
 import TriadsQuiz from '../../quizzes/TriadsQuiz';
 import SeventhsQuiz from '../../quizzes/SeventhsQuiz';
 import TriadsInversionsQuiz from '../../quizzes/TriadsInversionsQuiz';
+import SeventhsInversionsQuiz from '../../quizzes/SeventhsInversionsQuiz';
 
 function MenuBar() {
     const { showOverlay } = useContext(OverlaysContext);
@@ -50,7 +51,7 @@ function MenuBar() {
             'Rodzaje trójdźwięków': () => startExercise(<TriadsQuiz />),
             'Rodzaje akordów z septymą': () => startExercise(<SeventhsQuiz />),
             'Przewroty trójdźwięków': () => startExercise(<TriadsInversionsQuiz />),
-            'Przewroty trójdźwięków z septymą': null,
+            'Przewroty trójdźwięków z septymą': () => startExercise(<SeventhsInversionsQuiz />),
         },
         'Ustawienia': {
             'Zakres i skala muzyczna': () => showOverlay(<Ranges/>),
@@ -62,12 +63,6 @@ function MenuBar() {
             'Akordy z undecymą': () => showOverlay(<Elevenths/>),
             'Akordy z tercdecymą': () => showOverlay(<Thirteenths/>),
             'Akordy przypadkowe': () => showOverlay(<Random/>)
-        },
-        'Zgłoś błąd': {
-            'Ogólny': null,
-            'Błąd w ćwiczeniu': null,
-            'Błąd w zapytaniu': null,
-            'Błąd w ustawieniach': null
         }
     };
 

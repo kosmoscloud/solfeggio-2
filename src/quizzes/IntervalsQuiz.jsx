@@ -3,11 +3,11 @@ import { ResultsContext } from '../managers/ExercisesManager';
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
-import QuizInput from '../components/quizinput/QuizInput';
+import IntervalsInput from '../components/quizinput/IntervalsInput';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 
 function IntervalsQuiz() {
-    const exerciseName = 'Zapytanie: Interwały';
+    const exerciseName = 'Interwały';
     const { updateExamplesResults, resetExamplesResults } = useContext(ResultsContext);
     const [firstNotes, setFirstNotes] = useState([]);
     const [generatedIntervals, setGeneratedIntervals] = useState([]);
@@ -85,7 +85,7 @@ function IntervalsQuiz() {
 
     return (
         <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedIntervals, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
-            <QuizInput onResponseSelected={handleResponseMade} layout='intervals' />
+            <IntervalsInput onResponseSelected={handleResponseMade} />
             <ControlPanel/>
         </ExerciseContext.Provider>
     );

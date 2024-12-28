@@ -3,18 +3,18 @@ import { ResultsContext } from '../managers/ExercisesManager';
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
-import QuizInput from '../components/quizinput/QuizInput';
+import SeventhsInput from '../components/quizinput/SeventhsInput';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 import chordTypes from '../exercises/ChordTypes';
 
 function SeventhsQuiz() {
-    const exerciseName = 'Zapytanie: Rodzaje trójdźwięków';
+    const exerciseName = 'Rodzaje akordów z septymą';
     const { updateExamplesResults, resetExamplesResults } = useContext(ResultsContext);
     const [generatedSevenths, setGeneratedSevenths] = useState([]);
     const [seventhsToPlay, setSeventhsToPlay] = useState([]);
     const [guessedSevenths, setGuessedSevenths] = useState([]);
     const { seventhsN } = useContext(GlobalSettingsContext);
-    const possibleChords = ['maj7', 'dom7', 'min7', 'min7b5', 'minmaj7', 'dim7', 'aug7', 'augmaj7'];
+    const enabledSevenths = useContext(GlobalSettingsContext).enabledChords['sevenths'];
 
     const [enabledComponents, setEnabledComponents] = useState(['startreset']);
     const effectiveScale = Array.from({length: 24}, (_, i) => i + 52);
@@ -38,7 +38,7 @@ function SeventhsQuiz() {
         const randomNotes = []
         const randomInversions = []
         for (let i = 0; i < seventhsN; i++) {
-            randomSevenths.push(possibleChords[Math.floor(Math.random() * possibleChords.length)]);
+            randomSevenths.push(enabledSevenths[Math.floor(Math.random() * enabledSevenths.length)]);
             randomNotes.push(effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
             randomInversions.push(Math.floor(Math.random() * 4));
         }
@@ -46,10 +46,12 @@ function SeventhsQuiz() {
 
         const seventhsToPlayTemp = []
         for (let i = 0; i < seventhsN; i++) {
-            seventhsToPlayTemp.push([randomNotes[i],
-                                    randomNotes[i] + chordTypes['sevenths'][randomSevenths[i]][randomInversions[i]][0],
-                                    randomNotes[i] + chordTypes['sevenths'][randomSevenths[i]][randomInversions[i]][0] + chordTypes['sevenths'][randomSevenths[i]][randomInversions[i]][1],
-                                    randomNotes[i] + chordTypes['sevenths'][randomSevenths[i]][randomInversions[i]][0] + chordTypes['sevenths'][randomSevenths[i]][randomInversions[i]][1] + chordTypes['sevenths'][randomSevenths[i]][randomInversions[i]][2]]);
+            const baseNote = randomNotes[i];
+            const intervals = chordTypes['sevenths'][randomSevenths[i]][randomInversions[i]];
+            seventhsToPlayTemp.push(intervals.reduce((acc, interval) => {
+                acc.push(acc[acc.length - 1] + interval);
+                return acc;
+            }, [baseNote]));
         }
         setSeventhsToPlay(seventhsToPlayTemp);
         playSevenths(seventhsToPlayTemp);
@@ -83,8 +85,8 @@ function SeventhsQuiz() {
     }, [guessedSevenths]);
 
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedSevenths, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
-            <QuizInput onResponseSelected={handleResponseMade} layout='sevenths' />
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedSevenths, enabledSevenths, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
+            <SeventhsInput onResponseSelected={handleResponseMade} />
             <ControlPanel/>
         </ExerciseContext.Provider>
     );

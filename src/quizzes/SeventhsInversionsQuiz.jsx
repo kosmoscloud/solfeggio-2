@@ -3,19 +3,19 @@ import { ResultsContext } from '../managers/ExercisesManager';
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import { ExerciseContext } from '../managers/ExercisesManager';
 import SoundGenerator from '../generators/SoundGenerator';
-import TriadsInversionsInput from '../components/quizinput/TriadsInversionsInput';
+import SeventhsInversionsInput from '../components/quizinput/SeventhsInversionsInput';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 import chordTypes from '../exercises/ChordTypes';
 
-function TriadsInversionsQuiz() {
-    const exerciseName = 'Przewroty trójdźwięków';
+function SeventhsInversionsQuiz() {
+    const exerciseName = 'Przewroty akordów z septymą';
     const { updateExamplesResults, resetExamplesResults } = useContext(ResultsContext);
     const [generatedInversions, setGeneratedInversions] = useState([]);
     const [inversionsToPlay, setInversionsToPlay] = useState([]);
     const [guessedInversions, setGuessedInversions] = useState([]);
-    const { triadsN } = useContext(GlobalSettingsContext);
-    const enabledTriads = useContext(GlobalSettingsContext).enabledChords['triads'];
-    const enabledTriadsInversions = useContext(GlobalSettingsContext).enabledInversions['triads'];
+    const { seventhsN } = useContext(GlobalSettingsContext);
+    const enabledSevenths = useContext(GlobalSettingsContext).enabledChords['sevenths'];
+    const enabledSeventhsInversions = useContext(GlobalSettingsContext).enabledInversions['sevenths'];
 
     const [enabledComponents, setEnabledComponents] = useState(['startreset']);
     const effectiveScale = Array.from({length: 24}, (_, i) => i + 52);
@@ -30,33 +30,36 @@ function TriadsInversionsQuiz() {
         setEnabledComponents(['startreset', 'exit', 'next', 'repeat', 'undo', 'notespacing', 'notelength']);
     }
 
-    const playTriads = (triads) => {
-        soundGenerator.playChords(triads, noteSpacing * 10 + 50, noteLength / 50 + 0.02);
+    const playSevenths = (sevenths) => {
+        soundGenerator.playChords(sevenths, noteSpacing * 10 + 50, noteLength / 50 + 0.02);
     }
 
     const nextExample = () => {
-        const randomTriads = [];
+        const randomSevenths = [];
         const randomNotes = [];
         const randomInversions = [];
-        for (let i = 0; i < triadsN; i++) {
-            randomTriads.push(enabledTriads[Math.floor(Math.random() * enabledTriads.length)]);
+        for (let i = 0; i < seventhsN; i++) {
+            randomSevenths.push(enabledSevenths[Math.floor(Math.random() * enabledSevenths.length)]);
             randomNotes.push(effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
-            randomInversions.push(enabledTriadsInversions[Math.floor(Math.random() * enabledTriadsInversions.length)]);
+            randomInversions.push(enabledSeventhsInversions[Math.floor(Math.random() * enabledSeventhsInversions.length)]);
         }
         setGeneratedInversions(randomInversions);
 
         const inversionsToPlayTemp = [];
-        for (let i = 0; i < triadsN; i++) {
-            inversionsToPlayTemp.push([randomNotes[i],
-                                    randomNotes[i] + chordTypes['triads'][randomTriads[i]][randomInversions[i]][0],
-                                    randomNotes[i] + chordTypes['triads'][randomTriads[i]][randomInversions[i]][0] + chordTypes['triads'][randomTriads[i]][randomInversions[i]][1]]);
+        for (let i = 0; i < seventhsN; i++) {
+            const baseNote = randomNotes[i];
+            const intervals = chordTypes['sevenths'][randomSevenths[i]][randomInversions[i]];
+            inversionsToPlayTemp.push(intervals.reduce((acc, interval) => {
+                acc.push(acc[acc.length - 1] + interval);
+                return acc;
+            }, [baseNote]));
         }
         setInversionsToPlay(inversionsToPlayTemp);
-        playTriads(inversionsToPlayTemp);
+        playSevenths(inversionsToPlayTemp);
     }
 
     const repeatExample = () => {
-        playTriads(inversionsToPlay);
+        playSevenths(inversionsToPlay);
     }
 
     const handleResponseMade = (option) => {
@@ -64,12 +67,12 @@ function TriadsInversionsQuiz() {
     };
 
     const undoNote = () => {
-        const newGuessedTriads = guessedInversions.slice(0, guessedInversions.length - 1);
-        setGuessedInversions(newGuessedTriads);
+        const newGuessedSevenths = guessedInversions.slice(0, guessedInversions.length - 1);
+        setGuessedInversions(newGuessedSevenths);
     }
 
     useEffect(() => {
-        if (guessedInversions.length === triadsN) {
+        if (guessedInversions.length === seventhsN) {
             const isCorrect = guessedInversions.toString() === generatedInversions.toString();
             updateExamplesResults(isCorrect);
             setGuessedInversions([]);
@@ -83,11 +86,11 @@ function TriadsInversionsQuiz() {
     }, [guessedInversions]);
 
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedInversions, enabledTriadsInversions, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
-            <TriadsInversionsInput onResponseSelected={handleResponseMade} />
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedInversions, enabledSeventhsInversions, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
+            <SeventhsInversionsInput onResponseSelected={handleResponseMade} />
             <ControlPanel/>
         </ExerciseContext.Provider>
     );
 }
 
-export default TriadsInversionsQuiz;
+export default SeventhsInversionsQuiz;
