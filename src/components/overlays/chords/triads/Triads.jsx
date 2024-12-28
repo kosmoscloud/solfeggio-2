@@ -13,6 +13,10 @@ function Triads() {
     const [ tempEnabledTriadsInversions, setTempEnabledTriadsInversions ] = useState(enabledInversions['triads']);
 
     const acceptChanges = () => {
+        if (tempEnabledTriads === enabledChords['triads'] && tempEnabledTriadsInversions === enabledInversions['triads']) {
+            hideOverlay();
+            return;
+        }
         setEnabledChordsByType('triads', tempEnabledTriads);
         setEnabledInversionsByType('triads', tempEnabledTriadsInversions);
         hideOverlay();

@@ -11,6 +11,10 @@ function Random() {
     const [ tempEnabledRandomChords, setTempEnabledRandomChords ] = useState(enabledChords['random']);
 
     const acceptChanges = () => {
+        if (tempEnabledRandomChords === enabledChords['random']) {
+            hideOverlay();
+            return;
+        }
         setEnabledChordsByType('random', tempEnabledRandomChords);
         hideOverlay();
     };

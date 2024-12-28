@@ -13,6 +13,10 @@ function Ninths() {
     const [ tempEnabledNinthsInversions, setTempEnabledNinthsInversions ] = useState(enabledInversions['ninths']);
 
     const acceptChanges = () => {
+        if (tempEnabledNinths === enabledChords['ninths'] && tempEnabledNinthsInversions === enabledInversions['ninths']) {
+            hideOverlay();
+            return;
+        }
         setEnabledChordsByType('ninths', tempEnabledNinths);
         setEnabledInversionsByType('ninths', tempEnabledNinthsInversions);
         hideOverlay();

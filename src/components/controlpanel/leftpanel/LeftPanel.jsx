@@ -5,15 +5,19 @@ import Button from "../../button/Button.jsx";
 import { ExerciseContext } from "../../../managers/ExercisesManager";
 import { ExerciseManager } from "../../../managers/ExercisesManager";
 import { ResultsContext } from "../../../managers/ExercisesManager";
+import SettingsIcon from "../../../assets/gear.png";
 
 function LeftPanel() {
-    const { exerciseName, startExercise, nextExample, repeatExample, undoNote, showHint, enabledComponents } = React.useContext(ExerciseContext);
+    const { exerciseName, startExercise, nextExample, repeatExample, undoNote, showHint, enabledComponents, openSettings } = React.useContext(ExerciseContext);
     const { stopExercise } = React.useContext(ExerciseManager);
     const { resetNotesResults, resetExamplesResults } = React.useContext(ResultsContext);
 
     return <div className="left-panel">
-            <div className="header-container">                
+            <div className="header-container">
                 <Header text={exerciseName}/>
+                <div className="header-container-button">                
+                    <Button icon={SettingsIcon} isEnabled={enabledComponents.includes('settings')} shadow={false} onClick={() => openSettings()}/>
+                </div>
             </div>
             <div className="buttons-panel">
                 <div className="buttons-column">

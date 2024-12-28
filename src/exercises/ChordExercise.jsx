@@ -7,8 +7,13 @@ import SoundGenerator from '../generators/SoundGenerator';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 import chordTypes from './ChordTypes';
 import Alert from '../components/overlays/alert/Alert';
-import Ranges from '../components/overlays/ranges/Ranges';
 import { OverlaysContext } from '../managers/OverlaysManager';
+import Triads from '../components/overlays/chords/triads/Triads';
+import Sevenths from '../components/overlays/chords/sevenths/Sevenths';
+import Ninths from '../components/overlays/chords/ninths/Ninths';
+import Elevenths from '../components/overlays/chords/elevenths/Elevenths';
+import Thirteenths from '../components/overlays/chords/thirteenths/Thirteenths';
+import Random from '../components/overlays/chords/random/Random';
 
 function ChordExercise({type}) {
     const exerciseNames = {
@@ -27,7 +32,7 @@ function ChordExercise({type}) {
     const [markedNotes, setMarkedNotes] = useState([]);
     const { showOverlay, showAlert } = useContext(OverlaysContext);
 
-    const [enabledComponents, setEnabledComponents] = useState(['startreset']);
+    const [enabledComponents, setEnabledComponents] = useState([]);
     const { effectiveScale, enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     const possibleChords = React.useMemo(() => {
         return calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
@@ -39,9 +44,10 @@ function ChordExercise({type}) {
             showAlert(<Alert text="Nie odnaleziono żadnego akordu w tej skali. Zmień zakres dźwięków." />);
             setEnabledComponents(['exit']);
         } else {
-            setEnabledComponents(['startreset']);
+            setEnabledComponents(['startreset', 'settings']);
         }
     }, [possibleChords, effectiveScale]);
+    
     const keyRange = React.useMemo(() => ({ low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] }), [effectiveScale]);
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
@@ -49,7 +55,7 @@ function ChordExercise({type}) {
     const soundGenerator = new SoundGenerator();
 
     const startExercise = () => {
-        setEnabledComponents(['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength'])
+        setEnabledComponents(['startreset', 'exit', 'next', 'repeat', 'undo', 'hint', 'notespacing', 'notelength', 'settings'])
         resetNotesResults();
         resetExamplesResults();
         nextExample();
@@ -63,7 +69,7 @@ function ChordExercise({type}) {
         const randomChord = possibleChords[Math.floor(Math.random() * possibleChords.length)];
         randomChord.sort((a, b) => a - b);
         if (randomChord.toString() === generatedChord.toString()) return nextExample();
-        updateExamplesResults(false);
+        // updateExamplesResults(false);
         setGeneratedChord(randomChord);
         setMarkedNotes([randomChord[0]]);
         playChord(randomChord);
@@ -145,8 +151,33 @@ function ChordExercise({type}) {
         return chords;
     }
 
+    const openSettings = () => {
+        switch (type) {
+            case 'triads':
+                showOverlay(<Triads />);
+                break;
+            case 'sevenths':
+                showOverlay(<Sevenths />);
+                break;
+            case 'ninths':
+                showOverlay(<Ninths />);
+                break;
+            case 'elevenths':
+                showOverlay(<Elevenths />);
+                break;
+            case 'thirteenths':
+                showOverlay(<Thirteenths />);
+                break;
+            case 'random': 
+                showOverlay(<Random />);
+                break;
+            default:
+                break;
+        }
+    }
+
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, playedNotes, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength}}>
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, keyRange, markedNotes, playedNotes, startExercise, nextExample, repeatExample, undoNote, showHint, setNoteSpacing, setNoteLength, openSettings}}>
             <Keyboard onNotePlayed={handleNotePlayed} context={ExerciseContext} />
             <ControlPanel/>
         </ExerciseContext.Provider>

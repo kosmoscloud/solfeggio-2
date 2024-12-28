@@ -13,6 +13,10 @@ function Sevenths() {
     const [ tempEnabledSeventhsInversions, setTempEnabledSeventhsInversions ] = useState(enabledInversions['sevenths']);
 
     const acceptChanges = () => {
+        if (tempEnabledSevenths === enabledChords['sevenths'] && tempEnabledSeventhsInversions === enabledInversions['sevenths']) {
+            hideOverlay();
+            return;
+        }
         setEnabledChordsByType('sevenths', tempEnabledSevenths);
         setEnabledInversionsByType('sevenths', tempEnabledSeventhsInversions);
         hideOverlay();

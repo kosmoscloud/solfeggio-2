@@ -13,6 +13,10 @@ function Thirteenths() {
     const [ tempEnabledThirteenthsInversions, setTempEnabledThirteenthsInversions ] = useState(enabledInversions['thirteenths']);
 
     const acceptChanges = () => {
+        if (tempEnabledThirteenths === enabledChords['thirteenths'] && tempEnabledThirteenthsInversions === enabledInversions['thirteenths']) {
+            hideOverlay();
+            return;
+        }
         setEnabledChordsByType('thirteenths', tempEnabledThirteenths);
         setEnabledInversionsByType('thirteenths', tempEnabledThirteenthsInversions);
         hideOverlay();

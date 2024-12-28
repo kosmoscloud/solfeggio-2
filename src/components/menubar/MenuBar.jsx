@@ -56,13 +56,6 @@ function MenuBar() {
         'Ustawienia': {
             'Zakres i skala muzyczna': () => showOverlay(<Ranges/>),
             'Długość melodii': () => showOverlay(<MelodyLength/>),
-            '--': null,
-            'Trójdźwięki': () => showOverlay(<Triads/>),
-            'Akordy z septymą': () => showOverlay(<Sevenths/>),
-            'Akordy z noną': () => showOverlay(<Ninths/>),
-            'Akordy z undecymą': () => showOverlay(<Elevenths/>),
-            'Akordy z tercdecymą': () => showOverlay(<Thirteenths/>),
-            'Akordy przypadkowe': () => showOverlay(<Random/>)
         }
     };
 

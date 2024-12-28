@@ -13,6 +13,10 @@ function Elevenths() {
     const [ tempEnabledEleventhsInversions, setTempEnabledEleventhsInversions ] = useState(enabledInversions['elevenths']);
 
     const acceptChanges = () => {
+        if (tempEnabledElevenths === enabledChords['elevenths'] && tempEnabledEleventhsInversions === enabledInversions['elevenths']) {
+            hideOverlay();
+            return;
+        }
         setEnabledChordsByType('elevenths', tempEnabledElevenths);
         setEnabledInversionsByType('elevenths', tempEnabledEleventhsInversions);
         hideOverlay();
