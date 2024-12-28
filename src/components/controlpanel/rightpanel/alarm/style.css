@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1;
     background-color: #f5f5f5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border: 2px solid black;
@@ -12,8 +12,8 @@
 
 .alarm-display, .alarm-display-lit {
     position: relative;
-    width: 90%;
-    height: 80%;
+    width: 85%;
+    aspect-ratio: 1;
     border: 2px solid black;
 }
 

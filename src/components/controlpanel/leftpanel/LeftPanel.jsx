@@ -26,7 +26,7 @@ function LeftPanel() {
                         <Button label="NASTĘPNY" onClick={() => nextExample()} isEnabled={enabledComponents.includes('next')}/>
                         <Button label="POWTÓRZ" onClick={() => repeatExample()} isEnabled={enabledComponents.includes('repeat')}/>
                     </div>
-                    <Button label="COFNIJ NUTĘ" onClick={() => undoNote()} isEnabled={enabledComponents.includes('undo')}/>
+                    <Button label="COFNIJ" onClick={() => undoNote()} isEnabled={enabledComponents.includes('undo')}/>
                     <Button label="PODPOWIEDZ" onClick={() => showHint()} isEnabled={enabledComponents.includes('hint')}/>
                 </div>
             </div>

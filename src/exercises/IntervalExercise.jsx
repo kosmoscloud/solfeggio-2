@@ -30,7 +30,7 @@ function IntervalExercise() {
     }
 
     const playInterval = (interval) => {
-        soundGenerator.playSimultaneously(interval, noteSpacing * 10 + 50, noteLength / 50 + 0.02);
+        soundGenerator.playSimultaneously(interval, noteLength / 50 + 0.02);
     }
 
     const nextExample = () => {

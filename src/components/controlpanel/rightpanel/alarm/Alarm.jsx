@@ -13,7 +13,7 @@ function Alarm() {
       setIsAlarm(true);
       setTimeout(() => {
         setIsAlarm(false);
-      }, 300);
+      }, 1000);
     }
     setCorrectTotalDifference(notesResults.notesTotal - notesResults.notesCorrect);
   }, [notesResults.notesTotal, notesResults.notesCorrect, correctTotalDifference]);

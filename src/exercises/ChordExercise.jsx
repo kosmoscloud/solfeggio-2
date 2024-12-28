@@ -29,17 +29,19 @@ function ChordExercise({type}) {
 
     const [enabledComponents, setEnabledComponents] = useState(['startreset']);
     const { effectiveScale, enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
-    // eslint-disable-next-line
     const possibleChords = React.useMemo(() => {
         return calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
+        // eslint-disable-next-line
     }, [effectiveScale, enabledChords, enabledInversions, type]);
 
     useEffect(() => {
         if (possibleChords.length === 0) {
-            showAlert(<Alert text="Wybrana skala nie zawiera żadnego akordu. Wybierz skalę ponownie." />);
-            showOverlay(<Ranges/>);
+            showAlert(<Alert text="Nie odnaleziono żadnego akordu w tej skali. Zmień zakres dźwięków." />);
+            setEnabledComponents(['exit']);
+        } else {
+            setEnabledComponents(['startreset']);
         }
-    }, [possibleChords, showAlert, showOverlay]);
+    }, [possibleChords, effectiveScale]);
     const keyRange = React.useMemo(() => ({ low: effectiveScale[0], high: effectiveScale[effectiveScale.length - 1] }), [effectiveScale]);
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
@@ -54,7 +56,7 @@ function ChordExercise({type}) {
     }
 
     const playChord = (chord) => {
-        soundGenerator.playSimultaneously(chord, noteSpacing * 10 + 50, noteLength / 50 + 0.02);
+        soundGenerator.playSimultaneously(chord, noteLength / 50 + 0.02);
     }
 
     const nextExample = () => {

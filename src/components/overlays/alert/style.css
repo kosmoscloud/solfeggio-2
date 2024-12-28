@@ -3,8 +3,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    min-width: 30%;
-    min-height: 30%;
+    width: 30%;
+    height: 30%;
     background-color: white;
     z-index: 99;
     border: 2px solid black;
@@ -12,7 +12,7 @@
     cursor: default;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     flex-direction: column;
 }
 
@@ -22,11 +22,16 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    line-height: 1.5;
+    padding-top: 5%;
 }
 
 .alert-button-container {
-    width: 100%;
+    width: 40%;
+    height: 40%;
+    padding: 7%;
     flex: 1;
-    justify-content: center;
+    display: flex;
+    justify-content: space-around;
     align-items: center;
 }

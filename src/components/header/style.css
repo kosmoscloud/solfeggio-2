@@ -8,6 +8,7 @@
     border: 2px solid #000;
     cursor: default;
     white-space: nowrap;
+    flex: 1;
 }
 
 .header {
@@ -30,9 +31,4 @@
 
 .disabled-header-filler {
     background-color: #333;
-}
-
-p {
-    margin-left: 2%;
-    margin-right: 2%;
 }

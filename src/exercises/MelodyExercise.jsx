@@ -24,7 +24,6 @@ function MelodyExercise(props) {
 
     const soundGenerator = new SoundGenerator();
 
-    // one time effect on render
     useEffect(() => {
         startExercise();
         // eslint-disable-next-line
