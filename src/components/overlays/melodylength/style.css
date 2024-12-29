@@ -15,12 +15,22 @@
     justify-content: space-around;
 }
 
-.slidercontainer {
+.typeandslidercontainer {
     flex: 3;
-    display: 'flex';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 10%;
     padding: 5%;
-    padding-top: 7%;
-    padding-bottom: 7%;
+}
+
+.selectcontainer {
+    flex: 1;
+}
+
+.slidercontainer {
+    flex: 1;
 }
 
 .melodylengthacceptcancel {
@@ -29,6 +39,7 @@
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
+    height: 15vh;
     gap: 20%;
     padding: 5%;
 }

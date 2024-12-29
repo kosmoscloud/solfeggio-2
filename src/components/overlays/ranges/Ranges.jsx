@@ -6,7 +6,7 @@ import { OverlaysContext } from '../../../managers/OverlaysManager';
 import Keyboard from '../../keyboard/Keyboard';
 import './style.css';
 import SoundGenerator from '../../../generators/SoundGenerator';
-import Select from '../select/Select';
+import Select from '../../select/Select';
 
 const RangesContext = createContext();
 

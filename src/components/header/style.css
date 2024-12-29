@@ -9,6 +9,7 @@
     cursor: default;
     white-space: nowrap;
     flex: 1;
+    gap: 2%;
 }
 
 .header {

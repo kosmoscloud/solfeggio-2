@@ -19,7 +19,8 @@ function Bar (props) {
     const updateBlockPosition = (newValue) => {
         const { offsetWidth: areaWidth } = sliderAreaRef.current;
         const { offsetWidth: blockWidth, style } = sliderBlockRef.current;
-        style.left = `${(newValue / 100) * (areaWidth - blockWidth)}px`;
+        console.log(areaWidth, blockWidth);
+        style.left = `${((newValue - min) / (max - min)) * (areaWidth - blockWidth)}px`;
     }
 
     useEffect(() => {

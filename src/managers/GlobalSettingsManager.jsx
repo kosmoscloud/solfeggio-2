@@ -26,6 +26,7 @@ function GlobalSettingsManager({ children }) {
     const [intervalsN, setIntervalsN] = useState(2);
     const [triadsN, setTriadsN] = useState(2);
     const [seventhsN, setSeventhsN] = useState(2);
+    const [melodyType, setMelodyType] = useState('random')
 
     const setEnabledChordsByType = (type, chords) => {
         setEnabledChords({ ...enabledChords, [type]: chords });
@@ -47,7 +48,8 @@ function GlobalSettingsManager({ children }) {
             enabledInversions, setEnabledInversionsByType,
             intervalsN, setIntervalsN,
             triadsN, setTriadsN,
-            seventhsN, setSeventhsN
+            seventhsN, setSeventhsN,
+            melodyType, setMelodyType
         }}>
             {children}
         </GlobalSettingsContext.Provider>

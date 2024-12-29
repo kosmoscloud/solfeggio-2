@@ -6,16 +6,10 @@ import { ExerciseManager } from '../../managers/ExercisesManager';
 import About from '../overlays/about/About';
 import Ranges from '../overlays/ranges/Ranges';
 import MelodyLength from '../overlays/melodylength/MelodyLength';
-import Triads from '../overlays/chords/triads/Triads';
-import Sevenths from '../overlays/chords/sevenths/Sevenths';
-import Ninths from '../overlays/chords/ninths/Ninths';
-import Elevenths from '../overlays/chords/elevenths/Elevenths';
-import Thirteenths from '../overlays/chords/thirteenths/Thirteenths';
 import SingleNoteExercise from '../../exercises/SingleNoteExercise';
 import MelodyExercise from '../../exercises/MelodyExercise';
 import IntervalExercise from '../../exercises/IntervalExercise';
 import ChordExercise from '../../exercises/ChordExercise';
-import Random from '../overlays/chords/random/Random';
 import IntervalsQuiz from '../../quizzes/IntervalsQuiz';
 import TriadsQuiz from '../../quizzes/TriadsQuiz';
 import SeventhsQuiz from '../../quizzes/SeventhsQuiz';
@@ -36,9 +30,7 @@ function MenuBar() {
         'Ćwiczenia': {
             'Pojedynczy dźwięk': () => startExercise(<SingleNoteExercise />),
             'Interwał': () => startExercise(<IntervalExercise />),
-            'Melodia rosnąca': () => startExercise(<MelodyExercise type='ascending'/>),
-            'Melodia opadająca': () => startExercise(<MelodyExercise type='descending'/>),
-            'Melodia': () => startExercise(<MelodyExercise type='random'/>),
+            'Melodia': () => startExercise(<MelodyExercise />),
             'Trójdźwięk': () => startExercise(<ChordExercise type='triads'/>),
             'Akord z septymą': () => startExercise(<ChordExercise type='sevenths'/>),
             'Akord z noną': () => startExercise(<ChordExercise type='ninths'/>),
@@ -55,7 +47,6 @@ function MenuBar() {
         },
         'Ustawienia': {
             'Zakres i skala muzyczna': () => showOverlay(<Ranges/>),
-            'Długość melodii': () => showOverlay(<MelodyLength/>),
         }
     };
 
