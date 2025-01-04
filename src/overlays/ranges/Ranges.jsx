@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
-import Button from '../../button/Button';
-import Checkbox from '../../checkbox/Checkbox';
-import { calculateEffectiveScale, GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../../managers/OverlaysManager';
-import Keyboard from '../../keyboard/Keyboard';
+import Button from '../../components/button/Button';
+import Checkbox from '../../components/checkbox/Checkbox';
+import { calculateEffectiveScale, GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
+import { OverlaysContext } from '../../managers/OverlaysManager';
+import Keyboard from '../../components/keyboard/Keyboard';
 import './style.css';
-import SoundGenerator from '../../../generators/SoundGenerator';
-import Select from '../../select/Select';
+import SoundGenerator from '../../generators/SoundGenerator';
+import Select from '../../components/select/Select';
 
 const RangesContext = createContext();
 

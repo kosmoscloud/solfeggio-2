@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
-import "./style.css";
+import { IOContext } from "../../managers/IOManager";
 import Key from "./key/Key.jsx";
-import SoundGenerator from "../../generators/SoundGenerator.js";
+import "./style.css";
+import { GlobalSettingsContext } from "../../managers/GlobalSettingsManager.jsx";
 
-function Keyboard({ overlay, onNotePlayed, context }) {
-    const soundGenerator = new SoundGenerator();
-    const { keyRange, markedNotes, playedNotes } = useContext(context);
-    const keys = generateKeys(keyRange.low - 5, keyRange.high + 5);
+function Keyboard({ overlay }) {
+    const { playNotes, setLastPlayedNote, markedNotes, playedNotes } = useContext(IOContext); 
+    const { effectiveScale } = useContext(GlobalSettingsContext);
+    const [ lowNote, highNote ] = [ effectiveScale[0] - 5, effectiveScale[effectiveScale.length - 1] + 5 ];
+    const keys = generateKeys(lowNote, highNote);
 
     function handleKeyClick(midiNote) {
-        soundGenerator.playSineWave(midiNote);
-        if (onNotePlayed) {
-            onNotePlayed(midiNote);
-        }
+        playNotes(midiNote);
+        setLastPlayedNote(midiNote);
     }
     
     function generateKeys(lowNote, highNote) {
@@ -52,7 +52,7 @@ function Keyboard({ overlay, onNotePlayed, context }) {
             }
         }
 
-        return [ whiteKeys_notes, blackKeys_notes ];
+        return [whiteKeys_notes, blackKeys_notes];
     }
 
     return (

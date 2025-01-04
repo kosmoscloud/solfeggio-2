@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ResultsContext } from '../managers/ExercisesManager';
-import ControlPanel from '../components/controlpanel/ControlPanel';
-import { ExerciseContext } from '../managers/ExercisesManager';
-import SoundGenerator from '../generators/SoundGenerator';
-import SeventhsInput from '../components/quizinput/SeventhsInput';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
+import { ResultsContext } from '../managers/ExercisesManager';
+import { ExerciseContext } from '../managers/ExercisesManager';
+
+import ControlPanel from '../components/controlpanel/ControlPanel';
+import SeventhsInput from '../components/quizinput/SeventhsInput';
 import chordTypes from '../exercises/ChordTypes';
 
 function SeventhsQuiz() {
@@ -21,7 +21,7 @@ function SeventhsQuiz() {
 
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
-    const soundGenerator = new SoundGenerator();
+    const { soundGenerator } = useContext(GlobalSettingsContext);
 
     const startExercise = () => {
         resetExamplesResults();

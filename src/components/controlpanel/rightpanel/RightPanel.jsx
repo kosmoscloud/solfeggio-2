@@ -5,9 +5,19 @@ import Timer from "./timer/Timer.jsx";
 import Results from "./results/Results.jsx"
 import Alarm from "./alarm/Alarm.jsx";
 import { ExerciseContext } from "../../../managers/ExercisesManager";
+import { GlobalSettingsContext } from "../../../managers/GlobalSettingsManager.jsx";
 
 function RightPanel() {
-    const { enabledComponents, setNoteSpacing, setNoteLength } = useContext(ExerciseContext);
+    const { enabledComponents } = useContext(ExerciseContext);
+    const { setNoteLength, setNoteSpacing } = useContext(GlobalSettingsContext);
+
+    const setScaledNoteSpacing = (value) => {
+        setNoteSpacing(0.1 + value / 100 * 0.9);
+    }
+
+    const setScaledNoteLength = (value) => {
+        setNoteLength(0.1 + value / 100 * 2.9);
+    }
 
     return (
         <div className="rightPanel">
@@ -21,8 +31,9 @@ function RightPanel() {
                     </div>
                 </div>
                 <div className="slider-column">
-                    <Slider text="ODSTĘP" enabled={enabledComponents.includes('notespacing')} onChange={setNoteSpacing} />
-                    <Slider text="DŁUGOŚĆ DŹWIĘKU" enabled={enabledComponents.includes('notelength')} onChange={setNoteLength} />
+                    {/* spacing slider - 0 means 0.1 second, 100 means 1 second */}
+                    <Slider text="ODSTĘP" enabled={enabledComponents.includes('notespacing')} onChange={setScaledNoteSpacing} />
+                    <Slider text="DŁUGOŚĆ DŹWIĘKU" enabled={enabledComponents.includes('notelength')} onChange={setScaledNoteLength} />
                 </div>
             </div>
             <Timer />

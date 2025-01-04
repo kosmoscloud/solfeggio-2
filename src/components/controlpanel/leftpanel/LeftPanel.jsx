@@ -16,14 +16,17 @@ function LeftPanel() {
             <div className="header-container">
                 <Header text={exerciseName}/>
                 <div className="header-container-button">                
-                    <Button icon={SettingsIcon} isEnabled={enabledComponents.includes('settings')} shadow={false} onClick={() => openSettings()}/>
+                    <Button icon={SettingsIcon} isEnabled={openSettings !== undefined} shadow={false} onClick={() => openSettings()}/>
                 </div>
             </div>
             <div className="buttons-panel">
                 <div className="buttons-column">
-                    <Button label="START / RESET" onClick={() => startExercise()} isEnabled={enabledComponents.includes('startreset')}/>
-                    <Button label="KONTYNUUJ" isEnabled={enabledComponents.includes('continue')}/>
-                    <Button label="WYJŚCIE" onClick={() => {stopExercise(); resetNotesResults(); resetExamplesResults()}} isEnabled={enabledComponents.includes('exit')}/>
+                    {/* this is ALWAYS enabled, as the user should always be able to reset the exercise */}
+                    <Button label="START / RESET" onClick={() => startExercise()}/>
+                    {/* this is NEVER enabled, as I still haven't figured what it was used for */}
+                    <Button label="KONTYNUUJ" isEnabled={false}/>
+                    {/* this is ALWAYS enabled, as the user should always be able to exit the exercise */}
+                    <Button label="WYJŚCIE" onClick={() => {stopExercise(); resetNotesResults(); resetExamplesResults()}}/>
                 </div>
                 <div className="buttons-column">
                     <div className="buttons-row">

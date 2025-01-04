@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./style.css";
-import { OverlaysContext } from "../../../managers/OverlaysManager";
+import { OverlaysContext } from "../../managers/OverlaysManager";
 import CloseButton from "../buttons/closebutton/CloseButton";
 
 function About() {

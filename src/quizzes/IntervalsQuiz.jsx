@@ -1,25 +1,29 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ResultsContext } from '../managers/ExercisesManager';
-import ControlPanel from '../components/controlpanel/ControlPanel';
-import { ExerciseContext } from '../managers/ExercisesManager';
-import SoundGenerator from '../generators/SoundGenerator';
-import IntervalsInput from '../components/quizinput/IntervalsInput';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
+import { ResultsContext } from '../managers/ExercisesManager';
+import { ExerciseContext } from '../managers/ExercisesManager';
+import { OverlaysContext } from '../managers/OverlaysManager';
+
+import ControlPanel from '../components/controlpanel/ControlPanel';
+import IntervalsInput from '../components/quizinput/IntervalsInput';
+import Intervals from '../overlays/intervals/Intervals';
 
 function IntervalsQuiz() {
     const exerciseName = 'Interwały';
     const { updateExamplesResults, resetExamplesResults } = useContext(ResultsContext);
+    const { enabledIntervals } = useContext(GlobalSettingsContext);
     const [firstNotes, setFirstNotes] = useState([]);
     const [generatedIntervals, setGeneratedIntervals] = useState([]);
     const [guessedIntervals, setGuessedIntervals] = useState([]);
     const { intervalsN } = useContext(GlobalSettingsContext);
+    const { showOverlay } = useContext(OverlaysContext);
 
     const [enabledComponents, setEnabledComponents] = useState(['startreset']);
     const effectiveScale = Array.from({length: 24}, (_, i) => i + 48);
 
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
-    const soundGenerator = new SoundGenerator();
+    const { soundGenerator } = useContext(GlobalSettingsContext);
 
     const startExercise = () => {
         resetExamplesResults();
@@ -38,7 +42,7 @@ function IntervalsQuiz() {
         const randomIntervals = []
         const randomNotes = []
         for (let i = 0; i < intervalsN; i++) {
-            randomIntervals.push(Math.floor(Math.random() * 12) + 1);
+            randomIntervals.push(enabledIntervals[Math.floor(Math.random() * enabledIntervals.length)]);
             randomNotes.push(effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
         }
         setGeneratedIntervals(randomIntervals);
@@ -83,9 +87,13 @@ function IntervalsQuiz() {
         // eslint-disable-next-line
     }, [guessedIntervals]);
 
+    const openSettings = () => {
+        showOverlay(<Intervals sliderEnabled={true}/>);
+    }
+
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedIntervals, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
-            <IntervalsInput onResponseSelected={handleResponseMade} />
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedIntervals, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength, openSettings}}>
+            <IntervalsInput onResponseSelected={handleResponseMade} enabledIntervals={enabledIntervals}/>
             <ControlPanel/>
         </ExerciseContext.Provider>
     );

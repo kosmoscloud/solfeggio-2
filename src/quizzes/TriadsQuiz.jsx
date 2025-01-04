@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ResultsContext } from '../managers/ExercisesManager';
-import ControlPanel from '../components/controlpanel/ControlPanel';
-import { ExerciseContext } from '../managers/ExercisesManager';
-import SoundGenerator from '../generators/SoundGenerator';
-import TriadsInput from '../components/quizinput/TriadsInput';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
+import { ResultsContext } from '../managers/ExercisesManager';
+import { ExerciseContext } from '../managers/ExercisesManager';
+import { OverlaysContext } from '../managers/OverlaysManager';
+
+import Triads from '../overlays/chords/triads/Triads';
 import chordTypes from '../exercises/ChordTypes';
+import ControlPanel from '../components/controlpanel/ControlPanel';
+import TriadsInput from '../components/quizinput/TriadsInput';
 
 function TriadsQuiz() {
     const exerciseName = 'Zapytanie: Rodzaje trójdźwięków';
@@ -21,7 +23,9 @@ function TriadsQuiz() {
 
     const [noteSpacing, setNoteSpacing] = useState(50);
     const [noteLength, setNoteLength] = useState(50);
-    const soundGenerator = new SoundGenerator();
+    const { soundGenerator } = useContext(GlobalSettingsContext);
+
+    const { showOverlay } = useContext(OverlaysContext);
 
     const startExercise = () => {
         resetExamplesResults();
@@ -81,8 +85,12 @@ function TriadsQuiz() {
         // eslint-disable-next-line
     }, [guessedTriads]);
 
+    const openSettings = () => {
+        showOverlay(<Triads />);
+    }
+
     return (
-        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedTriads, enabledTriads, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength}}>
+        <ExerciseContext.Provider value={{exerciseName, enabledComponents, guessedTriads, enabledTriads, startExercise, nextExample, repeatExample, undoNote, setNoteSpacing, setNoteLength, openSettings}}>
             <TriadsInput onResponseSelected={handleResponseMade} />
             <ControlPanel/>
         </ExerciseContext.Provider>

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import SoundGenerator from '../generators/SoundGenerator';
 
 export const GlobalSettingsContext = createContext();
 
@@ -8,6 +9,9 @@ function GlobalSettingsManager({ children }) {
     const [scale, setScale] = useState('chromatic');
     const [effectiveScale, setEffectiveScale] = useState([]);
     const [melodyLength, setMelodyLength] = useState(5);
+    const [noteLength, setNoteLength] = useState(1.55);
+    const [noteSpacing, setNoteSpacing] = useState(0.55);
+    const [enabledIntervals, setEnabledIntervals] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
     const [enabledChords, setEnabledChords] = useState({
         triads: ['maj', 'min'],
         sevenths: ['maj7', 'dom7', 'min7'],
@@ -26,7 +30,7 @@ function GlobalSettingsManager({ children }) {
     const [intervalsN, setIntervalsN] = useState(2);
     const [triadsN, setTriadsN] = useState(2);
     const [seventhsN, setSeventhsN] = useState(2);
-    const [melodyType, setMelodyType] = useState('random')
+    const [melodyType, setMelodyType] = useState('random');
 
     const setEnabledChordsByType = (type, chords) => {
         setEnabledChords({ ...enabledChords, [type]: chords });
@@ -44,6 +48,8 @@ function GlobalSettingsManager({ children }) {
         <GlobalSettingsContext.Provider value={{
             firstNote, setFirstNote, lastNote, setLastNote,
             scale, setScale, effectiveScale, melodyLength, setMelodyLength,
+            noteLength, setNoteLength, noteSpacing, setNoteSpacing,
+            enabledIntervals, setEnabledIntervals,
             enabledChords, setEnabledChordsByType,
             enabledInversions, setEnabledInversionsByType,
             intervalsN, setIntervalsN,

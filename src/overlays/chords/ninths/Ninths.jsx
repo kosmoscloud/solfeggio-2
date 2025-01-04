@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Button from '../../../button/Button';
-import { GlobalSettingsContext } from '../../../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../../../managers/OverlaysManager';
-import Checkbox from '../../../checkbox/Checkbox';
+import { GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
+import { OverlaysContext } from '../../../managers/OverlaysManager';
+import Button from '../../../components/button/Button';
+import Checkbox from '../../../components/checkbox/Checkbox';
 import './style.css';
 
 function Ninths() {

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-import Button from '../../button/Button';
-import Slider from '../../slider/Slider';
-import { GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../../managers/OverlaysManager';
+import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
+import { OverlaysContext } from '../../managers/OverlaysManager';
+import Button from '../../components/button/Button';
+import Slider from '../../components/slider/Slider';
+import Select from "../../components/select/Select"
 import './style.css';
-import Select from "../../select/Select"
 
 function MelodyLength() {
     const { hideOverlay } = useContext(OverlaysContext); 

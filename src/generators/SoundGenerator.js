@@ -1,3 +1,5 @@
+
+
 class SoundGenerator {
     constructor() {
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -21,14 +23,10 @@ class SoundGenerator {
         gainNode.gain.exponentialRampToValueAtTime(0.0001, this.audioContext.currentTime + duration);
         oscillator.stop(this.audioContext.currentTime + duration);
     }
-
-    async playSimultaneously(notes, duration = 1) {
-        notes.forEach(note => this.playSineWave(note, duration));
-    }
-
-    async playSequence(sequence, spacing = 1000, noteLength = 1) {
+    
+    async playSequence(sequence, spacing = 1, duration = 1) {
         const playNote = async (note) => {
-            this.playSineWave(note, noteLength);
+            this.playSineWave(note, duration);
             return new Promise(resolve => setTimeout(resolve, spacing));
         };
 
@@ -37,17 +35,28 @@ class SoundGenerator {
         }
     }
 
-    async playChords(chords, spacing = 1000, noteLength = 1) {
-        const playChord = async (chord) => {
-            this.playSimultaneously(chord, noteLength);
-            return new Promise(resolve => setTimeout(resolve, spacing));
+    // if notes is a number, play a single note
+    // if notes is an array, play a cluster of notes
+    // if notes is an array of arrays, play a sequence of notes/clusters
+    // duration and spacing are in seconds
+    async playNotes(notes, spacing = 1, duration = 1) {
+        if (typeof notes === 'number') {
+            return this.playSineWave(notes, duration);
+        } else if (Array.isArray(notes)) {
+            if (typeof notes[0] === 'number') {
+                return this.playSequence(notes, 0, duration);
+            } else if (Array.isArray(notes[0])) {
+                const playSequence = async (sequence) => {
+                    this.playSequence(sequence, 0, duration);
+                    return new Promise(resolve => setTimeout(resolve, spacing * 1000));
+                }
+                for (let sequence of notes) {
+                    await playSequence(sequence);
+                }
+            }
         }
-
-        for (let chord of chords) {
-            await playChord(chord);
-        }
+        
     }
-
 }
 
 export default SoundGenerator;

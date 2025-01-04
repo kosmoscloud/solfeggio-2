@@ -4,6 +4,7 @@ import "./style.css";
 function Button({label, isEnabled = true, onClick, icon, shadow = true}) {
 
     let className = isEnabled ? "button" : "disabled-button";
+
     if (shadow) {
         className += " shadow";
     }
