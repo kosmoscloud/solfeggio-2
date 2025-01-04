@@ -5,7 +5,7 @@ import { ExerciseContext } from '../managers/ExercisesManager';
 
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import TriadsInversionsInput from '../components/quizinput/TriadsInversionsInput';
-import chordTypes from '../exercises/ChordTypes';
+import chordTypes from '../exercises/data/ChordTypes';
 
 function TriadsInversionsQuiz() {
     const exerciseName = 'Przewroty trójdźwięków';

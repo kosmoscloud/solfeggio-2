@@ -5,7 +5,7 @@ import { ExerciseContext } from '../managers/ExercisesManager';
 import { OverlaysContext } from '../managers/OverlaysManager';
 
 import Triads from '../overlays/chords/triads/Triads';
-import chordTypes from '../exercises/ChordTypes';
+import chordTypes from '../exercises/data/ChordTypes';
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import TriadsInput from '../components/quizinput/TriadsInput';
 

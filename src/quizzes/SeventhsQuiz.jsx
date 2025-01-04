@@ -5,7 +5,7 @@ import { ExerciseContext } from '../managers/ExercisesManager';
 
 import ControlPanel from '../components/controlpanel/ControlPanel';
 import SeventhsInput from '../components/quizinput/SeventhsInput';
-import chordTypes from '../exercises/ChordTypes';
+import chordTypes from '../exercises/data/ChordTypes';
 
 function SeventhsQuiz() {
     const exerciseName = 'Rodzaje akordów z septymą';

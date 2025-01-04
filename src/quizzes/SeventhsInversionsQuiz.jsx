@@ -4,7 +4,7 @@ import ControlPanel from '../components/controlpanel/ControlPanel';
 import { ExerciseContext } from '../managers/ExercisesManager';
 import SeventhsInversionsInput from '../components/quizinput/SeventhsInversionsInput';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
-import chordTypes from '../exercises/ChordTypes';
+import chordTypes from '../exercises/data/ChordTypes';
 
 function SeventhsInversionsQuiz() {
     const exerciseName = 'Przewroty akordów z septymą';
