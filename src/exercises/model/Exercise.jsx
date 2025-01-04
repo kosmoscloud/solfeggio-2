@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 
-import { ResultsContext, ExerciseContext } from '../managers/ExercisesManager';
-import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../managers/OverlaysManager';
-import { IOContext } from '../managers/IOManager';
+import { ResultsContext, ExerciseContext } from '../../managers/ExercisesManager';
+import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
+import { OverlaysContext } from '../../managers/OverlaysManager';
+import { IOContext } from '../../managers/IOManager';
 
-import Keyboard from '../components/keyboard/Keyboard';
-import ControlPanel from '../components/controlpanel/ControlPanel';
+import Keyboard from '../../components/keyboard/Keyboard';
+import ControlPanel from '../../components/controlpanel/ControlPanel';
 
 function Exercise({ name, inputType, generateExample, predicate, settingsComponent }) {
     const exerciseName = name;

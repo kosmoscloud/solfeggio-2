@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 
-import Exercise from './Exercise';
-import chordTypes from './ChordTypes';
+import Exercise from './model/Exercise';
+import chordTypes from './data/ChordTypes';
 
 import Triads from '../overlays/chords/triads/Triads';
 import Sevenths from '../overlays/chords/sevenths/Sevenths';

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { GlobalSettingsContext } from '../managers/GlobalSettingsManager';
 
-import Exercise from './Exercise';
+import Exercise from './model/Exercise';
 import Intervals from '../overlays/intervals/Intervals';
 
 function IntervalExercise() {
