@@ -4,7 +4,7 @@ import Button from "../../components/button/Button"
 import AlertIcon from "./icon/AlertIcon";
 import "./style.css";
 
-function Alert(props) {
+function Alert({text}) {
 
     const { hideAlert } = useContext(OverlaysContext);
 
@@ -15,11 +15,11 @@ function Alert(props) {
                     <AlertIcon />
                 </div>
                 <div className="alert-text">
-                    {props.text}
+                    {text}
                 </div>
             </div>
             <div className="alert-button-container">
-                    <Button label="OK" onClick={hideAlert}/>
+                <Button label="OK" onClick={hideAlert}/>
             </div>
         </div>
     );

@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import { ReactComponent as Arrow } from "../../assets/svg/arrow.svg"
 
-function Button(props) {
+function Button({ isEnabled, direction, onClick }) {
 
     const svgProps = {
         flex: 1,
@@ -10,7 +10,7 @@ function Button(props) {
     }
 
     return (
-        <div className={props.enabled ? props.direction : ("disabled-" + props.direction)} onClick={props.onClick}>
+        <div className={isEnabled ? direction : ("disabled-" + direction)} onClick={onClick}>
             <Arrow {...svgProps} />
         </div>
     );

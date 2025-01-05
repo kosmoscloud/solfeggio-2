@@ -10,7 +10,7 @@ class MIDIGenerator {
             this.midiAccess = await navigator.requestMIDIAccess();
             this.output = Array.from(this.midiAccess.outputs.values())[0];
         } catch (error) {
-            console.error('Could not access MIDI devices.', error);
+            //console.error('Could not access MIDI devices.', error);
         }
     }
 

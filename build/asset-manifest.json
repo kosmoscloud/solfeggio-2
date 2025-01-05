@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/solfeggio-2/static/css/main.c0e85635.css",
-    "main.js": "/solfeggio-2/static/js/main.a4b33c33.js",
+    "main.css": "/solfeggio-2/static/css/main.8b86905d.css",
+    "main.js": "/solfeggio-2/static/js/main.57c90aea.js",
     "static/js/453.d4b11e89.chunk.js": "/solfeggio-2/static/js/453.d4b11e89.chunk.js",
     "index.html": "/solfeggio-2/index.html",
     "static/media/arrow.svg": "/solfeggio-2/static/media/arrow.034b1ef9783488606ddf3334641ade4d.svg",
-    "main.c0e85635.css.map": "/solfeggio-2/static/css/main.c0e85635.css.map",
-    "main.a4b33c33.js.map": "/solfeggio-2/static/js/main.a4b33c33.js.map",
+    "main.8b86905d.css.map": "/solfeggio-2/static/css/main.8b86905d.css.map",
+    "main.57c90aea.js.map": "/solfeggio-2/static/js/main.57c90aea.js.map",
     "453.d4b11e89.chunk.js.map": "/solfeggio-2/static/js/453.d4b11e89.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c0e85635.css",
-    "static/js/main.a4b33c33.js"
+    "static/css/main.8b86905d.css",
+    "static/js/main.57c90aea.js"
   ]
 }

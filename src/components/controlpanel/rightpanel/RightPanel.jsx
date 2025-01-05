@@ -8,7 +8,7 @@ import { ExerciseContext } from "../../../managers/ExercisesManager";
 import { GlobalSettingsContext } from "../../../managers/GlobalSettingsManager.jsx";
 
 function RightPanel() {
-    const { enabledComponents } = useContext(ExerciseContext);
+    const { hasStarted } = useContext(ExerciseContext);
     const { setNoteLength, setNoteSpacing } = useContext(GlobalSettingsContext);
 
     const setScaledNoteSpacing = (value) => {
@@ -32,11 +32,11 @@ function RightPanel() {
                 </div>
                 <div className="slider-column">
                     {/* spacing slider - 0 means 0.1 second, 100 means 1 second */}
-                    <Slider text="ODSTĘP" enabled={enabledComponents.includes('notespacing')} onChange={setScaledNoteSpacing} />
-                    <Slider text="DŁUGOŚĆ DŹWIĘKU" enabled={enabledComponents.includes('notelength')} onChange={setScaledNoteLength} />
+                    <Slider text="ODSTĘP" isEnabled={hasStarted} onChange={setScaledNoteSpacing} />
+                    <Slider text="DŁUGOŚĆ DŹWIĘKU" isEnabled={hasStarted} onChange={setScaledNoteLength} />
                 </div>
             </div>
-            <Timer />
+            <Timer isEnabled={false}/>
         </div>
     );
 }
