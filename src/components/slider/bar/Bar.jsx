@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import './style.css';
+
 import Button from './button/Button';
+
+import './style.css';
 
 function Bar ({min, max, initialValue, isEnabled, onChange}) {
     const minValue = min || 0;
@@ -19,7 +21,6 @@ function Bar ({min, max, initialValue, isEnabled, onChange}) {
     const updateBlockPosition = (newValue) => {
         const { offsetWidth: areaWidth } = sliderAreaRef.current;
         const { offsetWidth: blockWidth, style } = sliderBlockRef.current;
-        console.log(areaWidth, blockWidth);
         style.left = `${((newValue - minValue) / (maxValue - minValue)) * (areaWidth - blockWidth)}px`;
     }
 

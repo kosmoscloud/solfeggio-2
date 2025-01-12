@@ -1,6 +1,8 @@
 import React from "react";
-import "./style.css";
+
 import { ReactComponent as Arrow } from "../../assets/svg/arrow.svg"
+
+import "./style.css";
 
 function Button({ isEnabled, direction, onClick }) {
 

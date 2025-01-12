@@ -1,0 +1,12 @@
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+    gap: 3vh;
+    width: fit-content;
+}

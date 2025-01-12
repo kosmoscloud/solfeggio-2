@@ -1,0 +1,19 @@
+.stepper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.stepper-header {
+    height: 100%;
+    display: flex;
+    flex: 1;
+}
+
+.stepper-content {
+    height: 100%;
+    display: flex;
+    flex: 3;
+}

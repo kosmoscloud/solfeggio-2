@@ -1,0 +1,30 @@
+.overlay {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    height: auto;
+    width: auto;
+    z-index: 99;
+    border: 2px solid black;
+    box-shadow: 1vh 1vh;
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1vh;
+}
+
+.center {
+    top: 50%;
+    left: 50%;
+}
+
+.bottom {
+    top: 75%;
+    left: 50%;
+}
+
+.top {
+    top: 25%;
+    left: 50%;
+}

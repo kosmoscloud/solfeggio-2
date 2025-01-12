@@ -1,62 +1,76 @@
+import { useRef } from 'react';
+import { Soundfont } from 'smplr';
 
+const SoundGenerator = () => {
+    const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)());
+    const instrumentsRef = useRef({
+        'piano': new Soundfont(audioContextRef.current, { instrument: 'acoustic_grand_piano' }),
+        'guitar': new Soundfont(audioContextRef.current, { instrument: 'acoustic_guitar_nylon' }),
+        'marimba': new Soundfont(audioContextRef.current, { instrument: 'marimba' }),
+        'violin': new Soundfont(audioContextRef.current, { instrument: 'violin' }),
+        'flute': new Soundfont(audioContextRef.current, { instrument: 'flute' }),
+        'trombone': new Soundfont(audioContextRef.current, { instrument: 'trombone' })
+    });
 
-class SoundGenerator {
-    constructor() {
-        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    }
+    const stopPlaying = () => {
+        for (let instrument in instrumentsRef.current) {
+            instrumentsRef.current[instrument].stop();
+        }
+    };
 
-    midiToFrequency(midiNote) {
+    const midiToFrequency = (midiNote) => {
         return 440 * Math.pow(2, (midiNote - 69) / 12);
-    }
+    };
 
-    playSineWave(midiNote, duration = 1) {
-        const frequency = this.midiToFrequency(midiNote);
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
+    const playInstrument = async (midiNote, duration, instrument) => {
+        instrumentsRef.current[instrument].stop(midiNote);
+        instrumentsRef.current[instrument].start({ note: midiNote, velocity: 127 });
+        setTimeout(() => instrumentsRef.current[instrument].stop(midiNote), duration * 1000);
+    };
 
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
-        oscillator.connect(gainNode);
-        gainNode.connect(this.audioContext.destination);
+    const playSimultaneously = async (notes, duration) => {
+        for (let note of notes) {
+            playInstrument(note, duration);
+        }
+    };
 
-        oscillator.start();
-        gainNode.gain.exponentialRampToValueAtTime(0.0001, this.audioContext.currentTime + duration);
-        oscillator.stop(this.audioContext.currentTime + duration);
-    }
-    
-    async playSequence(sequence, spacing = 1, duration = 1) {
+    const playSequence = async (sequence, spacing, duration, instrument) => {
         const playNote = async (note) => {
-            this.playSineWave(note, duration);
-            return new Promise(resolve => setTimeout(resolve, spacing));
+            playInstrument(note, duration, instrument);
+            return new Promise(resolve => setTimeout(resolve, spacing * 1000));
         };
 
         for (let note of sequence) {
             await playNote(note);
         }
-    }
+    };
 
-    // if notes is a number, play a single note
-    // if notes is an array, play a cluster of notes
-    // if notes is an array of arrays, play a sequence of notes/clusters
-    // duration and spacing are in seconds
-    async playNotes(notes, spacing = 1, duration = 1) {
+    const playNotes = async (notes, spacing, duration, instrument='piano') => {
         if (typeof notes === 'number') {
-            return this.playSineWave(notes, duration);
+            return playInstrument(notes, duration, instrument);
         } else if (Array.isArray(notes)) {
             if (typeof notes[0] === 'number') {
-                return this.playSequence(notes, 0, duration);
+                return playSequence(notes, spacing, duration, instrument);
             } else if (Array.isArray(notes[0])) {
-                const playSequence = async (sequence) => {
-                    this.playSequence(sequence, 0, duration);
+                const playSequence_inner = async (sequence) => {
+                    playSequence(sequence, 0, duration, instrument);
                     return new Promise(resolve => setTimeout(resolve, spacing * 1000));
                 }
                 for (let sequence of notes) {
-                    await playSequence(sequence);
+                    await playSequence_inner(sequence);
                 }
             }
         }
-        
-    }
-}
+    };
+
+    return {
+        stopPlaying,
+        midiToFrequency,
+        playInstrument,
+        playSimultaneously,
+        playSequence,
+        playNotes
+    };
+};
 
 export default SoundGenerator;

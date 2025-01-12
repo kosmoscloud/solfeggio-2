@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-import SoundGenerator from '../generators/SoundGenerator';
 
 export const GlobalSettingsContext = createContext();
 
@@ -9,7 +8,7 @@ function GlobalSettingsManager({ children }) {
     const [scale, setScale] = useState('chromatic');
     const [effectiveScale, setEffectiveScale] = useState([]);
     const [melodyLength, setMelodyLength] = useState(5);
-    const [noteLength, setNoteLength] = useState(1.55);
+    const [noteLength, setNoteLength] = useState(0.55);
     const [noteSpacing, setNoteSpacing] = useState(0.55);
     const [enabledIntervals, setEnabledIntervals] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
     const [enabledChords, setEnabledChords] = useState({

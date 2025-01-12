@@ -11,8 +11,8 @@ function OverlaysManager({ children }) {
         setActiveOverlay(overlay);
     };
 
-    const showAlert = (alarm) => {
-        setActiveAlert(alarm);
+    const showAlert = (alert) => {
+        setActiveAlert(alert);
     };
 
     const hideOverlay = () => {

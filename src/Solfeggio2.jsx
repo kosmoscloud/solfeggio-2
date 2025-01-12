@@ -4,9 +4,9 @@ import GlobalSettingsManager from './managers/GlobalSettingsManager.jsx';
 import OverlaysManager from './managers/OverlaysManager.jsx';
 import ExercisesManager from './managers/ExercisesManager.jsx';
 import { BrowserView, MobileView } from 'react-device-detect';
-import Alert from './overlays/alert/Alert.jsx';
+import Alert from './ui/overlays/alert/Alert.jsx';
 
-import MenuBar from './components/menubar/MenuBar.jsx';
+import MenuBar from './ui/menubar/MenuBar.jsx';
 
 function Solfeggio2() {
   return (

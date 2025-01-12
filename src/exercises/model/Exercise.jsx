@@ -5,33 +5,41 @@ import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
 import { OverlaysContext } from '../../managers/OverlaysManager';
 import { IOContext } from '../../managers/IOManager';
 
-import Keyboard from '../../components/keyboard/Keyboard';
-import ControlPanel from '../../components/controlpanel/ControlPanel';
-import IntervalsInput from '../../components/quizinput/IntervalsInput';
-import TriadsInput from '../../components/quizinput/TriadsInput';
-import TriadsInversionsInput from '../../components/quizinput/TriadsInversionsInput';
-import SeventhsInput from '../../components/quizinput/SeventhsInput';
-import SeventhsInversionsInput from '../../components/quizinput/SeventhsInversionsInput';
+import Keyboard from '../../ui/keyboard/Keyboard';
+import ControlPanel from '../../ui/controlpanel/ControlPanel';
+import IntervalsInput from '../../ui/quizinput/IntervalsInput.jsx';
+import TriadsInput from '../../ui/quizinput/TriadsInput.jsx';
+import TriadsInversionsInput from '../../ui/quizinput/TriadsInversionsInput.jsx';
+import SeventhsInput from '../../ui/quizinput/SeventhsInput.jsx';
+import SeventhsInversionsInput from '../../ui/quizinput/SeventhsInversionsInput.jsx';
 
 function Exercise({ name, inputType, generateExample, predicate, settingsComponent, showHintEnabled = true, undoNoteEnabled = true }) {
     const exerciseName = name;
     const { noteLength, noteSpacing } = useContext(GlobalSettingsContext);
-    const { playNotes, lastPlayedNote, lastQuizAnswer, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
+    const { playNotes, stopPlaying, shuffleInstruments, triggerInstrumentChange, trigger, lastAnswer, lastQuizAnswer, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
     const { updateNotesResults, updateExamplesResults, resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
-    const [hasStarted, setHasStarted] = useState(false);
+    const [ hasStarted, setHasStarted ] = useState(false);
     const { showOverlay } = useContext(OverlaysContext);
 
-    const [generatedExample, setGeneratedExample] = useState([]);
-    const [answers, setAnswers] = useState([]);
+    const [ generatedExample, setGeneratedExample ] = useState([]);
+    const [ answers, setAnswers ] = useState([]);
     const prevAnswersLengthRef = useRef(playedNotes.length);
 
     useEffect(() => {
-        if (lastPlayedNote) {
-            setAnswers([...answers, lastPlayedNote]);
-            setPlayedNotes([...playedNotes, lastPlayedNote]);
-            updateNotesResults(lastPlayedNote === generatedExample[answers.length]);
+        setHasStarted(false);
+        openSettings();
+    }, [name]);
+
+    useEffect(() => {
+        if (hasStarted) {
+            const correctAnswer = generatedExample[answers.length];
+            if (correctAnswer) {
+                updateNotesResults(predicate([lastAnswer], [correctAnswer]));
+                setAnswers([...answers, lastAnswer]);
+                setPlayedNotes([...playedNotes, lastAnswer]);
+            }
         }
-    }, [lastPlayedNote]);
+    }, [trigger]);
 
     useEffect(() => {
         if (lastQuizAnswer) {
@@ -50,7 +58,8 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
         nextExample();
     };
 
-    const nextExample = () => {
+    const nextExample = async () => {
+        if (shuffleInstruments) await triggerInstrumentChange();
         setAnswers([]);
         const newExample = generateExample();
         if (inputType === 'keyboard') {
@@ -83,12 +92,13 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     } : undefined;
 
     useEffect(() => {
-        if (prevAnswersLengthRef.current !== answers.length && answers.length === generatedExample.length) {
+        if (hasStarted && prevAnswersLengthRef.current !== answers.length && answers.length === generatedExample.length) {
             const isCorrect = predicate(answers, generatedExample);
             updateExamplesResults(isCorrect);
             if (isCorrect) {
-                setTimeout(() => nextExample(), 500);
+                stopPlaying();
                 setMarkedNotes([]);
+                setTimeout(() => nextExample(), 500);
             } else {
                 setTimeout(() => repeatExample(), 500);
             }
@@ -105,9 +115,9 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
             {inputType === 'keyboard' && <Keyboard />}
             {inputType === 'intervals' && <IntervalsInput />}
             {inputType === 'triads' && <TriadsInput />}
-            {inputType === 'triadsInversions' && <TriadsInversionsInput />}
+            {inputType === 'triadsinversions' && <TriadsInversionsInput />}
             {inputType === 'sevenths' && <SeventhsInput />}
-            {inputType === 'seventhsInversions' && <SeventhsInversionsInput />}
+            {inputType === 'seventhsinversions' && <SeventhsInversionsInput />}
             <ControlPanel />
         </ExerciseContext.Provider>
     );

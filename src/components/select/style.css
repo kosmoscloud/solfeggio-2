@@ -1,29 +1,25 @@
-.select-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10%;
-}
-
 .select {
     flex: 1;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 select {
     font-family: 'Press Start 2P', cursive;
-    padding: 7%;
+    font-size: 1vw;
+    padding: 0.5vw;
     cursor: pointer;
-    border: 2px solid black;
+    border: 0;
     background-color: white;
     border-radius: 0;
     color: black;
+    margin: 0;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-}
-
-.select-label {
-    flex: 1;
-    text-align: left;
 }
