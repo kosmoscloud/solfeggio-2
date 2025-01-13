@@ -49,7 +49,7 @@ function Ranges() {
             setScale(tempScale);
             hideOverlay();
         } else {
-            showAlert(<Alert text="Pierwsza nuta musi być niższa od ostatniej" />);
+            showAlert("Pierwsza nuta musi być niższa od ostatniej");
         }
     };
 

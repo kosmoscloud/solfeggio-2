@@ -1,5 +1,7 @@
 import React, { createContext } from 'react';
 
+import Alert from '../ui/overlays/alert/Alert';
+
 export const OverlaysContext = createContext();
 
 function OverlaysManager({ children }) {
@@ -11,8 +13,8 @@ function OverlaysManager({ children }) {
         setActiveOverlay(overlay);
     };
 
-    const showAlert = (alert) => {
-        setActiveAlert(alert);
+    const showAlert = (text, afterAlert) => {
+        setActiveAlert(<Alert text={text} afterAlert={afterAlert} />);
     };
 
     const hideOverlay = () => {

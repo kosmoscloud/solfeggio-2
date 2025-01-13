@@ -8,7 +8,9 @@ export const IOContext = createContext();
 function IOManager({children}) {
     
     const soundGenerator = useRef(SoundGenerator());
-    const midiGenerator = useRef(MidiGenerator());
+
+    const doesBrowserSupportMIDI = useRef(navigator.requestMIDIAccess !== undefined);
+    const midiGenerator = useRef(doesBrowserSupportMIDI ? MidiGenerator() : null);
 
     const instruments = ['piano', 'guitar', 'marimba', 'violin', 'flute', 'trombone'];
     const [ enabledInstruments, setEnabledInstruments ] = useState(instruments);
@@ -27,9 +29,10 @@ function IOManager({children}) {
     const [ midiAccess, setMidiAccess ] = useState(null);
     const [ midiInput, setMidiInput ] = useState(null);
     const [ midiOutput, setMidiOutput ] = useState(null);
+    const [ isMidiEnabled, setIsMidiEnabled ] = useState(false);
 
-    const [noteQueue, setNoteQueue] = useState([]);
-    const [isChangingInstrument, setIsChangingInstrument] = useState(false);
+    const [ noteQueue, setNoteQueue ] = useState([]);
+    const [ isChangingInstrument, setIsChangingInstrument ] = useState(false);
 
     useEffect(() => {
         setIsChangingInstrument(false);
@@ -38,13 +41,17 @@ function IOManager({children}) {
     useEffect(() => {
         if (noteQueue.length > 0 && !isChangingInstrument) {
             const { notes, spacing, duration } = noteQueue[0];
-            soundGenerator.current.playNotes(notes, spacing, duration, currentInstrument);
+            if (!isMidiEnabled) {
+                soundGenerator.current.playNotes(notes, spacing, duration, currentInstrument);
+            } else {
+                midiGenerator.current.playNotes(notes, spacing, duration);
+            } 
             setNoteQueue(noteQueue.slice(1));
         }
     }, [currentInstrument, isChangingInstrument, noteQueue]);
 
     const playNotes = async (notes, spacing = 1.2, duration = 0.4) => {
-        if (midiOutput === null) {
+        if (isMidiEnabled === null) {
             setNoteQueue([...noteQueue, { notes, spacing, duration }]);
         } else {
             midiGenerator.current.playNotes(notes, spacing, duration);
@@ -73,7 +80,11 @@ function IOManager({children}) {
         if (randomInstrument === currentInstrument) {
             return triggerInstrumentChange();
         }
-        await setCurrentInstrumentSync(randomInstrument);
+        if (!isMidiEnabled) {
+            await setCurrentInstrumentSync(randomInstrument);
+        } else {
+            //midiGenerator.current.setRandomInstrument();
+        }
     }
 
     return (
@@ -88,9 +99,11 @@ function IOManager({children}) {
             playedNotes, setPlayedNotes,
             lastQuizAnswer, setLastQuizAnswer,
             markedAnswers, setMarkedAnswers,
+            doesBrowserSupportMIDI: doesBrowserSupportMIDI.current,
             midiAccess, setMidiAccess,
             midiInput, setMidiInput,
-            midiOutput, setMidiOutput}}>
+            midiOutput, setMidiOutput,
+            isMidiEnabled, setIsMidiEnabled}}>
             {children}
         </IOContext.Provider>
     );

@@ -3,23 +3,26 @@ import { useRef, useEffect } from 'react';
 const MidiGenerator = () => {
     const midiAccessRef = useRef(null);
     const outputRef = useRef(null);
+    const isMidiEnabled = useRef(false);
 
     const initMIDI = async () => {
         try {
             midiAccessRef.current = await navigator.requestMIDIAccess();
             outputRef.current = Array.from(midiAccessRef.current.outputs.values())[0];
         } catch (error) {
-            console.error('Could not access MIDI devices.', error);
+            isMidiEnabled.current = false;
         }
     };
 
     const sendMIDIMessage = (command, note, velocity) => {
+        console.log('command', command, 'note', note, 'velocity', velocity);
         if (outputRef.current) {
             outputRef.current.send([command, note, velocity]);
         }
     };
 
     const playNoteOn = (note, velocity = 127) => {
+        sendMIDIMessage(0x80, note, 0);
         sendMIDIMessage(0x90, note, velocity);
     };
 
@@ -27,15 +30,18 @@ const MidiGenerator = () => {
         sendMIDIMessage(0x80, note, velocity);
     };
 
-    const playSineWave = async (midiNote, duration = 1) => {
-        playNoteOn(midiNote);
+    const playInstrument = async (midiNotes, duration = 1) => {
+        if (!Array.isArray(midiNotes)) {
+            midiNotes = [midiNotes];
+        }
+        midiNotes.forEach(note => playNoteOn(note));
         await new Promise(resolve => setTimeout(resolve, duration * 1000));
-        playNoteOff(midiNote);
+        midiNotes.forEach(note => playNoteOff(note));
     };
 
     const playSequence = async (sequence, spacing = 1000, noteLength = 1) => {
         const playNote = async (note) => {
-            await playSineWave(note, noteLength);
+            await playInstrument(note, noteLength);
             return new Promise(resolve => setTimeout(resolve, spacing));
         };
 
@@ -46,13 +52,13 @@ const MidiGenerator = () => {
 
     const playNotes = async (notes, spacing, duration) => {
         if (typeof notes === 'number') {
-            return playSineWave(notes, duration);
+            return playInstrument(notes, duration);
         } else if (Array.isArray(notes)) {
             if (typeof notes[0] === 'number') {
                 return playSequence(notes, spacing * 1000, duration);
             } else if (Array.isArray(notes[0])) {
                 const playSequence_inner = async (sequence) => {
-                    playSequence(sequence, 0, duration);
+                    playInstrument(sequence, duration);
                     return new Promise(resolve => setTimeout(resolve, spacing * 1000));
                 }
                 for (let sequence of notes) {
@@ -60,6 +66,12 @@ const MidiGenerator = () => {
                 }
             }
         }
+    };
+
+    const setRandomInstrument = () => {
+        const instruments = [0, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128];
+        const randomInstrument = instruments[Math.floor(Math.random() * instruments.length)];
+        sendMIDIMessage(0xC0, randomInstrument, 0);
     };
 
     // Initialize MIDI on component mount
@@ -70,9 +82,10 @@ const MidiGenerator = () => {
     return {
         playNoteOn,
         playNoteOff,
-        playSineWave,
+        playInstrument,
         playSequence,
-        playNotes
+        playNotes,
+        setRandomInstrument
     };
 };
 

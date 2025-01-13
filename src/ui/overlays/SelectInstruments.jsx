@@ -36,7 +36,7 @@ function SelectInstruments() {
 
     const toggleInstrument = (instrument) => {
         if (tempEnabledInstruments.length === 1 && tempEnabledInstruments.includes(instrument)) {
-            showAlert(<Alert text="Musisz wybrać przynajmniej jeden instrument." />);
+            showAlert("Musisz wybrać przynajmniej jeden instrument.");
             return;
         }
         if (tempShuffleInstruments) {

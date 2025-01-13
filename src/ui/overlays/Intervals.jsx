@@ -29,7 +29,7 @@ function Intervals({ stepperEnabled = false }) {
             return;
         }
         if (tempEnabledIntervals.length === 0) {
-            showAlert(<Alert text="Wybierz przynajmniej jeden interwał." />);
+            showAlert("Wybierz przynajmniej jeden interwał.");
             return;
         }
         setEnabledIntervals(tempEnabledIntervals);

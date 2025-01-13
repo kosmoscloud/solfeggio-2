@@ -29,11 +29,11 @@ function Triads({stepperEnabled=false}) {
             return;
         }
         if (tempEnabledTriads.length === 0) {
-            showAlert(<Alert text="Musisz wybrać przynajmniej jeden trójdźwięk!" />);
+            showAlert("Musisz wybrać przynajmniej jeden trójdźwięk!");
             return;
         }
         if (tempEnabledTriadsInversions.length === 0) {
-            showAlert(<Alert text="Musisz wybrać przynajmniej jeden przewrót!" />);
+            showAlert("Musisz wybrać przynajmniej jeden przewrót!");
             return;
         }
         setEnabledChordsByType('triads', tempEnabledTriads);
