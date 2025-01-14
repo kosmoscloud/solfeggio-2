@@ -9,7 +9,7 @@ function IntervalExercise() {
     const { effectiveScale, enabledIntervals } = useContext(GlobalSettingsContext);
 
     function generateInterval() {
-        const randomInterval = Array.from({ length: 2 }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
+        const randomInterval = Array.from({ length: 2 }, () => [effectiveScale[Math.floor(Math.random() * effectiveScale.length)]]);
         if (randomInterval[0] === randomInterval[1]) return generateInterval();
         randomInterval.sort((a, b) => a - b);
         if (enabledIntervals.includes(randomInterval[1] - randomInterval[0])) return randomInterval;
