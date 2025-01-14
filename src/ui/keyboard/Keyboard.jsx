@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { IOContext } from "../../managers/IOManager";
+import { IOContext } from "../../managers/IOLayer.jsx";
 import Key from "./key/Key.jsx";
 import "./style.css";
-import { GlobalSettingsContext } from "../../managers/GlobalSettingsManager.jsx";
+import { GlobalSettingsContext } from "../../managers/GlobalSettingsLayer.jsx";
 
 function Keyboard() {
     const { playNotes, triggerLastAnswer, markedNotes, playedNotes } = useContext(IOContext); 

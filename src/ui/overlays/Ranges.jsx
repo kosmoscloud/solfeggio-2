@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-import { OverlaysContext } from '../../managers/OverlaysManager';
-import { IOContext } from '../../managers/IOManager';
+import { UIContext } from '../../managers/UILayer';
+import { IOContext } from '../../managers/IOLayer';
 
-import { calculateEffectiveScale, GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
+import { calculateEffectiveScale, GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import OverlayKeyboard from '../keyboard/OverlayKeyboard';
 import Button from '../../components/button/Button';
 import Checkbox from '../../components/checkbox/Checkbox';
@@ -14,8 +14,6 @@ import Spacer from '../../components/spacer/Spacer';
 import Text from '../../components/text/Text';
 
 import Overlay from './Overlay';
-
-import Alert from './alert/Alert';
 
 const RangesContext = createContext();
 
@@ -28,18 +26,13 @@ function Ranges() {
     const [ tempFirstNote, setTempFirstNote ] = useState(firstNote);
     const [ tempLastNote, setTempLastNote ] = useState(lastNote);
     const [ tempScale, setTempScale ] = useState(scale);
-    const { hideOverlay } = useContext(OverlaysContext);
+    const { hideOverlay } = useContext(UIContext);
     const [ isPlayingBack, setIsPlayingBack ] = useState(false);
     const markedNotes = calculateEffectiveScale(tempFirstNote, tempLastNote, tempScale);
     const [ isListeningForFirstNote, setIsListeningForFirstNote ] = useState(false);
     const [ isListeningForLastNote, setIsListeningForLastNote ] = useState(false);
 
-    const { showAlert } = useContext(OverlaysContext);
-    
-    useEffect(() => {
-        console.log('firstNote', firstNote);
-        console.log('lastNote', lastNote);
-    }, [firstNote, lastNote]);
+    const { showAlert, showElement, lastOpenedElement } = useContext(UIContext);
 
     const acceptChanges = () => {
         if (tempFirstNote < tempLastNote) {
@@ -47,7 +40,7 @@ function Ranges() {
             setTempFirstNote(tempLastNote);
             setTempLastNote(temp);
             setScale(tempScale);
-            hideOverlay();
+            showElement(lastOpenedElement);
         } else {
             showAlert("Pierwsza nuta musi być niższa od ostatniej");
         }
@@ -89,7 +82,7 @@ function Ranges() {
                                 <option value="pentatonic">Pięciotonowa</option>
                                 <option value="chromatic">Chromatyczna</option>
                                 <option value="harmonicMinor">Moll Harm.</option>
-                                <option value="melodicMinor">Moll Mel.</option>
+                                <option value="dorianMinor">Moll Dor.</option>
                                 <option value="wholeTone">Całotonowa</option>
                             </Select>
                         </Column>
@@ -101,7 +94,7 @@ function Ranges() {
                         </Column>
                         <Column width={0.5}>
                             <Button label="OK" onClick={acceptChanges}/>
-                            <Button label="Anuluj" onClick={hideOverlay}/>
+                            <Button label="Anuluj" onClick={() => showElement(lastOpenedElement)}/>
                             <Spacer length={3}/>
                         </Column>
                     </Table>

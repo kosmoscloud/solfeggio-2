@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../../managers/OverlaysManager';
+import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
+import { UIContext } from '../../../managers/UILayer';
 
 import Button from '../../../components/button/Button';
 import Checkbox from '../../../components/checkbox/Checkbox';
@@ -15,7 +15,7 @@ import Stepper from '../../../components/stepper/Stepper';
 import Overlay from '../Overlay';
 
 function Sevenths({stepperEnabled = false}) {
-    const { hideOverlay } = useContext(OverlaysContext); 
+    const { hideOverlay } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType, seventhsN, setSeventhsN } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
     const [ tempEnabledSevenths, setTempEnabledSevenths ] = useState(enabledChords['sevenths']);

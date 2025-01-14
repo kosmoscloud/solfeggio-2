@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 
 export const GlobalSettingsContext = createContext();
 
-function GlobalSettingsManager({ children }) {
+function GlobalSettingsLayer({ children }) {
     const [firstNote, setFirstNote] = useState(48);
     const [lastNote, setLastNote] = useState(72);
     const [scale, setScale] = useState('chromatic');
@@ -63,22 +63,23 @@ function GlobalSettingsManager({ children }) {
 
 function calculateEffectiveScale(firstNote, lastNote, scale) {
     const scaleIntervals = {
-        major: [2, 2, 1, 2, 2, 2, 1],
-        minor: [2, 1, 2, 2, 1, 2, 2],
-        blues: [3, 2, 1, 1, 3, 2],
-        pentatonic: [2, 2, 3, 2, 3],
         chromatic: [1],
-        harmonicMinor: [2, 1, 2, 2, 1, 3, 1],
-        melodicMinor: [2, 1, 2, 2, 2, 2, 1],
-        wholeTone: [2, 2, 2, 2, 2, 2]
+        major: [0, 2, 2, 1, 2, 2, 2, 1],
+        minor: [0, 2, 1, 2, 2, 1, 2, 2],
+        blues: [0, 3, 2, 2, 3, 2],
+        pentatonic: [0, 2, 2, 3, 2, 3],
+        harmonicMinor: [0, 2, 1, 2, 2, 1, 3, 1],
+        dorianMinor: [0, 2, 1, 2, 2, 2, 2, 1],
+        wholeTone: [0, 2, 2, 2, 2, 2, 2]
     };
     const scaleOffsets = scaleIntervals[scale];
     const effectiveScale = [];
     for (let currentNote = firstNote; currentNote <= lastNote; currentNote += scaleOffsets[effectiveScale.length % scaleOffsets.length]) {
+        console.log(currentNote);
         effectiveScale.push(currentNote);
     }
     return effectiveScale;
 }
 
-export default GlobalSettingsManager;
+export default GlobalSettingsLayer;
 export { calculateEffectiveScale };

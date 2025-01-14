@@ -1,7 +1,10 @@
 import React from "react";
+
+import Text from "../text/Text";
+
 import "./style.css";
 
-function Button({label, isEnabled = true, onClick, icon, shadow = true}) {
+function Button({label, isEnabled = true, onClick, icon, shadow = true, children}) {
 
     let className = isEnabled ? "button" : "disabled-button";
 
@@ -11,8 +14,9 @@ function Button({label, isEnabled = true, onClick, icon, shadow = true}) {
 
     return (
         <div className={className} onClick={isEnabled ? onClick : null}>
-            {label}
-            {icon && <img src={icon} className={isEnabled ? "icon" : ""} alt="button with icon" />}
+            {label && <Text center={true}>{label}</Text>}
+            {icon && <img src={icon} className={"icon"} alt="button with icon" />}
+            {children && children}
         </div>
     );
 }

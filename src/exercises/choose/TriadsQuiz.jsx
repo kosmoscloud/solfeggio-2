@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
+import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 
 import Exercise from '../../exercises/model/Exercise';
 import Triads from '../../ui/overlays/chords/Triads';
+import QuizMenu from '../../ui/menu/quizmenu/QuizMenu';
 
 import chordTypes from '../../exercises/data/ChordTypes';
 

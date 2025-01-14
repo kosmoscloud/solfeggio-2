@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
-import { GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../../managers/OverlaysManager';
+import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
+import { UIContext } from '../../../managers/UILayer';
 
 import Button from '../../../components/button/Button';
 import Checkbox from '../../../components/checkbox/Checkbox';
@@ -13,10 +13,9 @@ import Spacer from '../../../components/spacer/Spacer';
 import Stepper from '../../../components/stepper/Stepper';
 
 import Overlay from '../Overlay';
-import Alert from '../alert/Alert';
 
 function Triads({stepperEnabled=false}) {
-    const { hideOverlay, showAlert } = useContext(OverlaysContext); 
+    const { hideOverlay, showAlert } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
     const { triadsN, setTriadsN } = useContext(GlobalSettingsContext);

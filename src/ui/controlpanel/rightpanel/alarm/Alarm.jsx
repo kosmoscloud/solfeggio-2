@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css'
-import { ResultsContext } from '../../../../managers/ExercisesManager';
+import { ResultsContext } from '../../../../managers/ExerciseLayer';
 
 function Alarm() {
   

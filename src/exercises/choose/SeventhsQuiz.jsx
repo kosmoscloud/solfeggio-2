@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
+import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 
 import Exercise from '../model/Exercise';
 import Sevenths from '../../ui/overlays/chords/Sevenths';

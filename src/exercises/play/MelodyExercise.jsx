@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
+import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 
 import Exercise from '../model/Exercise';
 import MelodyLength from '../../ui/overlays/MelodyLength';
@@ -11,7 +11,7 @@ function MelodyExercise() {
     const name = 'Melodia' + (type === 'ascending' ? ' rosnąca' : type === 'descending' ? ' opadająca' : ' swobodna');
 
     function generateMelody() {
-        const randomMelody = Array.from({ length: melodyLength }, () => [effectiveScale[Math.floor(Math.random() * effectiveScale.length)]]);
+        const randomMelody = Array.from({ length: melodyLength }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
         if (type === 'ascending') randomMelody.sort((a, b) => a[0] - b[0])
         if (type === 'descending') randomMelody.sort((a, b) => b[0] - a[0])
         return randomMelody;

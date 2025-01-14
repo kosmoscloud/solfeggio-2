@@ -5,7 +5,7 @@ import MidiGenerator from '../generators/MidiGenerator';
 
 export const IOContext = createContext();
 
-function IOManager({children}) {
+function IOLayer({children}) {
     
     const soundGenerator = useRef(SoundGenerator());
 
@@ -51,7 +51,7 @@ function IOManager({children}) {
     }, [currentInstrument, isChangingInstrument, noteQueue]);
 
     const playNotes = async (notes, spacing = 1.2, duration = 0.4) => {
-        if (isMidiEnabled === null) {
+        if (isMidiEnabled === false) {
             setNoteQueue([...noteQueue, { notes, spacing, duration }]);
         } else {
             midiGenerator.current.playNotes(notes, spacing, duration);
@@ -109,4 +109,4 @@ function IOManager({children}) {
     );
 }
 
-export default IOManager;
+export default IOLayer;

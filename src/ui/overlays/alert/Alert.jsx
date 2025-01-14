@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { OverlaysContext } from "../../../managers/OverlaysManager";
+import { UIContext } from "../../../managers/UILayer";
 
 import Overlay from "../Overlay";
 import Table from "../../../components/table/Table";
@@ -11,7 +11,7 @@ import "./style.css";
 
 function Alert({text, afterAlert}) {
 
-    const { hideAlert } = useContext(OverlaysContext);
+    const { hideAlert } = useContext(UIContext);
 
     const handleClick = () => {
         hideAlert();

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import Button from './button/Button';
+import Button from '../../button/Button';
 
 import './style.css';
 
@@ -57,13 +57,13 @@ function Bar ({min, max, initialValue, isEnabled, onChange}) {
 
     return (
         <div className={isEnabled ? "slider-bar" : "disabled-slider-bar"}>
-            <Button direction="left" isEnabled={isEnabled} onClick={changeStateValue(-1)}/>
+            <Button isEnabled={isEnabled} onClick={changeStateValue(-1)} shadow={false}/>
             <div className={isEnabled ? "slider-area" : "disabled-slider-area"} ref={sliderAreaRef}>
                 <div className={isEnabled ? "slider-block" : "disabled-slider-block"} onMouseDown={isEnabled ? handleMouseDown : null} ref={sliderBlockRef}>
                     {Math.round(value)}
                 </div>
             </div>
-            <Button direction="right" isEnabled={isEnabled} onClick={changeStateValue(1)}/>
+            <Button direction="right" isEnabled={isEnabled} onClick={changeStateValue(1)} shadow={false}/>
         </div>
     );
 }

@@ -1,10 +1,7 @@
 import React from "react";
 
-import Header from "../header/Header";
 import Button from "../button/Button";
 import Counter from "./counter/Counter";
-
-import arrow from "../../assets/svg/arrow.svg";
 
 import "./style.css";
 
@@ -22,9 +19,9 @@ function Stepper({ isEnabled = true, onChange, min, max, initialValue }) {
     return (
         <div className="stepper">
             <div className="slider-content">
-                <Button icon={arrow} isEnabled={isEnabled} onClick={() => changeValue(-1)} shadow={false} />
+                <Button isEnabled={isEnabled} onClick={() => changeValue(-1)} shadow={false} />
                 <Counter isEnabled={isEnabled} value={value} />
-                <Button icon={arrow} isEnabled={isEnabled} onClick={() => changeValue(1)} shadow={false} />
+                <Button isEnabled={isEnabled} onClick={() => changeValue(1)} shadow={false} />
             </div>
         </div>
     );

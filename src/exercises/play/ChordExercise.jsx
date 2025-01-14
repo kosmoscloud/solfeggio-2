@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../managers/OverlaysManager';
-import { ExerciseManager } from '../../managers/ExercisesManager';
+import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { UIContext } from '../../managers/UILayer';
 
 import Exercise from '../model/Exercise';
 import chordTypes from '../data/ChordTypes';
@@ -13,12 +12,12 @@ import Elevenths from '../../ui/overlays/chords/Elevenths';
 import Thirteenths from '../../ui/overlays/chords/Thirteenths';
 import Random from '../../ui/overlays/chords/Random';
 
+import Ranges from '../../ui/overlays/Ranges';
 import Alert from '../../ui/overlays/alert/Alert';
 
 function ChordExercise({type}) {
 
-    const { showAlert, showOverlay } = useContext(OverlaysContext);
-    const { stopExercise } = useContext(ExerciseManager);
+    const { showAlert, showOverlay } = useContext(UIContext);
     const { enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const possibleChords = React.useMemo(() => {
@@ -28,7 +27,7 @@ function ChordExercise({type}) {
 
     useEffect(() => {
         if (possibleChords.length === 0) {
-            showAlert(<Alert text="Nie odnaleziono żadnego akordu w tej skali. Zmień zakres dźwięków." afterAlert={stopExercise}/>);
+            showAlert(<Alert text="Nie odnaleziono żadnego akordu w tej skali. Zmień zakres dźwięków." afterAlert={showOverlay(<Ranges />)}/>);
         }
     }, [possibleChords, effectiveScale]);
 
@@ -43,9 +42,10 @@ function ChordExercise({type}) {
 
 
     function generateChord() {
-        const randomChord = [possibleChords[Math.floor(Math.random() * possibleChords.length)]];
+        const randomChord = possibleChords[Math.floor(Math.random() * possibleChords.length)];
         randomChord.sort((a, b) => a - b);
-        return randomChord;
+        const chordList = randomChord.map(note => [note]);
+        return chordList;
     }
 
     function calculatePossibleChords(effectiveScale, enabledChords, enabledInversions) {
@@ -107,11 +107,11 @@ function ChordExercise({type}) {
     const settingsComponent = settingsComponents[type] || null;
 
     return <Exercise 
-    name={name}
-    inputType='keyboard'
-    generateExample={generateChord}
-    predicate={isChordCorrect}
-    settingsComponent={settingsComponent}
+        name={name}
+        inputType='keyboard'
+        generateExample={generateChord}
+        predicate={isChordCorrect}
+        settingsComponent={settingsComponent}
     />
 }
 

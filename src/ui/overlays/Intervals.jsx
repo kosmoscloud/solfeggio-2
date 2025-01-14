@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../managers/OverlaysManager';
+import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { UIContext } from '../../managers/UILayer';
+
 import Button from '../../components/button/Button';
 import Checkbox from '../../components/checkbox/Checkbox';
-
 import Table from '../../components/table/Table';
 import Column from '../../components/table/column/Column';
 import Text from '../../components/text/Text';
@@ -12,16 +12,13 @@ import Stepper from '../../components/stepper/Stepper';
 
 import Overlay from './Overlay';
 
-import Alert from './alert/Alert';
 
 function Intervals({ stepperEnabled = false }) {
-    const { hideOverlay } = useContext(OverlaysContext); 
-    const { showAlert } = useContext(OverlaysContext);
+    const { hideOverlay, showAlert } = useContext(UIContext); 
     const { enabledIntervals, setEnabledIntervals } = useContext(GlobalSettingsContext);
     const { intervalsN, setIntervalsN } = useContext(GlobalSettingsContext);
     const [ tempIntervalsN, setTempIntervalsN ] = useState(intervalsN);
     const [ tempEnabledIntervals, setTempEnabledIntervals ] = useState(enabledIntervals);
-
 
     const acceptChanges = () => {
         if (tempEnabledIntervals === enabledIntervals && tempIntervalsN === intervalsN) {
@@ -69,7 +66,7 @@ function Intervals({ stepperEnabled = false }) {
                 <Column width={0.75}>
                     <Spacer length={0.5}/>
                     <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={hideOverlay}/>
+                    <Button label="Anuluj" onClick={() => hideOverlay()}/>
                     {stepperEnabled && <Spacer length={0.5} />}
                     {stepperEnabled && <Text>przykłady: </Text>}
                     {stepperEnabled && <Stepper text='liczba przykładów (quiz)' min={1} max={5} initialValue={tempIntervalsN} onChange={setTempIntervalsN}/> }

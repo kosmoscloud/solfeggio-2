@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResultsContext } from '../../../../managers/ExercisesManager';
+import { ResultsContext } from '../../../../managers/ExerciseLayer';
 import './style.css';
 
 function Results() {

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../managers/OverlaysManager';
+import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { UIContext } from '../../managers/UILayer';
 
 import Button from '../../components/button/Button';
 import Column from '../../components/table/column/Column';
@@ -14,7 +14,7 @@ import Table from '../../components/table/Table';
 import Overlay from './Overlay';
 
 function MelodyLength() {
-    const { hideOverlay } = useContext(OverlaysContext); 
+    const { hideOverlay } = useContext(UIContext); 
     const { melodyLength, setMelodyLength } = useContext(GlobalSettingsContext);
     const [ tempMelodyLength, setTempMelodyLength ] = useState(melodyLength);
     const { melodyType, setMelodyType } = useContext(GlobalSettingsContext);

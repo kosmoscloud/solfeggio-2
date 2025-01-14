@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { GlobalSettingsContext } from '../../../managers/GlobalSettingsManager';
-import { OverlaysContext } from '../../../managers/OverlaysManager';
+import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
+import { UIContext } from '../../../managers/UILayer';
 
 import Button from '../../../components/button/Button';
 import Checkbox from '../../../components/checkbox/Checkbox';
@@ -14,7 +14,7 @@ import Spacer from '../../../components/spacer/Spacer';
 import Overlay from '../Overlay';
 
 function Elevenths() {
-    const { hideOverlay } = useContext(OverlaysContext); 
+    const { hideOverlay } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
     const [ tempEnabledElevenths, setTempEnabledElevenths ] = useState(enabledChords['elevenths']);

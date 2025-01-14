@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 
-import { OverlaysContext } from "../../managers/OverlaysManager";
-import { IOContext } from "../../managers/IOManager";
+import { UIContext } from "../../managers/UILayer";
+import { IOContext } from "../../managers/IOLayer";
 
 import Checkbox from "../../components/checkbox/Checkbox";
 import Column from "../../components/table/column/Column";
@@ -17,13 +17,11 @@ function AudioMIDISettings() {
     const { isMidiEnabled, setIsMidiEnabled, doesBrowserSupportMIDI } = useContext(IOContext);
     const [ tempIsMidiEnabled, tempSetIsMidiEnabled ] = useState(isMidiEnabled);
 
-    const { hideOverlay, showAlert } = useContext(OverlaysContext);
+    const { showElement, lastOpenedElement, showAlert } = useContext(UIContext);
 
     const acceptChanges = () => {
-        if (tempIsMidiEnabled !== isMidiEnabled && doesBrowserSupportMIDI) {
-            setIsMidiEnabled(tempIsMidiEnabled);
-        }
-        hideOverlay();
+        setIsMidiEnabled(tempIsMidiEnabled);
+        showElement(lastOpenedElement);
     }
 
     const setMidi = (value) => {
@@ -45,7 +43,7 @@ function AudioMIDISettings() {
                 </Column>
                 <Column>
                     <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={hideOverlay}/>
+                    <Button label="Anuluj" onClick={() => showElement(lastOpenedElement)}/>
                     <Spacer length={0.5}/>
                 </Column>
             </Table>

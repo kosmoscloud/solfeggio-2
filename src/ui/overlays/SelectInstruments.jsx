@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
-import { IOContext } from '../../managers/IOManager.jsx';
-import { OverlaysContext } from '../../managers/OverlaysManager.jsx';
+import { IOContext } from '../../managers/IOLayer.jsx';
+import { UIContext } from '../../managers/UILayer.jsx';
 
 import Table from '../../components/table/Table.jsx';
 import Column from '../../components/table/column/Column.jsx';
@@ -12,8 +12,6 @@ import Spacer from '../../components/spacer/Spacer.jsx';
 
 import Overlay from './Overlay.jsx';
 
-import Alert from './alert/Alert.jsx';
-
 function SelectInstruments() {
 
     const { enabledInstruments, setEnabledInstruments, currentInstrument, setCurrentInstrument } = useContext(IOContext);
@@ -21,17 +19,13 @@ function SelectInstruments() {
     const [ tempCurrentInstrument, setTempCurrentInstrument ] = useState(currentInstrument);
     const { shuffleInstruments, setShuffleInstruments } = useContext(IOContext);
     const [ tempShuffleInstruments, setTempShuffleInstruments ] = useState(shuffleInstruments);
-    const { hideOverlay, showAlert } = useContext(OverlaysContext);
+    const { showElement, lastOpenedElement, showAlert } = useContext(UIContext);
 
     const acceptChanges = () => {
-        if (tempEnabledInstruments === enabledInstruments && tempShuffleInstruments === shuffleInstruments) {
-            hideOverlay();
-            return;
-        }
         setEnabledInstruments(tempEnabledInstruments);
         setCurrentInstrument(tempCurrentInstrument);
         setShuffleInstruments(tempShuffleInstruments);
-        hideOverlay();
+        showElement(lastOpenedElement);
     }
 
     const toggleInstrument = (instrument) => {
@@ -84,7 +78,7 @@ function SelectInstruments() {
                 </Column>
                 <Column width={0.5}>
                     <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={hideOverlay}/>
+                    <Button label="Anuluj" onClick={() => showElement(lastOpenedElement)}/>
                     <Spacer length={3}/>
                 </Column>
             </Table>
