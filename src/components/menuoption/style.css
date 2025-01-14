@@ -1,8 +1,6 @@
 .menuoption {
     flex: 1;
     width: 100%;
-    max-width: 100%;
-    max-height: 100%;
     cursor: pointer;
     border: 2px solid black;
     display: flex;
@@ -11,7 +9,6 @@
     justify-content: center;
     background-color: white;
     box-shadow: 1vh 1vh 0 #333;
-    aspect-ratio: 1;
 }
 
 .menuoption:hover {

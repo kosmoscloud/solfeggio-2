@@ -5,8 +5,6 @@ import GlobalSettingsLayer from './managers/GlobalSettingsLayer.jsx';
 import ExerciseLayer from './managers/ExerciseLayer.jsx';
 import UILayer from './managers/UILayer.jsx';
 
-import Alert from './ui/overlays/alert/Alert.jsx';
-
 import './style.css';
 
 function Solfeggio2() {

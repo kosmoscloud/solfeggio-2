@@ -4,15 +4,10 @@ import Text from "../text/Text";
 
 import "./style.css";
 
-function MenuOption({label, onClick, icon, children}) {
-
-    if (!icon) {
-        icon = require("../../assets/icons/placeholder.webp");
-    }
+function MenuOption({label, onClick}) {
 
     return (
         <div className="menuoption" onClick={onClick}>
-            {icon && <img src={icon} className={"icon"} alt="button with icon" />}
             {label && <Text center={true} wrap={true}>{label}</Text>}
         </div>
     );

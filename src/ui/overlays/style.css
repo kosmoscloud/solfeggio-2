@@ -2,8 +2,8 @@
     position: fixed;
     transform: translate(-50%, -50%);
     background-color: white;
-    height: auto;
     width: auto;
+    height: auto;
     z-index: 99;
     border: 2px solid black;
     box-shadow: 1vh 1vh;
