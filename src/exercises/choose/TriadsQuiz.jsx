@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import Exercise from '../../exercises/model/Exercise';
 import Triads from '../../ui/overlays/chords/Triads';
-import QuizMenu from '../../ui/menu/quizmenu/QuizMenu';
 
 import chordTypes from '../../exercises/data/ChordTypes';
 
@@ -12,6 +12,7 @@ function TriadsQuiz() {
     const { effectiveScale, triadsN } = useContext(GlobalSettingsContext);
     const enabledTriads = useContext(GlobalSettingsContext).enabledChords.triads;
     const enabledInversions = useContext(GlobalSettingsContext).enabledInversions.triads;
+    const { dictionary } = useContext(LanguageContext);
 
     function generateTriad() {
         const randomTriads = Array.from({ length: triadsN }, () => enabledTriads[Math.floor(Math.random() * enabledTriads.length)]);
@@ -42,7 +43,7 @@ function TriadsQuiz() {
     }
 
     return <Exercise 
-        name='Trójdźwięki'
+        name={dictionary.triads}
         inputType='triads'
         generateExample={generateTriad}
         predicate={isTriadCorrect}

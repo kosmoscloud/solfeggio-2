@@ -1,0 +1,8 @@
+.grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    grid-row-gap: 3vh;
+    grid-column-gap: 3vw;
+}

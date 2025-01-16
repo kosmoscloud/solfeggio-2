@@ -1,12 +1,15 @@
 import React from "react";
+
+import Text from "../text/Text";
+import Spacer from "../spacer/Spacer";
+
 import "./style.css";
 
-function Header({isEnabled = true, text}) {
+function Header({isEnabled = true, text, small=false}) {
+
     return (
         <div className={isEnabled ? "header" : "disabled-header"}>
-            <div className={isEnabled ? "header-filler" : "disabled-header-filler"}/>
-            <div className="header-text">{text}</div>
-            <div className={isEnabled ? "header-filler" : "disabled-header-filler"}/>
+            <Text size='small'>{text}</Text>
         </div>
     );
 }

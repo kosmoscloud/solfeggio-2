@@ -11,14 +11,15 @@
 
 select {
     font-family: 'Press Start 2P', cursive;
-    font-size: 1vw;
-    padding: 0.5vw;
+    font-size: 1vmax;
+    padding: 0.5vmax;
     cursor: pointer;
     border: 0;
     background-color: white;
     border-radius: 0;
     color: black;
     margin: 0;
+    width: 100%;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;

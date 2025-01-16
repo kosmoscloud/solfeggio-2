@@ -1,19 +1,21 @@
 import React from "react";
-import "./style.css";
+
 import Header from "../header/Header";
 import Bar from "./bar/Bar";
+import Spacer from "../spacer/Spacer";
 
 function Slider({ text, isEnabled = true, onChange, min, max, initialValue }) {
 
     return (
-        <div className="slider">
-            <div className="slider-header">
-                <Header text={text} isEnabled={isEnabled}/>
-            </div>
-            <div className="slider-content">
+        <Spacer>
+            <Spacer length={1}>
+                <Header text={text} isEnabled={isEnabled} fontsize={'0.5rem'}/>
+            </Spacer>
+            <Spacer length={0.1}/>
+            <Spacer length={2}>
                 <Bar isEnabled={isEnabled} initialValue={initialValue} onChange={onChange} min={min} max={max}/>
-            </div>
-        </div>
+            </Spacer>
+        </Spacer>
     );
 }
 

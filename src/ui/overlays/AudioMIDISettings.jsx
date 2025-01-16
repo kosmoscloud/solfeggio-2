@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 
-import { UIContext } from "../../managers/UILayer";
 import { IOContext } from "../../managers/IOLayer";
+import { UIContext } from "../../managers/UILayer";
+import { LanguageContext } from "../../managers/UILayer";
 
 import Checkbox from "../../components/checkbox/Checkbox";
 import Column from "../../components/table/column/Column";
@@ -18,6 +19,7 @@ function AudioMIDISettings() {
     const [ tempIsMidiEnabled, tempSetIsMidiEnabled ] = useState(isMidiEnabled);
 
     const { showElement, lastOpenedElement, showAlert } = useContext(UIContext);
+    const { dictionary } = useContext(LanguageContext);
 
     const acceptChanges = () => {
         setIsMidiEnabled(tempIsMidiEnabled);
@@ -25,7 +27,6 @@ function AudioMIDISettings() {
     }
 
     const setMidi = (value) => {
-        console.log('doesBrowserSupportMidi', doesBrowserSupportMIDI);
         if (!doesBrowserSupportMIDI) {
             showAlert("Twoja przeglądarka nie obsługuje MIDI.");
             return;
@@ -37,13 +38,13 @@ function AudioMIDISettings() {
         <Overlay>
             <Table>
                 <Column>
-                    <Text>Interfejs wyjściowy:</Text>
+                    <Text>{dictionary.outputinterface}:</Text>
                     <Checkbox label="Audio" isChecked={!tempIsMidiEnabled} onClick={() => tempSetIsMidiEnabled(false)}/>
                     <Checkbox label="MIDI" isChecked={tempIsMidiEnabled} onClick={() => setMidi(true)} />
                 </Column>
                 <Column>
-                    <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={() => showElement(lastOpenedElement)}/>
+                    <Button label={dictionary.ok} onClick={acceptChanges}/>
+                    <Button label={dictionary.cancel} onClick={() => showElement(lastOpenedElement)}/>
                     <Spacer length={0.5}/>
                 </Column>
             </Table>

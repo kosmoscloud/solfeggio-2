@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import { IOContext } from '../../managers/IOLayer.jsx';
 import { UIContext } from '../../managers/UILayer.jsx';
+import { LanguageContext } from '../../managers/UILayer.jsx';
 
 import Table from '../../components/table/Table.jsx';
 import Column from '../../components/table/column/Column.jsx';
@@ -20,6 +21,8 @@ function SelectInstruments() {
     const { shuffleInstruments, setShuffleInstruments } = useContext(IOContext);
     const [ tempShuffleInstruments, setTempShuffleInstruments ] = useState(shuffleInstruments);
     const { showElement, lastOpenedElement, showAlert } = useContext(UIContext);
+
+    const { dictionary } = useContext(LanguageContext);
 
     const acceptChanges = () => {
         setEnabledInstruments(tempEnabledInstruments);
@@ -60,25 +63,25 @@ function SelectInstruments() {
             <Table>
                 <Column>
                     <Text>
-                        {tempShuffleInstruments && "Wybrane instrumenty:"}
-                        {!tempShuffleInstruments && "Wybrany instrument :"}
+                        {tempShuffleInstruments && dictionary.selectedinstruments}
+                        {!tempShuffleInstruments && dictionary.selectedinstrument}
                     </Text>
-                    <Checkbox label='pianino' isChecked={isChecked('piano')} onClick={() => toggleInstrument('piano')} />
-                    <Checkbox label='gitara' isChecked={isChecked('guitar')} onClick={() => toggleInstrument('guitar')} />
-                    <Checkbox label='marimba' isChecked={isChecked('marimba')} onClick={() => toggleInstrument('marimba')} />
-                    <Checkbox label='skrzypce' isChecked={isChecked('violin')} onClick={() => toggleInstrument('violin')} />
+                    <Checkbox label={dictionary.piano} isChecked={isChecked('piano')} onClick={() => toggleInstrument('piano')} />
+                    <Checkbox label={dictionary.guitar} isChecked={isChecked('guitar')} onClick={() => toggleInstrument('guitar')} />
+                    <Checkbox label={dictionary.marimba} isChecked={isChecked('marimba')} onClick={() => toggleInstrument('marimba')} />
+                    <Checkbox label={dictionary.violin} isChecked={isChecked('violin')} onClick={() => toggleInstrument('violin')} />
                 </Column>
                 <Column>
                     <Spacer length={1}/>
-                    <Checkbox label='flet' isChecked={isChecked('flute')} onClick={() => toggleInstrument('flute')} />
-                    <Checkbox label='puzon' isChecked={isChecked('trombone')} onClick={() => toggleInstrument('trombone')} />
+                    <Checkbox label={dictionary.flute} isChecked={isChecked('flute')} onClick={() => toggleInstrument('flute')} />
+                    <Checkbox label={dictionary.trombone} isChecked={isChecked('trombone')} onClick={() => toggleInstrument('trombone')} />
                     <Spacer length={1}/>
-                    <Text>losuj spośród wybranych:</Text>
-                    <Checkbox label='tak' isChecked={tempShuffleInstruments} onClick={toggleShuffle}/>
+                    <Text>{dictionary.selectrandom}</Text>
+                    <Checkbox label={dictionary.yes} isChecked={tempShuffleInstruments} onClick={toggleShuffle}/>
                 </Column>
                 <Column width={0.5}>
-                    <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={() => showElement(lastOpenedElement)}/>
+                    <Button label={dictionary.ok} onClick={acceptChanges}/>
+                    <Button label={dictionary.cancel} onClick={() => showElement(lastOpenedElement)}/>
                     <Spacer length={3}/>
                 </Column>
             </Table>

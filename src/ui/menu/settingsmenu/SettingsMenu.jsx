@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { UIContext } from '../../../managers/UILayer.jsx';
+import { LanguageContext, UIContext } from '../../../managers/UILayer.jsx';
 
 import MainMenu from '../mainmenu/MainMenu.jsx';
 
@@ -10,27 +10,22 @@ import SelectInstruments from '../../overlays/SelectInstruments.jsx';
 
 import MenuOption from '../../../components/menuoption/MenuOption.jsx';
 import Overlay from '../../overlays/Overlay.jsx';
-import Table from '../../../components/table/Table.jsx';
-import Column from '../../../components/table/column/Column.jsx';
+import Grid from '../../../components/grid/Grid.jsx';
 
 function SettingsMenu() {
 
-    const { showElement } = useContext(UIContext);
+    const { showElement, aspectRatio } = useContext(UIContext);
+    const { dictionary } = useContext(LanguageContext);
+    const dimx = aspectRatio >= 1.25 ? 2 : 1;
 
     return (
         <Overlay minWidth="20%">
-            <Column alignItems="center">
-                <Table>
-                    <Column>
-                        <MenuOption label="zakres i skala muzyczna" onClick={() => showElement(<Ranges />)}/>
-                        <MenuOption label="powrót" onClick={() => showElement(<MainMenu />)}/>
-                    </Column>
-                    <Column>
-                        <MenuOption label="instrumenty" onClick={() => showElement(<SelectInstruments />)}/>
-                        <MenuOption label="audio/midi" onClick={() => showElement(<AudioMIDISettings />)}/>
-                    </Column>
-                </Table>
-            </Column>
+            <Grid dimx={dimx}>
+                <MenuOption label={dictionary.rangeandscale} onClick={() => showElement(<Ranges />)}/>
+                <MenuOption label={dictionary.instruments} onClick={() => showElement(<SelectInstruments />)}/>
+                <MenuOption label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
+                <MenuOption label={dictionary.audiomidi} onClick={() => showElement(<AudioMIDISettings />)}/>
+            </Grid>
         </Overlay>
     )
 

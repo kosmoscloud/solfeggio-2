@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import Exercise from '../model/Exercise';
 import Intervals from '../../ui/overlays/Intervals';
@@ -7,6 +9,7 @@ import Intervals from '../../ui/overlays/Intervals';
 function IntervalExercise() {
 
     const { effectiveScale, enabledIntervals } = useContext(GlobalSettingsContext);
+    const { dictionary } = useContext(LanguageContext);
 
     function generateInterval() {
         const randomInterval = Array.from({ length: 2 }, () => [effectiveScale[Math.floor(Math.random() * effectiveScale.length)]]);
@@ -21,7 +24,7 @@ function IntervalExercise() {
     }
 
     return <Exercise 
-    name='Interwał'
+    name={dictionary.interval}
     inputType='keyboard'
     generateExample={generateInterval}
     predicate={isIntervalCorrect}

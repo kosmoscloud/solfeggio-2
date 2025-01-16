@@ -8,6 +8,7 @@
     border: 2px solid black;
     display: flex;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .button {
@@ -25,7 +26,7 @@
 }
 
 .shadow {
-    box-shadow: 1vh 1vh 0 #333;
+    box-shadow: 1vmin 1vmin 0 #333;
 }
 
 .button:hover .icon {

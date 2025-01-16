@@ -71,7 +71,6 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     };
 
     const playExample = (example) => {
-        console.log(example);
         if (Array.isArray(example[0]) && example[0].length === 1) {
             playNotes([example.flat()], noteSpacing, noteLength);
         } else {

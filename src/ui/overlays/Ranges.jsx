@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 
 import { UIContext } from '../../managers/UILayer';
 import { IOContext } from '../../managers/IOLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import { calculateEffectiveScale, GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import OverlayKeyboard from '../keyboard/OverlayKeyboard';
@@ -22,11 +23,10 @@ function Ranges() {
     const { firstNote, setFirstNote, lastNote, setLastNote, scale, setScale, effectiveScale } = useContext(GlobalSettingsContext);
     const { playNotes, setCurrentInstrument } = useContext(IOContext);
     const centerNote = effectiveScale[Math.floor(effectiveScale.length / 2)];
-    const keyRange = { low: Math.max(centerNote - 30, 0), high: Math.min(centerNote + 30, 127) };
+    const keyRange = { low: Math.max(centerNote - 12, 0), high: Math.min(centerNote + 12, 127) };
     const [ tempFirstNote, setTempFirstNote ] = useState(firstNote);
     const [ tempLastNote, setTempLastNote ] = useState(lastNote);
     const [ tempScale, setTempScale ] = useState(scale);
-    const { hideOverlay } = useContext(UIContext);
     const [ isPlayingBack, setIsPlayingBack ] = useState(false);
     const markedNotes = calculateEffectiveScale(tempFirstNote, tempLastNote, tempScale);
     const [ isListeningForFirstNote, setIsListeningForFirstNote ] = useState(false);
@@ -34,11 +34,13 @@ function Ranges() {
 
     const { showAlert, showElement, lastOpenedElement } = useContext(UIContext);
 
+    const { dictionary } = useContext(LanguageContext);
+
     const acceptChanges = () => {
         if (tempFirstNote < tempLastNote) {
-            const temp = tempFirstNote;
-            setTempFirstNote(tempLastNote);
-            setTempLastNote(temp);
+            console.log('akceptowando, tempFirstNote:', tempFirstNote, 'tempLastNote:', tempLastNote, 'tempScale:', tempScale);
+            setFirstNote(tempFirstNote);
+            setLastNote(tempLastNote);
             setScale(tempScale);
             showElement(lastOpenedElement);
         } else {
@@ -71,30 +73,30 @@ function Ranges() {
                 <Overlay type='bottom'>
                     <Table>
                         <Column>
-                            <Text>Pierwsza nuta</Text>
-                            <Checkbox value={tempFirstNote} label="wybierz" onClick={() => setIsListeningForFirstNote(true)} isChecked={isListeningForFirstNote}/>
-                            <Spacer length={1}/>
-                            <Text>Skala</Text>
-                            <Select value={tempScale} onChange={e => setTempScale(e.target.value)}>
-                                <option value="major">Dur</option>
-                                <option value="minor">Moll</option>
-                                <option value="blues">Blues</option>
-                                <option value="pentatonic">Pięciotonowa</option>
-                                <option value="chromatic">Chromatyczna</option>
-                                <option value="harmonicMinor">Moll Harm.</option>
-                                <option value="dorianMinor">Moll Dor.</option>
-                                <option value="wholeTone">Całotonowa</option>
-                            </Select>
+                            <Text>{dictionary.firstnote}</Text>
+                            <Checkbox value={tempFirstNote} label={dictionary.choose} onClick={() => setIsListeningForFirstNote(true)} isChecked={isListeningForFirstNote}/>
+                            <Spacer length={2}/>
+                            <Text>{dictionary.lastnote}</Text>
+                            <Checkbox value={tempLastNote} label={dictionary.choose} onClick={() => setIsListeningForLastNote(true)} isChecked={isListeningForLastNote}/>
                         </Column>
                         <Column>
-                            <Text>Ostatnia nuta</Text>
-                            <Checkbox value={tempLastNote} label="wybierz" onClick={() => setIsListeningForLastNote(true)} isChecked={isListeningForLastNote}/>
-                            <Spacer length={1}/>
-                            <Button label="Graj skalę" onClick={playTempScale} isEnabled={!isPlayingBack}/>
+                            <Text>Skala</Text>
+                            <Select value={tempScale} onChange={e => setTempScale(e.target.value)}>
+                                <option value="major">{dictionary.major}</option>
+                                <option value="minor">{dictionary.minor}</option>
+                                <option value="blues">{dictionary.blues}</option>
+                                <option value="pentatonic">{dictionary.pentatonic}</option>
+                                <option value="chromatic">{dictionary.chromatic}</option>
+                                <option value="harmonicMinor">{dictionary.harmonicminor}</option>
+                                <option value="dorianMinor">{dictionary.jazzminor}</option>
+                                <option value="wholeTone">{dictionary.wholetone}</option>
+                            </Select>
+                            <Spacer length={5}/>
+                            <Button label={dictionary.playscale} onClick={playTempScale} isEnabled={!isPlayingBack}/>
                         </Column>
                         <Column width={0.5}>
-                            <Button label="OK" onClick={acceptChanges}/>
-                            <Button label="Anuluj" onClick={() => showElement(lastOpenedElement)}/>
+                            <Button label={dictionary.ok} onClick={acceptChanges}/>
+                            <Button label={dictionary.cancel} onClick={() => showElement(lastOpenedElement)}/>
                             <Spacer length={3}/>
                         </Column>
                     </Table>

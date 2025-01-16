@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import { IOContext } from '../../managers/IOLayer';
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
@@ -13,10 +14,11 @@ function IntervalsInput() {
 
     const triggerLastAnswer = useContext(IOContext).triggerLastAnswer;
     const enabledIntervals = useContext(GlobalSettingsContext).enabledIntervals;
+    const { dictionary } = useContext(LanguageContext);
 
     return <div className="quiz-input-intervals">
                 <div className="quiz-input-header">
-                    <Header text="Możliwe odpowiedzi" />
+                    <Header text={dictionary.answers} />
                 </div>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">

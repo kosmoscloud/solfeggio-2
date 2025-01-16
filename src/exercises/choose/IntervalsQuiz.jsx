@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
+
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import Exercise from '../model/Exercise';
 import Intervals from '../../ui/overlays/Intervals';
-import QuizMenu from '../../ui/menu/quizmenu/QuizMenu';
 
 function IntervalQuiz() {
 
     const { effectiveScale, enabledIntervals, intervalsN } = useContext(GlobalSettingsContext);
+    const { dictionary } = useContext(LanguageContext);
 
     function generateInterval() {
         const intervalsToPlay = Array.from({ length: intervalsN }, () => {
@@ -26,7 +28,7 @@ function IntervalQuiz() {
     }
 
     return <Exercise 
-        name='Interwał'
+        name={dictionary.interval}
         inputType='intervals'
         generateExample={generateInterval}
         predicate={isIntervalCorrect}

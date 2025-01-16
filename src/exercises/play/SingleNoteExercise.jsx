@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
+
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { IOContext } from '../../managers/IOLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import Exercise from '../model/Exercise';
 
@@ -8,6 +10,7 @@ function SingleNoteExercise() {
 
     const { effectiveScale, noteSpacing } = useContext(GlobalSettingsContext);
     const { playNotes } = useContext(IOContext);
+    const { dictionary } = useContext(LanguageContext);
 
     function generateSingleNote() {
         const sequenceLength = Math.ceil(noteSpacing * 100 / 2);
@@ -25,7 +28,7 @@ function SingleNoteExercise() {
     }
 
     return <Exercise 
-        name='Słuch absolutny'
+        name={dictionary.perfectpitch}
         inputType='keyboard'
         generateExample={generateSingleNote}
         predicate={isSingleNoteCorrect}

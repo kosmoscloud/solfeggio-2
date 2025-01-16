@@ -1,9 +1,10 @@
-import React, { createContext } from 'react';
+import React, { useEffect, createContext } from 'react';
 
 import Alert from '../ui/overlays/alert/Alert';
 import MainMenu from '../ui/menu/mainmenu/MainMenu';
 
 export const UIContext = createContext();
+export const LanguageContext = createContext();
 
 function UILayer() {
     
@@ -11,6 +12,26 @@ function UILayer() {
     const [ activeOverlay, setActiveOverlay ] = React.useState(null);
     const [ activeAlert, setActiveAlert ] = React.useState(null);
     const [ lastOpenedElement, setLastOpenedElement ] = React.useState(null);
+    const [ aspectRatio, setAspectRatio ] = React.useState(window.innerWidth / window.innerHeight);
+    const [ language, setLanguage ] = React.useState('en');
+    const [ dictionary, setDictionary ] = React.useState({});
+
+    
+    useEffect(() => {
+        setLanguageAndFetchDictionary(language);
+
+        const handleResize = () => {
+            setAspectRatio(window.innerWidth / window.innerHeight);
+        };
+        
+        window.addEventListener('resize', handleResize);
+    }, []);
+    
+    const setLanguageAndFetchDictionary = async (language) => {
+        const json = require(`../ui/languages/${language}.json`);
+        setDictionary(json);
+        setLanguage(language);
+    }
 
     const showElement = (element) => {
         if (activeElement) {
@@ -61,10 +82,13 @@ function UILayer() {
         <UIContext.Provider value={{ 
                 showElement, hideElement, lastOpenedElement,
                 showOverlay, hideOverlay,
-                showAlert, hideAlert }}>
-            {renderActiveElement()}
-            {renderActiveOverlay()}
-            {renderActiveAlert()}
+                showAlert, hideAlert,
+                aspectRatio }}>
+            <LanguageContext.Provider value={{ dictionary, language, setLanguageAndFetchDictionary }}>
+                {renderActiveElement()}
+                {renderActiveOverlay()}
+                {renderActiveAlert()}
+            </LanguageContext.Provider>
         </UIContext.Provider>
     );
 }

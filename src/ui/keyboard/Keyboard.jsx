@@ -7,7 +7,7 @@ import { GlobalSettingsContext } from "../../managers/GlobalSettingsLayer.jsx";
 function Keyboard() {
     const { playNotes, triggerLastAnswer, markedNotes, playedNotes } = useContext(IOContext); 
     const { effectiveScale } = useContext(GlobalSettingsContext);
-    const [ lowNote, highNote ] = [ effectiveScale[0] - 5, effectiveScale[effectiveScale.length - 1] + 5 ];
+    const [ lowNote, highNote ] = [ effectiveScale[0] - 1, effectiveScale[effectiveScale.length - 1] + 1 ];
     const keys = generateKeys(lowNote, highNote);
 
     function handleKeyClick(midiNote) {

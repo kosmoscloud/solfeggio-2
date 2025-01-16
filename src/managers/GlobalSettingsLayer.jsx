@@ -1,12 +1,13 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const GlobalSettingsContext = createContext();
 
 function GlobalSettingsLayer({ children }) {
-    const [firstNote, setFirstNote] = useState(48);
+    const isMobile = window.innerWidth < 768;
+    const [firstNote, setFirstNote] = useState(isMobile ? 60 : 48);
     const [lastNote, setLastNote] = useState(72);
     const [scale, setScale] = useState('chromatic');
-    const [effectiveScale, setEffectiveScale] = useState([]);
+    const effectiveScale = calculateEffectiveScale(firstNote, lastNote, scale);
     const [melodyLength, setMelodyLength] = useState(5);
     const [noteLength, setNoteLength] = useState(0.55);
     const [noteSpacing, setNoteSpacing] = useState(0.55);
@@ -38,10 +39,6 @@ function GlobalSettingsLayer({ children }) {
     const setEnabledInversionsByType = (type, inversions) => {
         setEnabledInversions({ ...enabledInversions, [type]: inversions });
     };
-
-    useEffect(() => {
-        setEffectiveScale(calculateEffectiveScale(firstNote, lastNote, scale));
-    }, [firstNote, lastNote, scale]);
 
     return (
         <GlobalSettingsContext.Provider value={{
@@ -75,7 +72,6 @@ function calculateEffectiveScale(firstNote, lastNote, scale) {
     const scaleOffsets = scaleIntervals[scale];
     const effectiveScale = [];
     for (let currentNote = firstNote; currentNote <= lastNote; currentNote += scaleOffsets[effectiveScale.length % scaleOffsets.length]) {
-        console.log(currentNote);
         effectiveScale.push(currentNote);
     }
     return effectiveScale;

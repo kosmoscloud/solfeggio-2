@@ -15,7 +15,6 @@ const MidiGenerator = () => {
     };
 
     const sendMIDIMessage = (command, note, velocity) => {
-        console.log('command', command, 'note', note, 'velocity', velocity);
         if (outputRef.current) {
             outputRef.current.send([command, note, velocity]);
         }

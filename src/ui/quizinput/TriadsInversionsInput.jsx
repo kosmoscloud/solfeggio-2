@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { IOContext } from '../../managers/IOLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
@@ -12,10 +13,11 @@ import './style.css';
 function TriadsInversionsInput() {
     const enabledTriadsInversions = useContext(GlobalSettingsContext).enabledInversions.triads;
     const triggerLastAnswer = useContext(IOContext).triggerLastAnswer;
+    const { dictionary } = useContext(LanguageContext);
 
     return <div className="quiz-input-inversions">
                 <div className="quiz-input-header">
-                    <Header text="Możliwe odpowiedzi" />
+                    <Header text={dictionary.answers} />
                 </div>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">

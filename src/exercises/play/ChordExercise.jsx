@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { UIContext } from '../../managers/UILayer';
+import { LanguageContext, UIContext } from '../../managers/UILayer';
 
 import Exercise from '../model/Exercise';
 import chordTypes from '../data/ChordTypes';
@@ -20,6 +21,7 @@ function ChordExercise({type}) {
     const { showAlert, showOverlay } = useContext(UIContext);
     const { enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     const { effectiveScale } = useContext(GlobalSettingsContext);
+    const { dictionary } = useContext(LanguageContext);
     const possibleChords = React.useMemo(() => {
             return calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
             // eslint-disable-next-line
@@ -32,12 +34,12 @@ function ChordExercise({type}) {
     }, [possibleChords, effectiveScale]);
 
     const name = {
-        'triads': 'Trójdźwięk',
-        'sevenths': 'Akord z septymą',
-        'ninths': 'Akord z noną',
-        'elevenths': 'Akord z undecymą',
-        'thirteenths': 'Akord z tercdecymą',
-        'random': 'Akord przypadkowy'
+        'triads': dictionary.triads,
+        'sevenths': dictionary.seventh,
+        'ninths': dictionary.ninth,
+        'elevenths': dictionary.eleventh,
+        'thirteenths': dictionary.thirteenth,
+        'random': dictionary.randomchord
     }[type] || '???';
 
 

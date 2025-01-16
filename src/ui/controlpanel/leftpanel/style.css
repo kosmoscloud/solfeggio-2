@@ -1,20 +1,20 @@
 .left-panel {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
     position: relative;
+    width: 100%;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    gap: 2vh;
+    gap: 2vmin;
 }
 
 .header-container {
     flex: 1;
     display: flex;
     flex-direction: row;
-    gap: 2vh;
+    gap: 2vmin;
 }
 
 .header-container-button {
@@ -27,7 +27,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
-    gap: 4vh;
+    gap: 4vmin;
 }
 
 .buttons-column {
@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 2vh;
+    gap: 2vmin;
 }
 
 .buttons-row {
@@ -45,5 +45,5 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 2vh;
+    gap: 2vmin;
 }

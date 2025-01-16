@@ -1,14 +1,12 @@
 import React from 'react';
 
-import Text from '../text/Text';
-
 import './style.css';
 
-function Select(props) {
+function Select({value, onChange, children}) {
     return (
         <div className="select">
-            <select value={props.value} onChange={props.onChange}>
-                {props.children}
+            <select value={value} onChange={onChange}>
+                {children}
             </select>
         </div>
     );

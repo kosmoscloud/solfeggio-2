@@ -1,15 +1,16 @@
 import React from 'react';
 
-import Spacer from '../spacer/Spacer';
-
 import './style.css';
 
-function Table({ children }) {
+function Table({ children, direction='row' }) {
+
+    let style = {
+        flexDirection: direction
+    };
+
     return (
-        <div className="table">
-            <Spacer length={0.1} />
-                {children}
-            <Spacer length={0.1} />
+        <div className="table" style={style}>
+            {children}
         </div>
     );
 }

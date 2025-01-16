@@ -15,7 +15,7 @@ function IOLayer({children}) {
     const instruments = ['piano', 'guitar', 'marimba', 'violin', 'flute', 'trombone'];
     const [ enabledInstruments, setEnabledInstruments ] = useState(instruments);
     const [ currentInstrument, setCurrentInstrument ] = useState('piano');
-    const [ shuffleInstruments, setShuffleInstruments ] = useState(true);
+    const [ shuffleInstruments, setShuffleInstruments ] = useState(false);
 
     // trigger is used to make sure the useEffect is called when the state is updated
     const [ trigger, setTrigger ] = useState(false);

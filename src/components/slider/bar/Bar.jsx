@@ -57,13 +57,11 @@ function Bar ({min, max, initialValue, isEnabled, onChange}) {
 
     return (
         <div className={isEnabled ? "slider-bar" : "disabled-slider-bar"}>
-            <Button isEnabled={isEnabled} onClick={changeStateValue(-1)} shadow={false}/>
             <div className={isEnabled ? "slider-area" : "disabled-slider-area"} ref={sliderAreaRef}>
                 <div className={isEnabled ? "slider-block" : "disabled-slider-block"} onMouseDown={isEnabled ? handleMouseDown : null} ref={sliderBlockRef}>
                     {Math.round(value)}
                 </div>
             </div>
-            <Button direction="right" isEnabled={isEnabled} onClick={changeStateValue(1)} shadow={false}/>
         </div>
     );
 }

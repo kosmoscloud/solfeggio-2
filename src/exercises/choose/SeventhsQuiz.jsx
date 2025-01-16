@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import Exercise from '../model/Exercise';
 import Sevenths from '../../ui/overlays/chords/Sevenths';
@@ -11,6 +13,7 @@ function SeventhsQuiz() {
     const { effectiveScale, seventhsN } = useContext(GlobalSettingsContext);
     const enabledSevenths = useContext(GlobalSettingsContext).enabledChords.sevenths;
     const enabledInversions = useContext(GlobalSettingsContext).enabledInversions.sevenths;
+    const { dictionary } = useContext(LanguageContext);
 
     function generateSeventh() {
         const randomSevenths = Array.from({ length: seventhsN }, () => enabledSevenths[Math.floor(Math.random() * enabledSevenths.length)]);
@@ -23,7 +26,6 @@ function SeventhsQuiz() {
             randomNotes[i] + chordTypes['sevenths'][seventh][randomInversions[i]][0] + chordTypes['sevenths'][seventh][randomInversions[i]][1],
             randomNotes[i] + chordTypes['sevenths'][seventh][randomInversions[i]][0] + chordTypes['sevenths'][seventh][randomInversions[i]][1] + chordTypes['sevenths'][seventh][randomInversions[i]][2]
         ]);
-        console.log(example);
         return example;
     }
 
@@ -44,7 +46,7 @@ function SeventhsQuiz() {
     }
 
     return <Exercise 
-        name='Rodzaje akordów z septymą'
+        name={dictionary.seventh}
         inputType='sevenths'
         generateExample={generateSeventh}
         predicate={isSeventhCorrect}

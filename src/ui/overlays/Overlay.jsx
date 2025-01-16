@@ -2,7 +2,7 @@ import React from 'react';
 
 import './style.css';
 
-function Overlay({children, minHeight, minWidth, type="center"}) {
+function Overlay({children, minWidth, type="center"}) {
 
     let className = "overlay";
     let style = {};
@@ -13,10 +13,6 @@ function Overlay({children, minHeight, minWidth, type="center"}) {
         className += " top";
     } else if (type === "bottom") {
         className += " bottom";
-    }
-
-    if (minHeight) {
-        style = {minHeight: minHeight};
     }
 
     if (minWidth) {

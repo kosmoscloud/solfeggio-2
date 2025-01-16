@@ -2,16 +2,17 @@
     position: fixed;
     transform: translate(-50%, -50%);
     background-color: white;
-    width: auto;
+    width: fit-content;
+    max-width: 85%;
     height: auto;
     z-index: 99;
     border: 2px solid black;
-    box-shadow: 1vh 1vh;
+    box-shadow: 1vmin 1vmin;
     cursor: default;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    padding: 1vh;
+    padding: 1vmin;
 }
 
 .center {

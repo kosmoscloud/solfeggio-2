@@ -1,42 +1,32 @@
 import React, { useContext } from 'react';
 
 import { UIContext } from '../../../managers/UILayer.jsx';
+import { LanguageContext } from '../../../managers/UILayer.jsx';
 
-import MainMenu from '../mainmenu/MainMenu.jsx';
-
-import SingleNoteExercise from '../../../exercises/play/SingleNoteExercise.jsx';
-import IntervalExercise from '../../../exercises/play/IntervalExercise.jsx';
-import MelodyExercise from '../../../exercises/play/MelodyExercise.jsx';
 import ChordExercise from '../../../exercises/play/ChordExercise.jsx';
 
 import Overlay from '../../overlays/Overlay.jsx';
-import Table from '../../../components/table/Table.jsx';
-import Column from '../../../components/table/column/Column.jsx';
+import Grid from '../../../components/grid/Grid.jsx';
 import MenuOption from '../../../components/menuoption/MenuOption.jsx';
 import ExerciseMenu from '../exercisemenu/ExerciseMenu.jsx';
 
 function ChordMenu() {
 
-    const { showElement } = useContext(UIContext);
+    const { showElement, aspectRatio } = useContext(UIContext);
+    const { dictionary } = useContext(LanguageContext);
+
+    const dimx = aspectRatio >= 1.25 ? 3 : aspectRatio < 0.8 ? 1 : 2;
 
     return (
         <Overlay minWidth="60%" minHeight="60%">
-            <Column alignItems="center">
-                <Table>
-                    <Column>
-                        <MenuOption label="akord z septymą" onClick={() => showElement(<SingleNoteExercise />)}/>
-                        <MenuOption label="powrót" onClick={() => showElement(<ExerciseMenu />)}/>
-                    </Column>
-                    <Column>
-                        <MenuOption label="akord z noną" onClick={() => showElement(<ChordExercise type='ninths' />)}/>
-                        <MenuOption label="akord z undecymą" onClick={() => showElement(<ChordExercise type='elevenths' />)}/>
-                    </Column>
-                    <Column>
-                        <MenuOption label="akord z tercdecymą" onClick={() => showElement(<ChordExercise type='thirteenths' />)}/>
-                        <MenuOption label="akord przypadkowy" onClick={() => showElement(<ChordExercise type='random' />)}/>
-                    </Column>
-                </Table>
-            </Column>
+            <Grid dimx={dimx}>
+                <MenuOption label={dictionary.seventhchord} onClick={() => showElement(<ChordExercise type='seventh' />)}/>
+                <MenuOption label={dictionary.ninthchord} onClick={() => showElement(<ChordExercise type='ninths' />)}/>
+                <MenuOption label={dictionary.eleventhchord} onClick={() => showElement(<ChordExercise type='elevenths' />)}/>
+                <MenuOption label={dictionary.back} onClick={() => showElement(<ExerciseMenu />)}/>
+                <MenuOption label={dictionary.thirteenthchord} onClick={() => showElement(<ChordExercise type='thirteenths' />)}/>
+                <MenuOption label={dictionary.randomchord} onClick={() => showElement(<ChordExercise type='random' />)}/>
+            </Grid>
         </Overlay>
     )
 

@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { LanguageContext } from '../../managers/UILayer';
 
 import Exercise from '../../exercises/model/Exercise';
 import Sevenths from '../../ui/overlays/chords/Sevenths';
@@ -11,6 +13,7 @@ function SeventhsInversionsQuiz() {
     const { effectiveScale, seventhsN } = useContext(GlobalSettingsContext);
     const enabledSevenths = useContext(GlobalSettingsContext).enabledChords.sevenths;
     const enabledInversions = useContext(GlobalSettingsContext).enabledInversions.sevenths;
+    const { dictionary } = useContext(LanguageContext);
 
     function generateSeventhsInversions() {
         const randomSeventhsInversions = Array.from({ length: seventhsN }, () => enabledSevenths[Math.floor(Math.random() * enabledSevenths.length)]);
@@ -42,7 +45,7 @@ function SeventhsInversionsQuiz() {
     }
 
     return <Exercise 
-        name='Przewroty trójdźwięków z septymą'
+        name={dictionary.sevenths}
         inputType='seventhsinversions'
         generateExample={generateSeventhsInversions}
         predicate={isSeventhCorrect}
