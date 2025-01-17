@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/solfeggio-2/static/css/main.1781ddbf.css",
-    "main.js": "/solfeggio-2/static/js/main.39565f2b.js",
+    "main.js": "/solfeggio-2/static/js/main.9027544a.js",
     "static/js/453.d4b11e89.chunk.js": "/solfeggio-2/static/js/453.d4b11e89.chunk.js",
     "index.html": "/solfeggio-2/index.html",
     "main.1781ddbf.css.map": "/solfeggio-2/static/css/main.1781ddbf.css.map",
-    "main.39565f2b.js.map": "/solfeggio-2/static/js/main.39565f2b.js.map",
+    "main.9027544a.js.map": "/solfeggio-2/static/js/main.9027544a.js.map",
     "453.d4b11e89.chunk.js.map": "/solfeggio-2/static/js/453.d4b11e89.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1781ddbf.css",
-    "static/js/main.39565f2b.js"
+    "static/js/main.9027544a.js"
   ]
 }
