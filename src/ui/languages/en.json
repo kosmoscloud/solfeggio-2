@@ -75,6 +75,25 @@
     "selectrandom": "select random:",
     "yes": "yes",
 
-    "answers": "answers"
+    "answers": "answers",
+    "melodytype": "melody type",
+    "ascending": "ascending",
+    "descending": "descending",
+    "free": "free",
+
+    "length": "length",
+
+    "minorsecond": "m2",
+    "majorsecond": "M2",
+    "minorthird": "m3",
+    "majorthird": "M3",
+    "perfectfourth": "P4",
+    "tritone": "TT",
+    "perfectfifth": "P5",
+    "minorsixth": "m6",
+    "majorsixth": "M6",
+    "minorseventh": "m7",
+    "majorseventh": "M7",
+    "octave": "P8"
 
 }

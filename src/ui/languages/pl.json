@@ -75,5 +75,24 @@
     "selectrandom": "losuj spośród wybranych:",
     "yes": "tak",
 
-    "answers": "odpowiedzi"
+    "answers": "odpowiedzi",
+    "melodytype": "typ melodii",
+    "ascending": "rosnąca",
+    "descending": "opadająca",
+    "free": "swobodna",
+
+    "length": "długość",
+
+    "minorsecond": "2m",
+    "majorsecond": "2w",
+    "minorthird": "3m",
+    "majorthird": "3w",
+    "perfectfourth": "4cz",
+    "tritone": "5zm",
+    "perfectfifth": "5cz",
+    "minorsixth": "6m",
+    "majorsixth": "6w",
+    "minorseventh": "7m",
+    "majorseventh": "7w",
+    "octave": "8cz"
 }

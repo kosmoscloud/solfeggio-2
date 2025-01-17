@@ -75,5 +75,24 @@
     "selectrandom": "seleccionar aleatorio:",
     "yes": "sí",
 
-    "answers": "respuestas"
+    "answers": "respuestas",
+    "melodytype": "tipo de melodía",
+    "ascending": "ascendente",
+    "descending": "descendente",
+    "free": "libre",
+
+    "length": "no. de notas",
+
+    "minorsecond": "2ªm",
+    "majorsecond": "2ªM",
+    "minorthird": "3ªm",
+    "majorthird": "3ªM",
+    "perfectfourth": "4ªJ",
+    "tritone": "4ªA",
+    "perfectfifth": "5ªJ",
+    "minorsixth": "6ªm",
+    "majorsixth": "6ªM",
+    "minorseventh": "7ªm",
+    "majorseventh": "7ªM",
+    "octave": "8ª"
 }

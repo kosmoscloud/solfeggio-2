@@ -20,10 +20,10 @@ const RangesContext = createContext();
 
 function Ranges() {
 
-    const { firstNote, setFirstNote, lastNote, setLastNote, scale, setScale, effectiveScale } = useContext(GlobalSettingsContext);
+    const { firstNote, setFirstNote, lastNote, setLastNote, scale, setScale, effectiveScale, isMobile } = useContext(GlobalSettingsContext);
     const { playNotes, setCurrentInstrument } = useContext(IOContext);
     const centerNote = effectiveScale[Math.floor(effectiveScale.length / 2)];
-    const keyRange = { low: Math.max(centerNote - 12, 0), high: Math.min(centerNote + 12, 127) };
+    const keyRange = { low: Math.max(centerNote - (isMobile ? 12 : 24), 0), high: Math.min(centerNote + (isMobile ? 12 : 24), 127) };
     const [ tempFirstNote, setTempFirstNote ] = useState(firstNote);
     const [ tempLastNote, setTempLastNote ] = useState(lastNote);
     const [ tempScale, setTempScale ] = useState(scale);
@@ -80,7 +80,7 @@ function Ranges() {
                             <Checkbox value={tempLastNote} label={dictionary.choose} onClick={() => setIsListeningForLastNote(true)} isChecked={isListeningForLastNote}/>
                         </Column>
                         <Column>
-                            <Text>Skala</Text>
+                            <Text>{dictionary.scale}</Text>
                             <Select value={tempScale} onChange={e => setTempScale(e.target.value)}>
                                 <option value="major">{dictionary.major}</option>
                                 <option value="minor">{dictionary.minor}</option>

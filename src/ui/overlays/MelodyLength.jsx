@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { UIContext } from '../../managers/UILayer';
+import { LanguageContext, UIContext } from '../../managers/UILayer';
 
 import Button from '../../components/button/Button';
 import Column from '../../components/table/column/Column';
@@ -20,6 +20,8 @@ function MelodyLength() {
     const { melodyType, setMelodyType } = useContext(GlobalSettingsContext);
     const [ tempMelodyType, setTempMelodyType ] = useState(melodyType);
 
+    const { dictionary } = useContext(LanguageContext);
+
     const acceptChanges = () => {
         setMelodyLength(tempMelodyLength);
         setMelodyType(tempMelodyType);
@@ -30,18 +32,18 @@ function MelodyLength() {
         <Overlay>
             <Table>
                 <Column>
-                    <Text>Typ melodii</Text>
+                    <Text>{dictionary.melodytype}</Text>
                     <Select value={tempMelodyType} onChange={e => setTempMelodyType(e.target.value)}>
-                        <option value="ascending">rosnąca</option>
-                        <option value="descending">opadająca</option>
-                        <option value="random">swobodna</option>
+                        <option value="ascending">{dictionary.ascending}</option>
+                        <option value="descending">{dictionary.descending}</option>
+                        <option value="random">{dictionary.free}</option>
                     </Select>
-                    <Text>Długość</Text>
+                    <Text>{dictionary.length}</Text>
                     <Slider initialValue={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
                 </Column>
                 <Column width={0.5}>
-                    <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={hideOverlay}/>
+                    <Button label={dictionary.ok} onClick={acceptChanges}/>
+                    <Button label={dictionary.cancel} onClick={hideOverlay}/>
                     <Spacer length={1}/>
                 </Column>
             </Table>

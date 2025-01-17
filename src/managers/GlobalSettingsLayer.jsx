@@ -1,9 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useRef } from 'react';
 
 export const GlobalSettingsContext = createContext();
 
 function GlobalSettingsLayer({ children }) {
-    const isMobile = window.innerWidth < 768;
+    const {isMobile} = useRef(window.innerWidth < 768);
     const [firstNote, setFirstNote] = useState(isMobile ? 60 : 48);
     const [lastNote, setLastNote] = useState(72);
     const [scale, setScale] = useState('chromatic');
@@ -51,7 +51,8 @@ function GlobalSettingsLayer({ children }) {
             intervalsN, setIntervalsN,
             triadsN, setTriadsN,
             seventhsN, setSeventhsN,
-            melodyType, setMelodyType
+            melodyType, setMelodyType,
+            isMobile
         }}>
             {children}
         </GlobalSettingsContext.Provider>
