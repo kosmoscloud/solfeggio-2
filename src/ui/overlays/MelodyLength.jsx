@@ -5,7 +5,7 @@ import { UIContext } from '../../managers/UILayer';
 
 import Button from '../../components/button/Button';
 import Column from '../../components/table/column/Column';
-import Stepper from '../../components/stepper/Stepper';
+import Slider from '../../components/slider/Slider';
 import Text from '../../components/text/Text';
 import Spacer from '../../components/spacer/Spacer';
 import Select from "../../components/select/Select"
@@ -37,7 +37,7 @@ function MelodyLength() {
                         <option value="random">swobodna</option>
                     </Select>
                     <Text>Długość</Text>
-                    <Stepper initialValue={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
+                    <Slider initialValue={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
                 </Column>
                 <Column width={0.5}>
                     <Button label="OK" onClick={acceptChanges}/>

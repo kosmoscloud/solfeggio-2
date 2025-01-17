@@ -10,11 +10,11 @@ import Table from '../../../components/table/Table';
 import Column from '../../../components/table/column/Column';
 import Text from '../../../components/text/Text';
 import Spacer from '../../../components/spacer/Spacer';
-import Stepper from '../../../components/stepper/Stepper';
+import Slider from '../../../components/slider/Slider';
 
 import Overlay from '../Overlay';
 
-function Triads({stepperEnabled=false}) {
+function Triads({sliderEnabled=false}) {
     const { hideOverlay, showAlert } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
@@ -70,10 +70,10 @@ function Triads({stepperEnabled=false}) {
                 <Column width={0.5}>
                     <Button label="OK" onClick={acceptChanges}/>
                     <Button label="Anuluj" onClick={hideOverlay}/>
-                    {stepperEnabled && <Spacer length={1} />}
-                    {stepperEnabled && <Text>Przykłady:</Text>}
-                    {stepperEnabled && <Stepper min={1} max={5} initialValue={triadsN} onChange={setTriadsN} />}
-                    {!stepperEnabled && <Spacer length={4} />}
+                    {sliderEnabled && <Spacer length={1} />}
+                    {sliderEnabled && <Text>Przykłady:</Text>}
+                    {sliderEnabled && <Slider min={1} max={5} initialValue={triadsN} onChange={setTriadsN} />}
+                    {!sliderEnabled && <Spacer length={4} />}
                 </Column>
             </Table>
         </Overlay>

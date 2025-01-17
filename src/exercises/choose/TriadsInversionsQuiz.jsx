@@ -48,7 +48,7 @@ function TriadsInversionsQuiz() {
         inputType='triadsinversions'
         generateExample={generateTriadsInversions}
         predicate={isTriadCorrect}
-        settingsComponent={<Triads stepperEnabled={true} />}
+        settingsComponent={<Triads sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}
     />

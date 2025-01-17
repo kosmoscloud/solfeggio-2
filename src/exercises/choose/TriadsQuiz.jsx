@@ -47,7 +47,7 @@ function TriadsQuiz() {
         inputType='triads'
         generateExample={generateTriad}
         predicate={isTriadCorrect}
-        settingsComponent={<Triads stepperEnabled={true} />}
+        settingsComponent={<Triads sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}
     />

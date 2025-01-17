@@ -15,8 +15,7 @@ import SeventhsInversionsInput from '../../ui/quizinput/SeventhsInversionsInput.
 
 function Exercise({ name, inputType, generateExample, predicate, settingsComponent, repeatEnabled = true, showHintEnabled = true, undoNoteEnabled = true }) {
     const exerciseName = name;
-    const { noteLength, noteSpacing } = useContext(GlobalSettingsContext);
-    const { playNotes, stopPlaying, shuffleInstruments, triggerInstrumentChange, trigger, lastAnswer, lastQuizAnswer, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
+    const { playNotes, shuffleInstruments, triggerInstrumentChange, trigger, lastAnswer, lastQuizAnswer, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
     const { updateNotesResults, updateExamplesResults, resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
     const [ hasStarted, setHasStarted ] = useState(false);
     const { showOverlay, showElement, lastOpenedElement } = useContext(UIContext);
@@ -58,8 +57,8 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     };
 
     const nextExample = async () => {
-        if (shuffleInstruments) await triggerInstrumentChange();
         setAnswers([]);
+        if (shuffleInstruments) await triggerInstrumentChange();
         const newExample = await generateExample();
         if (inputType === 'keyboard') {
             setPlayedNotes([]);
@@ -72,9 +71,9 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
 
     const playExample = (example) => {
         if (Array.isArray(example[0]) && example[0].length === 1) {
-            playNotes([example.flat()], noteSpacing, noteLength);
+            playNotes([example.flat()]);
         } else {
-            playNotes(example, noteSpacing, noteLength);
+            playNotes(example);
         }    
     };
 
@@ -101,7 +100,6 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
             if (isCorrect) {
                 setMarkedNotes([]);
                 setTimeout(() => {
-                    stopPlaying();
                     nextExample();
                 }, 500);
             } else {

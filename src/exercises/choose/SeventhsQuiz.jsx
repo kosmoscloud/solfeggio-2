@@ -50,7 +50,7 @@ function SeventhsQuiz() {
         inputType='sevenths'
         generateExample={generateSeventh}
         predicate={isSeventhCorrect}
-        settingsComponent={<Sevenths stepperEnabled={true} />}
+        settingsComponent={<Sevenths sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}
     />

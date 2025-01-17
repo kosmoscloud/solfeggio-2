@@ -10,11 +10,11 @@ import Table from '../../../components/table/Table';
 import Column from '../../../components/table/column/Column';
 import Text from '../../../components/text/Text';
 import Spacer from '../../../components/spacer/Spacer';
-import Stepper from '../../../components/stepper/Stepper';
+import Slider from '../../../components/slider/Slider';
 
 import Overlay from '../Overlay';
 
-function Sevenths({stepperEnabled = false}) {
+function Sevenths({sliderEnabled = false}) {
     const { hideOverlay } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType, seventhsN, setSeventhsN } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
@@ -68,10 +68,10 @@ function Sevenths({stepperEnabled = false}) {
                 <Column width={0.5}>
                     <Button label="OK" onClick={acceptChanges}/>
                     <Button label="Anuluj" onClick={hideOverlay}/>
-                    {stepperEnabled && <Spacer length={1} />}
-                    {stepperEnabled && <Text>Przykłady:</Text>}
-                    {stepperEnabled && <Stepper min={1} max={5} initialValue={seventhsN} onChange={setSeventhsN} />}
-                    {!stepperEnabled && <Spacer length={4} />}
+                    {sliderEnabled && <Spacer length={1} />}
+                    {sliderEnabled && <Text>Przykłady:</Text>}
+                    {sliderEnabled && <Slider min={1} max={5} initialValue={seventhsN} onChange={setSeventhsN} />}
+                    {!sliderEnabled && <Spacer length={4} />}
                 </Column>
             </Table>
         </Overlay>

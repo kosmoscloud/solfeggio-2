@@ -8,13 +8,13 @@ import './style.css';
 function Solfeggio2() {
   return (
     <div className="solfeggio2">
-      <IOLayer>
-        <GlobalSettingsLayer>
+      <GlobalSettingsLayer>
+        <IOLayer>
           <ExerciseLayer>
             <UILayer/>
           </ExerciseLayer>
-        </GlobalSettingsLayer>
-      </IOLayer>
+        </IOLayer>
+      </GlobalSettingsLayer>
     </div>
   );
 }

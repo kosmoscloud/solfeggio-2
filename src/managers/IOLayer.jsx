@@ -1,4 +1,6 @@
-import React, { createContext, useState, useRef, useEffect } from 'react';
+import React, { createContext, useState, useRef, useEffect, useContext } from 'react';
+
+import { GlobalSettingsContext } from './GlobalSettingsLayer';
 
 import SoundGenerator from '../generators/SoundGenerator';
 import MidiGenerator from '../generators/MidiGenerator';
@@ -7,8 +9,9 @@ export const IOContext = createContext();
 
 function IOLayer({children}) {
     
+    const { noteLength, noteSpacing } = useContext(GlobalSettingsContext);
+    
     const soundGenerator = useRef(SoundGenerator());
-
     const doesBrowserSupportMIDI = useRef(navigator.requestMIDIAccess !== undefined);
     const midiGenerator = useRef(doesBrowserSupportMIDI ? MidiGenerator() : null);
 
@@ -32,7 +35,13 @@ function IOLayer({children}) {
     const [ isMidiEnabled, setIsMidiEnabled ] = useState(false);
 
     const [ noteQueue, setNoteQueue ] = useState([]);
+
+    const [ isStopped, setIsStopped ] = useState(false);
     const [ isChangingInstrument, setIsChangingInstrument ] = useState(false);
+
+    useEffect(() => {
+        console.log('isStopped:', isStopped);
+    }, [isStopped]);
 
     useEffect(() => {
         setIsChangingInstrument(false);
@@ -40,21 +49,29 @@ function IOLayer({children}) {
 
     useEffect(() => {
         if (noteQueue.length > 0 && !isChangingInstrument) {
-            const { notes, spacing, duration } = noteQueue[0];
             if (!isMidiEnabled) {
-                soundGenerator.current.playNotes(notes, spacing, duration, currentInstrument);
+                const notesToPlay = noteQueue.shift();
+                for (let note of notesToPlay) {
+                    // if (isStopped) {
+                    //     setIsStopped(false);
+                    //     break;
+                    // }
+                    setTimeout(() => {
+                        soundGenerator.current.playNotes(note, noteLength, currentInstrument);
+                    }, notesToPlay.indexOf(note) * noteSpacing * 1000);
+                }
             } else {
-                midiGenerator.current.playNotes(notes, spacing, duration);
-            } 
-            setNoteQueue(noteQueue.slice(1));
+                midiGenerator.current.playNotes(noteQueue, noteSpacing, noteLength);
+            }
         }
-    }, [currentInstrument, isChangingInstrument, noteQueue]);
+    }, [currentInstrument, isChangingInstrument, isStopped, noteQueue ]);
 
-    const playNotes = async (notes, spacing = 1.2, duration = 0.4) => {
+    const playNotes = (notes) => {
+        stopPlaying();
         if (isMidiEnabled === false) {
-            setNoteQueue([...noteQueue, { notes, spacing, duration }]);
+            setNoteQueue([...noteQueue, notes]);
         } else {
-            midiGenerator.current.playNotes(notes, spacing, duration);
+            midiGenerator.current.playNotes(notes, noteSpacing, noteLength);
         }
     }
 
@@ -64,6 +81,7 @@ function IOLayer({children}) {
     }
 
     const stopPlaying = () => {
+        setIsStopped(true);
         soundGenerator.current.stopPlaying();
     }
 

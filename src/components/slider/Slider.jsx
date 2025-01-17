@@ -8,9 +8,9 @@ function Slider({ text, isEnabled = true, onChange, min, max, initialValue }) {
 
     return (
         <Spacer>
-            <Spacer length={1}>
-                <Header text={text} isEnabled={isEnabled} fontsize={'0.5rem'}/>
-            </Spacer>
+            {text && <Spacer length={1}>
+                <Header text={text} isEnabled={isEnabled}/>
+            </Spacer>}
             <Spacer length={0.1}/>
             <Spacer length={2}>
                 <Bar isEnabled={isEnabled} initialValue={initialValue} onChange={onChange} min={min} max={max}/>

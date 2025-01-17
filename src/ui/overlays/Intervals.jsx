@@ -8,12 +8,12 @@ import Table from '../../components/table/Table';
 import Column from '../../components/table/column/Column';
 import Text from '../../components/text/Text';
 import Spacer from '../../components/spacer/Spacer';
-import Stepper from '../../components/stepper/Stepper';
+import Slider from '../../components/slider/Slider';
 
 import Overlay from './Overlay';
 
 
-function Intervals({ stepperEnabled = false }) {
+function Intervals({ sliderEnabled = false }) {
     const { hideOverlay, showAlert } = useContext(UIContext); 
     const { enabledIntervals, setEnabledIntervals } = useContext(GlobalSettingsContext);
     const { intervalsN, setIntervalsN } = useContext(GlobalSettingsContext);
@@ -67,10 +67,10 @@ function Intervals({ stepperEnabled = false }) {
                     <Spacer length={0.5}/>
                     <Button label="OK" onClick={acceptChanges}/>
                     <Button label="Anuluj" onClick={() => hideOverlay()}/>
-                    {stepperEnabled && <Spacer length={0.5} />}
-                    {stepperEnabled && <Text>przykłady: </Text>}
-                    {stepperEnabled && <Stepper text='liczba przykładów (quiz)' min={1} max={5} initialValue={tempIntervalsN} onChange={setTempIntervalsN}/> }
-                    {!stepperEnabled && <Spacer length={2} />}
+                    {sliderEnabled && <Spacer length={0.5} />}
+                    {sliderEnabled && <Text>Przykłady: </Text>}
+                    {sliderEnabled && <Slider min={1} max={5} initialValue={tempIntervalsN} onChange={setTempIntervalsN}/> }
+                    {!sliderEnabled && <Spacer length={2} />}
                 </Column>
             </Table>
         </Overlay>

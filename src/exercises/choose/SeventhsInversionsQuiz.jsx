@@ -49,7 +49,7 @@ function SeventhsInversionsQuiz() {
         inputType='seventhsinversions'
         generateExample={generateSeventhsInversions}
         predicate={isSeventhCorrect}
-        settingsComponent={<Sevenths stepperEnabled={true} />}
+        settingsComponent={<Sevenths sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}
     />

@@ -32,7 +32,7 @@ function IntervalQuiz() {
         inputType='intervals'
         generateExample={generateInterval}
         predicate={isIntervalCorrect}
-        settingsComponent={<Intervals stepperEnabled={true}/>}
+        settingsComponent={<Intervals sliderEnabled={true}/>}
         showHintEnabled={false}
         undoNoteEnabled={true}
     />

@@ -1,75 +1,53 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Soundfont } from 'smplr';
+import { AudioContext as StandardizedAudioContext } from 'standardized-audio-context';
 
 const SoundGenerator = () => {
-    const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)());
-    const instrumentsRef = useRef({
-        'piano': new Soundfont(audioContextRef.current, { instrument: 'acoustic_grand_piano' }),
-        'guitar': new Soundfont(audioContextRef.current, { instrument: 'acoustic_guitar_nylon' }),
-        'marimba': new Soundfont(audioContextRef.current, { instrument: 'marimba' }),
-        'violin': new Soundfont(audioContextRef.current, { instrument: 'violin' }),
-        'flute': new Soundfont(audioContextRef.current, { instrument: 'flute' }),
-        'trombone': new Soundfont(audioContextRef.current, { instrument: 'trombone' })
-    });
+    const audioContextRef = useRef({});
+    const instrumentsRef = useRef({});
+    const [ noteQueue, setNoteQueue ] = useState([]);
+
+    useEffect(() => {
+        const loadAudioContext = async () => {
+            audioContextRef.current = new StandardizedAudioContext();
+        }
+
+        const loadInstruments = async () => {
+            instrumentsRef.current['piano'] = await new Soundfont(audioContextRef.current, {'instrument': 'acoustic_grand_piano', 'kit': 'FluidR3_GM'}).load;
+            instrumentsRef.current['guitar'] = await new Soundfont(audioContextRef.current, {'instrument': 'acoustic_guitar_nylon', 'kit': 'FluidR3_GM'}).load;
+            instrumentsRef.current['marimba'] = await new Soundfont(audioContextRef.current, {'instrument': 'marimba', 'kit': 'FluidR3_GM'}).load;
+            instrumentsRef.current['violin'] = await new Soundfont(audioContextRef.current, {'instrument': 'violin', 'kit': 'FluidR3_GM'}).load;
+            instrumentsRef.current['flute'] = await new Soundfont(audioContextRef.current, {'instrument': 'flute', 'kit': 'FluidR3_GM'}).load;
+            instrumentsRef.current['trombone'] = await new Soundfont(audioContextRef.current, {'instrument': 'trombone', 'kit': 'FluidR3_GM'}).load;
+        };
+
+        loadAudioContext();
+        loadInstruments();
+    }, []);
 
     const stopPlaying = () => {
-        for (let instrument in instrumentsRef.current) {
+        for (const instrument in instrumentsRef.current) {
             instrumentsRef.current[instrument].stop();
         }
     };
 
-    const midiToFrequency = (midiNote) => {
-        return 440 * Math.pow(2, (midiNote - 69) / 12);
-    };
-
-    const playInstrument = async (midiNote, duration, instrument) => {
-        instrumentsRef.current[instrument].stop(midiNote);
-        instrumentsRef.current[instrument].start({ note: midiNote, velocity: 127 });
-        setTimeout(() => instrumentsRef.current[instrument].stop(midiNote), duration * 1000);
-    };
-
-    const playSimultaneously = async (notes, duration) => {
-        for (let note of notes) {
-            playInstrument(note, duration);
-        }
-    };
-
-    const playSequence = async (sequence, spacing, duration, instrument) => {
-        const playNote = async (note) => {
-            playInstrument(note, duration, instrument);
-            return new Promise(resolve => setTimeout(resolve, spacing * 1000));
-        };
-
-        for (let note of sequence) {
-            await playNote(note);
-        }
-    };
-
-    const playNotes = async (notes, spacing, duration, instrument='piano') => {
+    // if input is a single note, play it
+    // if input is an array of notes, play them simultaneously
+    // if input is an array of arrays of notes, play them sequentially with a delay
+    const playNotes = (notes, duration, instrument='piano') => {
+        if (Array.isArray(notes)) notes = notes.flat();
         if (typeof notes === 'number') {
-            return playInstrument(notes, duration, instrument);
+            instrumentsRef.current[instrument].start({ note: notes, time: audioContextRef.current.currentTime, duration: duration });
         } else if (Array.isArray(notes)) {
-            if (typeof notes[0] === 'number') {
-                return playSequence(notes, spacing, duration, instrument);
-            } else if (Array.isArray(notes[0])) {
-                const playSequence_inner = async (sequence) => {
-                    playSequence(sequence, 0, duration, instrument);
-                    return new Promise(resolve => setTimeout(resolve, spacing * 1000));
-                }
-                for (let sequence of notes) {
-                    await playSequence_inner(sequence);
-                }
+            for (let note of notes) {
+                instrumentsRef.current[instrument].start({ note: note, time: audioContextRef.current.currentTime, duration: duration });
             }
         }
     };
 
     return {
-        stopPlaying,
-        midiToFrequency,
-        playInstrument,
-        playSimultaneously,
-        playSequence,
-        playNotes
+        playNotes,
+        stopPlaying
     };
 };
 
