@@ -29,6 +29,7 @@ function MainMenu() {
                 <Table>
                     <Spacer length={3} alignItems="flex-start">
                         <Title>Solfeggio-2</Title>
+                        <Text>alpha</Text>
                     </Spacer>
                     {aspectRatio >= 1.25 && <Column width={1} alignItems='flex-start' gap={false}>
                         <Text center={false} >{dictionary.language}</Text>
