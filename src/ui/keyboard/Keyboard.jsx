@@ -11,7 +11,7 @@ function Keyboard() {
     const keys = generateKeys(lowNote, highNote);
 
     function handleKeyClick(midiNote) {
-        playNotes(midiNote);
+        playNotes([midiNote]);
         triggerLastAnswer(midiNote);
     }
     
