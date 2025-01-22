@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
 import { UIContext } from '../../../managers/UILayer';
 
-import Button from '../../../components/button/Button';
 import Checkbox from '../../../components/checkbox/Checkbox';
 
 import Table from '../../../components/table/Table';
@@ -12,6 +11,7 @@ import Text from '../../../components/text/Text';
 import Spacer from '../../../components/spacer/Spacer';
 
 import Overlay from '../Overlay';
+import OKCancel from '../okcancel/OKCancel';
 
 function Thirteenths() {
     const { hideOverlay } = useContext(UIContext); 
@@ -56,8 +56,7 @@ function Thirteenths() {
                 </Column>
                 <Column>
                     <Spacer length={0.5}/>
-                    <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
                     <Spacer length={4}/>
                 </Column>
             </Table>

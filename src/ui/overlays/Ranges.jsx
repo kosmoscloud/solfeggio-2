@@ -15,6 +15,7 @@ import Spacer from '../../components/spacer/Spacer';
 import Text from '../../components/text/Text';
 
 import Overlay from './Overlay';
+import OKCancel from './okcancel/OKCancel';
 
 const RangesContext = createContext();
 
@@ -95,8 +96,7 @@ function Ranges() {
                             <Button label={dictionary.playscale} onClick={playTempScale} isEnabled={!isPlayingBack}/>
                         </Column>
                         <Column width={0.5}>
-                            <Button label={dictionary.ok} onClick={acceptChanges}/>
-                            <Button label={dictionary.cancel} onClick={() => showElement(lastOpenedElement)}/>
+                            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                             <Spacer length={3}/>
                         </Column>
                     </Table>

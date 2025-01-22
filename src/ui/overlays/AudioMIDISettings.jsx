@@ -12,6 +12,7 @@ import Spacer from "../../components/spacer/Spacer";
 import Text from "../../components/text/Text";
 
 import Overlay from "./Overlay";
+import OKCancel from "./okcancel/OKCancel";
 
 function AudioMIDISettings() {
 
@@ -43,8 +44,7 @@ function AudioMIDISettings() {
                     <Checkbox label="MIDI" isChecked={tempIsMidiEnabled} onClick={() => setMidi(true)} />
                 </Column>
                 <Column>
-                    <Button label={dictionary.ok} onClick={acceptChanges}/>
-                    <Button label={dictionary.cancel} onClick={() => showElement(lastOpenedElement)}/>
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={0.5}/>
                 </Column>
             </Table>

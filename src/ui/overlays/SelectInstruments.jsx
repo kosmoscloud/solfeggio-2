@@ -12,6 +12,7 @@ import Button from '../../components/button/Button.jsx';
 import Spacer from '../../components/spacer/Spacer.jsx';
 
 import Overlay from './Overlay.jsx';
+import OKCancel from './okcancel/OKCancel.jsx';
 
 function SelectInstruments() {
 
@@ -80,8 +81,7 @@ function SelectInstruments() {
                     <Checkbox label={dictionary.yes} isChecked={tempShuffleInstruments} onClick={toggleShuffle}/>
                 </Column>
                 <Column width={0.5}>
-                    <Button label={dictionary.ok} onClick={acceptChanges}/>
-                    <Button label={dictionary.cancel} onClick={() => showElement(lastOpenedElement)}/>
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={3}/>
                 </Column>
             </Table>

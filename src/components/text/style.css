@@ -4,7 +4,6 @@
     flex-direction: column;
     box-sizing: border-box;
     justify-content: center;
-    align-items: flex-start;
-    width: 100%;
+    align-items: stretch;
     -webkit-text-size-adjust: 80%;
 }

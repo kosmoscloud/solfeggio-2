@@ -12,6 +12,7 @@ import Select from "../../components/select/Select"
 import Table from '../../components/table/Table';
 
 import Overlay from './Overlay';
+import OKCancel from './okcancel/OKCancel';
 
 function MelodyLength() {
     const { hideOverlay } = useContext(UIContext); 
@@ -42,8 +43,7 @@ function MelodyLength() {
                     <Slider initialValue={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
                 </Column>
                 <Column width={0.5}>
-                    <Button label={dictionary.ok} onClick={acceptChanges}/>
-                    <Button label={dictionary.cancel} onClick={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
                     <Spacer length={1}/>
                 </Column>
             </Table>

@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
 import { UIContext } from '../../../managers/UILayer';
 
-import Button from '../../../components/button/Button';
+import OKCancel from '../../../ui/overlays/okcancel/OKCancel';
 import Checkbox from '../../../components/checkbox/Checkbox';
 
 import Table from '../../../components/table/Table';
@@ -68,12 +68,11 @@ function Triads({sliderEnabled=false}) {
                     <Spacer length={1} />
                 </Column>
                 <Column width={0.5}>
-                    <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay} />
                     {sliderEnabled && <Spacer length={1} />}
                     {sliderEnabled && <Text>Przykłady:</Text>}
                     {sliderEnabled && <Slider min={1} max={5} initialValue={triadsN} onChange={setTriadsN} />}
-                    {!sliderEnabled && <Spacer length={4} />}
+                    {!sliderEnabled && <Spacer length={2} />}
                 </Column>
             </Table>
         </Overlay>

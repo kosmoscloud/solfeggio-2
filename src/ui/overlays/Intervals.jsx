@@ -13,6 +13,7 @@ import Spacer from '../../components/spacer/Spacer';
 import Slider from '../../components/slider/Slider';
 
 import Overlay from './Overlay';
+import OKCancel from './okcancel/OKCancel';
 
 
 function Intervals({ sliderEnabled = false }) {
@@ -47,7 +48,7 @@ function Intervals({ sliderEnabled = false }) {
         <Overlay>
             <Table direction='column'>
                 <Text center={false}>{dictionary.intervals}</Text>
-                <Row>
+                <Row alignItems='flex-start'>
                     <Grid dimx={2} padding={false}>
                         <Checkbox label={dictionary.minorsecond} isChecked={tempEnabledIntervals.includes(1)} onClick={() => toggleInterval(1)}/>
                         <Checkbox label={dictionary.majorsecond} isChecked={tempEnabledIntervals.includes(2)} onClick={() => toggleInterval(2)}/>
@@ -62,16 +63,14 @@ function Intervals({ sliderEnabled = false }) {
                         <Checkbox label={dictionary.majorseventh} isChecked={tempEnabledIntervals.includes(11)} onClick={() => toggleInterval(11)}/>
                         <Checkbox label={dictionary.octave} isChecked={tempEnabledIntervals.includes(12)} onClick={() => toggleInterval(12)}/>
                     </Grid>
-                    <Row padding={false}>
+                    <Column padding={false}>
+                        <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
                         {sliderEnabled && <Spacer length={0.5} />}
                         {sliderEnabled && <Text>Przykłady: </Text>}
                         {sliderEnabled && <Slider min={1} max={5} initialValue={tempIntervalsN} onChange={setTempIntervalsN}/> }
+                        {sliderEnabled && <Spacer length={1} />}
                         {!sliderEnabled && <Spacer length={3} />}
-                        <Column>
-                            <Button label={dictionary.ok} onClick={acceptChanges}/>
-                            <Button label={dictionary.cancel} onClick={() => hideOverlay()}/>
-                        </Column>
-                    </Row>
+                    </Column>
                 </Row>
             </Table>
         </Overlay>

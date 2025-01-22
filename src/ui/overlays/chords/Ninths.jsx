@@ -12,6 +12,7 @@ import Text from '../../../components/text/Text';
 import Spacer from '../../../components/spacer/Spacer';
 
 import Overlay from '../Overlay';
+import OKCancel from '../okcancel/OKCancel';
 
 function Ninths() {
     const { hideOverlay } = useContext(UIContext); 
@@ -65,8 +66,7 @@ function Ninths() {
                 </Column>
                 <Column width={0.5}>
                     <Spacer length={0.5}/>
-                    <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
                     <Spacer length={3.5}/>
                 </Column>
                 <Spacer length={0.1}/>

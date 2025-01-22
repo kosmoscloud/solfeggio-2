@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
 import { UIContext } from '../../../managers/UILayer';
 
-import Button from '../../../components/button/Button';
 import Checkbox from '../../../components/checkbox/Checkbox';
 
 import Table from '../../../components/table/Table';
@@ -13,6 +12,7 @@ import Spacer from '../../../components/spacer/Spacer';
 import Slider from '../../../components/slider/Slider';
 
 import Overlay from '../Overlay';
+import OKCancel from '../okcancel/OKCancel';
 
 function Sevenths({sliderEnabled = false}) {
     const { hideOverlay } = useContext(UIContext); 
@@ -66,8 +66,7 @@ function Sevenths({sliderEnabled = false}) {
                     <Checkbox label="III przewrót" isChecked={tempEnabledSeventhsInversions.includes(3)} onClick={() => toggleInversion(3)}/>
                 </Column>
                 <Column width={0.5}>
-                    <Button label="OK" onClick={acceptChanges}/>
-                    <Button label="Anuluj" onClick={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
                     {sliderEnabled && <Spacer length={1} />}
                     {sliderEnabled && <Text>Przykłady:</Text>}
                     {sliderEnabled && <Slider min={1} max={5} initialValue={seventhsN} onChange={setSeventhsN} />}

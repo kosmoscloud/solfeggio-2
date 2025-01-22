@@ -5,8 +5,7 @@ import './style.css';
 function Column({ children, width=1, alignItems='flex-start', gap=true, padding=true}) {
 
     let style = {
-        flex: width,
-        alignItems: alignItems
+        flex: width
     };
 
     if (gap) {

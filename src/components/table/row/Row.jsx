@@ -5,8 +5,7 @@ import './style.css';
 function Row({ children, width=1, alignItems='center', gap=true, padding=true}) {
 
     let style = {
-        flex: width,
-        alignItems: alignItems
+        flex: width
     };
 
     if (gap) {
