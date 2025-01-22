@@ -13,12 +13,14 @@ function UILayer() {
     const [ activeAlert, setActiveAlert ] = React.useState(null);
     const [ lastOpenedElement, setLastOpenedElement ] = React.useState(null);
     const [ aspectRatio, setAspectRatio ] = React.useState(window.innerWidth / window.innerHeight);
-    const [ language, setLanguage ] = React.useState('en');
+    const [ language, setLanguage ] = React.useState('pl');
     const [ dictionary, setDictionary ] = React.useState({});
+    const [ symbols, setSymbols ] = React.useState({})
 
     
     useEffect(() => {
         setLanguageAndFetchDictionary(language);
+        fetchAndSetSymbols();
 
         const handleResize = () => {
             setAspectRatio(window.innerWidth / window.innerHeight);
@@ -31,6 +33,11 @@ function UILayer() {
         const json = require(`../ui/languages/${language}.json`);
         setDictionary(json);
         setLanguage(language);
+    }
+
+    const fetchAndSetSymbols = () => {
+        const json = require(`../ui/languages/symbols.json`);
+        setSymbols(json);
     }
 
     const showElement = (element) => {
@@ -84,7 +91,7 @@ function UILayer() {
                 showOverlay, hideOverlay,
                 showAlert, hideAlert,
                 aspectRatio }}>
-            <LanguageContext.Provider value={{ dictionary, language, setLanguageAndFetchDictionary }}>
+            <LanguageContext.Provider value={{ dictionary, symbols, language, setLanguageAndFetchDictionary }}>
                 {renderActiveElement()}
                 {renderActiveOverlay()}
                 {renderActiveAlert()}

@@ -2,10 +2,11 @@ import React from 'react';
 
 import './style.css'
 
-function Grid({dimx=1, padding=true, children}) {
+function Grid({dimx=1, dimy=1, padding=true, children}) {
 
     let style = {
         gridTemplateColumns: `repeat(${dimx}, 1fr)`,
+        gridTemplateRows: `repeat(${dimy}, 1fr)`,
         padding: padding ? '2vmin' : 0
     }
 

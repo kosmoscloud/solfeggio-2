@@ -22,6 +22,7 @@ function MainMenu() {
     const { dictionary, language, setLanguageAndFetchDictionary } = useContext(LanguageContext);
 
     const { dimx } = aspectRatio >= 1.25 ? { dimx: 3 } : { dimx: 1 };
+    const { dimy } = aspectRatio >= 1.25 ? { dimy: 1 } : { dimy: 3 };
 
     return (
         <Overlay minWidth="50%">
@@ -40,7 +41,7 @@ function MainMenu() {
                         </Select>
                     </Column>}
                 </Table>
-                <Grid dimx={dimx}>
+                <Grid dimx={dimx} dimy={dimy}>
                     {aspectRatio < 1.25 && <Column width={1} alignItems='flex-start' gap={false}>
                         <Text center={false} >{dictionary.language}</Text>
                         <Select onChange={(e) => setLanguageAndFetchDictionary(e.target.value)} value={language}>

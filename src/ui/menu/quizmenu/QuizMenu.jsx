@@ -12,24 +12,31 @@ import SeventhsInversionsQuiz from '../../../exercises/choose/SeventhsInversions
 
 import MenuOption from '../../../components/menuoption/MenuOption.jsx';
 import Overlay from '../../overlays/Overlay.jsx';
-import Table from '../../../components/table/Table.jsx';
-import Column from '../../../components/table/column/Column.jsx';
 import Grid from '../../../components/grid/Grid.jsx';
+import GridPositioner from '../../../components/grid/gridpositioner/GridPositioner.jsx';
 
 function QuizMenu() {
 
     const { showElement, aspectRatio } = useContext(UIContext);
     const { dictionary } = useContext(LanguageContext);
 
-    const dimx = aspectRatio >= 1.25 ? 3 : aspectRatio <= 0.8 ? 1 : 2;
+    const dimensions = useMemo(() => {
+        const dimx = aspectRatio >= 1.25 ? 3 : aspectRatio <= 0.8 ? 1 : 2;
+        const dimy = aspectRatio >= 1.25 ? 2 : aspectRatio <= 0.8 ? 6 : 3;
+        return { dimx, dimy };
+    }, [aspectRatio]);
+
+    const { dimx, dimy } = dimensions;
 
     return (
         <Overlay minWidth="60%">
-            <Grid dimx={dimx}>
+            <Grid dimx={dimx} dimy={dimy}>
                     <MenuOption label={dictionary.intervals} onClick={() => showElement(<IntervalsQuiz />)}/>
                     <MenuOption label={dictionary.triads} onClick={() => showElement(<TriadsQuiz />)}/>
                     <MenuOption label={dictionary.seventhchords} onClick={() => showElement(<SeventhsQuiz />)}/>
-                    <MenuOption label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
+                    <GridPositioner x={1} y={dimy}>
+                        <MenuOption label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
+                    </GridPositioner>
                     <MenuOption label={dictionary.triadsinversions} onClick={() => showElement(<TriadsInversionsQuiz />)}/>
                     <MenuOption label={dictionary.seventhsinversions} onClick={() => showElement(<SeventhsInversionsQuiz />)}/>
             </Grid>
