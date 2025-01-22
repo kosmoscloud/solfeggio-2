@@ -18,7 +18,7 @@ function IntervalsInput() {
 
     return <div className="quiz-input-intervals">
                 <div className="quiz-input-header">
-                    <Header text={dictionary.answers} />
+                    <Header text={dictionary.intervals} />
                 </div>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">

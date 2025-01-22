@@ -17,7 +17,7 @@ function TriadsInversionsInput() {
 
     return <div className="quiz-input-inversions">
                 <div className="quiz-input-header">
-                    <Header text={dictionary.answers} />
+                    <Header text={dictionary.triadsinversions} />
                 </div>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">

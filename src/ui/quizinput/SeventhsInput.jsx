@@ -18,7 +18,7 @@ function SeventhsInput() {
 
     return  <div className="quiz-input-sevenths">
                 <div className="quiz-input-header">
-                    <Header text={dictionary.answers} />
+                    <Header text={dictionary.seventhchords} />
                 </div>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">

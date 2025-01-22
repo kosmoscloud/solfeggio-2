@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 
 import { ResultsContext, ExerciseContext } from '../../managers/ExerciseLayer.jsx';
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer.jsx';
 import { UIContext } from '../../managers/UILayer.jsx';
 import { IOContext } from '../../managers/IOLayer.jsx';
 
 import Keyboard from '../../ui/keyboard/Keyboard';
+import Banner from '../../components/banner/Banner';
 import ControlPanel from '../../ui/controlpanel/ControlPanel';
 import IntervalsInput from '../../ui/quizinput/IntervalsInput.jsx';
 import TriadsInput from '../../ui/quizinput/TriadsInput.jsx';
@@ -121,7 +121,8 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     }
 
     return (
-        <ExerciseContext.Provider value={{ exerciseName, answers, hasStarted, startExercise, nextExample, repeatExample, undoNote, showHint, openSettings, returnToMenu }}>
+        <ExerciseContext.Provider value={{ answers, hasStarted, startExercise, nextExample, repeatExample, undoNote, showHint, openSettings, returnToMenu }}>
+            {inputType === 'keyboard' && <Banner text={exerciseName} />}
             {inputType === 'keyboard' && <Keyboard />}
             {inputType === 'intervals' && <IntervalsInput />}
             {inputType === 'triads' && <TriadsInput />}

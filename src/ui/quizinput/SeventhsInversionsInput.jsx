@@ -18,7 +18,7 @@ function QuizInput() {
 
     return  <div className="quiz-input-inversions">
                 <div className="quiz-input-header">
-                    <Header text={dictionary.answers} />
+                    <Header text={dictionary.seventhsinversions} />
                 </div>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">

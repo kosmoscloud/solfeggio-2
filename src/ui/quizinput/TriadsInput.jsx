@@ -28,7 +28,7 @@ function TriadsInput() {
 
     return  <div className="quiz-input-triads">
                 <div className="quiz-input-header">
-                    <Header text={dictionary.answers} />
+                    <Header text={dictionary.triads} />
                 </div>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">

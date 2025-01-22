@@ -4,7 +4,6 @@ import { ResultsContext } from "../../../managers/ExerciseLayer.jsx";
 import { ExerciseContext } from "../../../managers/ExerciseLayer.jsx";
 import { LanguageContext } from "../../../managers/UILayer.jsx";
 
-import Header from "../../../components/header/Header.jsx";
 import Button from "../../../components/button/Button.jsx";
 
 import "./style.css";
@@ -15,9 +14,6 @@ function LeftPanel() {
     const { dictionary } = React.useContext(LanguageContext);
 
     return <div className="left-panel">
-            <div className="header-container">
-                <Header text={exerciseName}/>
-            </div>
             <div className="buttons-panel">
                 <div className="buttons-column">
                     {/* this is ALWAYS enabled, as the user should always be able to reset the exercise */}
