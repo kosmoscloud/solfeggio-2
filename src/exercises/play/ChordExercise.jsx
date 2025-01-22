@@ -35,10 +35,10 @@ function ChordExercise({type}) {
 
     const name = {
         'triads': dictionary.triads,
-        'sevenths': dictionary.seventh,
-        'ninths': dictionary.ninth,
-        'elevenths': dictionary.eleventh,
-        'thirteenths': dictionary.thirteenth,
+        'sevenths': dictionary.seventhchord,
+        'ninths': dictionary.ninthchord,
+        'elevenths': dictionary.eleventhchord,
+        'thirteenths': dictionary.thirteenthchord,
         'random': dictionary.randomchord
     }[type] || '???';
 

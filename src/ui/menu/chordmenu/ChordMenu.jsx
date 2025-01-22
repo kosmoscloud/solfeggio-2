@@ -20,7 +20,7 @@ function ChordMenu() {
     return (
         <Overlay minWidth="60%" minHeight="60%">
             <Grid dimx={dimx}>
-                <MenuOption label={dictionary.seventhchord} onClick={() => showElement(<ChordExercise type='seventh' />)}/>
+                <MenuOption label={dictionary.seventhchord} onClick={() => showElement(<ChordExercise type='sevenths' />)}/>
                 <MenuOption label={dictionary.ninthchord} onClick={() => showElement(<ChordExercise type='ninths' />)}/>
                 <MenuOption label={dictionary.eleventhchord} onClick={() => showElement(<ChordExercise type='elevenths' />)}/>
                 <MenuOption label={dictionary.back} onClick={() => showElement(<ExerciseMenu />)}/>
