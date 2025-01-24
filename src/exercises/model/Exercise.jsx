@@ -32,7 +32,7 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
         if (hasStarted) {
             const correctAnswer = generatedExample[answers.length];
             if (correctAnswer) {
-                updateNotesResults(predicate([lastAnswer], [correctAnswer]));
+                // updateNotesResults(predicate([lastAnswer], [correctAnswer]));
                 setAnswers([...answers, lastAnswer]);
                 setPlayedNotes([...playedNotes, lastAnswer]);
             }

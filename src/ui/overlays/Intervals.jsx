@@ -74,6 +74,7 @@ function Intervals({ sliderEnabled = false }) {
                             <Checkbox label={dictionary.simultaneousmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SIMULTANEOUS)}}/>
                             <Checkbox label={dictionary.ascendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_ASCENDING); setTempIntervalsN(1)}}/>
                             <Checkbox label={dictionary.descendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_DESCENDING); setTempIntervalsN(1)}}/>
+                            <Checkbox label={dictionary.randommode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.RANDOM} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.RANDOM); setTempIntervalsN(1)}}/>
                         </Grid>
                         <Column padding={true}>
                             <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>

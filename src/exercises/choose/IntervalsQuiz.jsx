@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { LanguageContext } from '../../managers/UILayer';
@@ -7,25 +7,46 @@ import Exercise from '../model/Exercise';
 import Intervals from '../../ui/overlays/Intervals';
 import QuizMenu from '../../ui/menu/quizmenu/QuizMenu';
 
+import IntervalPlayingMode from '../../managers/enums/IntervalPlayingMode';
+
 function IntervalQuiz() {
 
-    const { effectiveScale, enabledIntervals, intervalsN } = useContext(GlobalSettingsContext);
+    const { effectiveScale, enabledIntervals, intervalsN, intervalPlayingMode: settingsIntervalPlayingMode } = useContext(GlobalSettingsContext);
+    const [ currentIntervalPlayingMode, setCurrentIntervalPlayingMode ] = useState(settingsIntervalPlayingMode);
     const { dictionary } = useContext(LanguageContext);
 
     function generateInterval() {
+        if (currentIntervalPlayingMode === IntervalPlayingMode.RANDOM) {
+            const modes = [
+                IntervalPlayingMode.SEQUENTIAL_ASCENDING,
+                IntervalPlayingMode.SEQUENTIAL_DESCENDING,
+                IntervalPlayingMode.SIMULTANEOUS
+            ];
+            setCurrentIntervalPlayingMode(modes[Math.floor(Math.random() * modes.length)]);
+        }
         const intervalsToPlay = Array.from({ length: intervalsN }, () => {
             const interval = enabledIntervals[Math.floor(Math.random() * enabledIntervals.length)];
             const note = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
             return [note, note + interval];
         });
-        return intervalsToPlay;
+        if (currentIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS) 
+            return intervalsToPlay;
+        if (currentIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING)
+            return intervalsToPlay.flat();
+        if (currentIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING)
+            return intervalsToPlay.flat().sort((a, b) => b - a);
     }
 
     function isIntervalCorrect(answers, generatedExamples) {
         // answers will be just an array of numbers and generatedExample will be an array of pairs of numbers.
         // we need to compare answers with the difference between the pairs
-        const correctAnswers = generatedExamples.map(pair => pair[1] - pair[0]);
-        return answers.toString() === correctAnswers.toString();
+        if (currentIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS) {
+            return answers.toString() === generatedExamples.map(pair => pair[1] - pair[0]).toString();
+        } else if (currentIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING) {
+            return answers[1].toString() === (generatedExamples[1] - generatedExamples[0]).toString();
+        } else if (currentIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING) {
+            return answers[1].toString() === (generatedExamples[0] - generatedExamples[1]).toString();
+        }
     }
 
     return <Exercise 
@@ -36,6 +57,7 @@ function IntervalQuiz() {
         settingsComponent={<Intervals sliderEnabled={true}/>}
         showHintEnabled={false}
         undoNoteEnabled={true}
+        includeFirstNoteInAnswers={currentIntervalPlayingMode !== IntervalPlayingMode.SIMULTANEOUS}
         menu={<QuizMenu/>}
     />
 }

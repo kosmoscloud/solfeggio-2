@@ -11,10 +11,20 @@ import ExerciseMenu from '../../ui/menu/exercisemenu/ExerciseMenu';
 
 function IntervalExercise() {
 
-    const { effectiveScale, enabledIntervals, intervalPlayingMode } = useContext(GlobalSettingsContext);
+    const { effectiveScale, enabledIntervals, intervalPlayingMode:settingsIntervalPlayingMode } = useContext(GlobalSettingsContext);
     const { dictionary } = useContext(LanguageContext);
 
     function generateInterval() {
+        let intervalPlayingMode = settingsIntervalPlayingMode;
+        if (intervalPlayingMode === IntervalPlayingMode.RANDOM) {
+            const modes = [
+                IntervalPlayingMode.SEQUENTIAL_ASCENDING,
+                IntervalPlayingMode.SEQUENTIAL_DESCENDING,
+                IntervalPlayingMode.SIMULTANEOUS
+            ];
+            intervalPlayingMode = modes[Math.floor(Math.random() * modes.length)];
+        }
+
         let randomInterval = Array.from({ length: 2 }, () => [effectiveScale[Math.floor(Math.random() * effectiveScale.length)]]);
         if (intervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING || intervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING) {
             randomInterval = randomInterval.flat();
