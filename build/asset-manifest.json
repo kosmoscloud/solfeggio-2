@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/solfeggio-2/static/css/main.64c8322b.css",
-    "main.js": "/solfeggio-2/static/js/main.4d827d65.js",
+    "main.css": "/solfeggio-2/static/css/main.d072f711.css",
+    "main.js": "/solfeggio-2/static/js/main.1524f4b7.js",
     "static/js/453.d4b11e89.chunk.js": "/solfeggio-2/static/js/453.d4b11e89.chunk.js",
     "index.html": "/solfeggio-2/index.html",
-    "main.64c8322b.css.map": "/solfeggio-2/static/css/main.64c8322b.css.map",
-    "main.4d827d65.js.map": "/solfeggio-2/static/js/main.4d827d65.js.map",
+    "main.d072f711.css.map": "/solfeggio-2/static/css/main.d072f711.css.map",
+    "main.1524f4b7.js.map": "/solfeggio-2/static/js/main.1524f4b7.js.map",
     "453.d4b11e89.chunk.js.map": "/solfeggio-2/static/js/453.d4b11e89.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.64c8322b.css",
-    "static/js/main.4d827d65.js"
+    "static/css/main.d072f711.css",
+    "static/js/main.1524f4b7.js"
   ]
 }
