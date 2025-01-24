@@ -20,7 +20,7 @@ function Results() {
                 <Spacer length={1} />
                 <Text size='small'>{dictionary.correct}:{dictionary.total}</Text>
             </div>
-            <Spacer length={0.1} />
+            <Spacer length={0.2} />
             <div className="results-table">
                 <Column gap={false}>
                     <Text size='small' center={false}>{dictionary.sounds}</Text>

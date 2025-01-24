@@ -29,7 +29,7 @@ function RightPanel() {
 
     return (
         <Column padding={false}>
-            <Spacer length={1}> 
+            <Spacer length={1}>
                 <Results />
             </Spacer>
             <Column width={1} padding={false} >

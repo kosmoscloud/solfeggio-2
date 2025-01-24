@@ -11,13 +11,6 @@ function Bar ({min, max, initialValue, isEnabled, onChange}) {
     const sliderAreaRef = React.useRef();
     const sliderBlockRef = React.useRef();
 
-    const changeStateValue = (addValue) => () => {
-        if (!isEnabled) return;
-        const newValue = Math.min(maxValue, Math.max(minValue, value + addValue));
-        setValue(newValue);
-        updateBlockPosition(newValue);
-    }
-
     const updateBlockPosition = (newValue) => {
         const { offsetWidth: areaWidth } = sliderAreaRef.current;
         const { offsetWidth: blockWidth, style } = sliderBlockRef.current;
@@ -56,11 +49,9 @@ function Bar ({min, max, initialValue, isEnabled, onChange}) {
     }
 
     return (
-        <div className={isEnabled ? "slider-bar" : "disabled-slider-bar"}>
-            <div className={isEnabled ? "slider-area" : "disabled-slider-area"} ref={sliderAreaRef}>
-                <div className={isEnabled ? "slider-block" : "disabled-slider-block"} onMouseDown={isEnabled ? handleMouseDown : null} ref={sliderBlockRef}>
-                    {Math.round(value)}
-                </div>
+        <div className={isEnabled ? "slider-area" : "disabled-slider-area"} ref={sliderAreaRef}>
+            <div className={isEnabled ? "slider-block" : "disabled-slider-block"} onMouseDown={isEnabled ? handleMouseDown : null} ref={sliderBlockRef}>
+                {Math.round(value)}
             </div>
         </div>
     );

@@ -1,18 +1,11 @@
-.slider-bar, .disabled-slider-bar {
-    flex: 3;
-    display: flex;
-    justify-content: space-between;
-
-    z-index: 1;
-}
-
 .slider-area, .disabled-slider-area {
     background-color: #ccc;
-    flex: 8;
     display: flex;
+    flex: 1;
     justify-content: left;
     align-items: center;
     border: 2px solid black;
+    box-sizing: border-box;
 }
 
 .slider-block, .disabled-slider-block {
@@ -21,10 +14,11 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    aspect-ratio: 2;
+    aspect-ratio: 3;
     border-left: 2px solid black;
     border-right: 2px solid black;
     padding: 0.5vmin;
+    box-sizing: border-box;
     z-index: 1;
 }
 
