@@ -81,7 +81,7 @@
     "descending": "descending",
     "free": "free",
 
-    "length": "length",
+    "melodylength": "melody length",
 
     "minorsecond": "m2",
     "majorsecond": "M2",
@@ -100,6 +100,7 @@
     "randommode": "random",
     "simultaneousmode": "simultaneous",
     "ascendingmode": "ascending",
-    "descendingmode": "descending"
+    "descendingmode": "descending",
+    "playbacksettings": "playback settings"
 
 }

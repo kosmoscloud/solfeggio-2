@@ -81,7 +81,7 @@
     "descending": "opadająca",
     "free": "swobodna",
 
-    "length": "długość",
+    "melodylength": "długość melodii",
 
     "minorsecond": "2m",
     "majorsecond": "2w",
@@ -100,5 +100,6 @@
     "randommode": "losowo",
     "simultaneousmode": "na raz",
     "ascendingmode": "do góry",
-    "descendingmode": "w dół"
+    "descendingmode": "w dół",
+    "playbacksettings": "ustawienia odtwarzania"
 }

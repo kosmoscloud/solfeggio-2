@@ -3,7 +3,6 @@ import React, { useContext, useState } from 'react';
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { LanguageContext, UIContext } from '../../managers/UILayer';
 
-import Button from '../../components/button/Button';
 import Column from '../../components/table/column/Column';
 import Slider from '../../components/slider/Slider';
 import Text from '../../components/text/Text';
@@ -13,6 +12,7 @@ import Table from '../../components/table/Table';
 
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
+import NoteAdjustmentSliders from './noteadjustmentsliders/NoteAdjustmentSliders';
 
 import MelodyType from '../../managers/enums/MelodyType';
 
@@ -41,12 +41,12 @@ function MelodyLength() {
                         <option value={MelodyType.DESCENDING}>{dictionary.descending}</option>
                         <option value={MelodyType.FREE}>{dictionary.free}</option>
                     </Select>
-                    <Text>{dictionary.length}</Text>
-                    <Slider initialValue={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
+                    <Slider text={dictionary.melodylength} value={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
+                <NoteAdjustmentSliders/>
                 </Column>
                 <Column width={0.5}>
                     <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
-                    <Spacer length={1}/>
+                    <Spacer length={2}/>
                 </Column>
             </Table>
         </Overlay> 

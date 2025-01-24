@@ -3,4 +3,5 @@
     padding: 1vmax;
     box-sizing: border-box;
     align-items: stretch;
+    flex: 1;
 }

@@ -15,6 +15,7 @@ import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
 
 import IntervalPlayingMode from '../../managers/enums/IntervalPlayingMode';
+import NoteAdjustmentSliders from './noteadjustmentsliders/NoteAdjustmentSliders';
 
 function Intervals({ sliderEnabled = false }) {
     const { showElement, lastOpenedElement, showAlert } = useContext(UIContext); 
@@ -86,6 +87,9 @@ function Intervals({ sliderEnabled = false }) {
                         </Column>
                     </Grid>
                 </Grid>
+                <Row>
+                    <NoteAdjustmentSliders/>
+                </Row>
             </Table>
         </Overlay>
     );

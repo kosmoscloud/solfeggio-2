@@ -14,7 +14,7 @@ function Button({label, isEnabled = true, onClick, icon, shadow = true, children
         className += " shadow";
     }
 
-    if (onClick) {
+    if (onClick && isEnabled) {
         className += " clickable";
     }
 

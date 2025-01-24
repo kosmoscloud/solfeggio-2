@@ -81,7 +81,7 @@
     "descending": "descendente",
     "free": "libre",
 
-    "length": "no. de notas",
+    "melody length": "longitud de melodía",
 
     "minorsecond": "2ªm",
     "majorsecond": "2ªM",
@@ -100,5 +100,6 @@
     "randommode": "aleatoria",
     "simultaneousmode": "simultánea",
     "ascendingmode": "ascendente",
-    "descendingmode": "descendente"
+    "descendingmode": "descendente",
+    "playbacksettings": "ajustes de reproducción"
 }

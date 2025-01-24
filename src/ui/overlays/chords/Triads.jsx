@@ -8,11 +8,13 @@ import Checkbox from '../../../components/checkbox/Checkbox';
 
 import Table from '../../../components/table/Table';
 import Column from '../../../components/table/column/Column';
+import Row from '../../../components/table/row/Row';
 import Text from '../../../components/text/Text';
 import Spacer from '../../../components/spacer/Spacer';
 import Slider from '../../../components/slider/Slider';
 
 import Overlay from '../Overlay';
+import NoteAdjustmentSliders from '../noteadjustmentsliders/NoteAdjustmentSliders';
 
 function Triads({sliderEnabled=false}) {
     const { showElement, lastOpenedElement, showAlert } = useContext(UIContext); 
@@ -52,28 +54,35 @@ function Triads({sliderEnabled=false}) {
 
     return (
         <Overlay>
-            <Table>
-                <Column>
+            <Table direction='column'>
+                <Row>
                     <Text>Trójdźwięki:</Text>
-                    <Checkbox label="Durowy" isChecked={tempEnabledTriads.includes('maj')} onClick={() => toggleTriad('maj')}/>
-                    <Checkbox label="Molowy" isChecked={tempEnabledTriads.includes('min')} onClick={() => toggleTriad('min')}/>
-                    <Checkbox label="Zmniejszony" isChecked={tempEnabledTriads.includes('dim')} onClick={() => toggleTriad('dim')}/>
-                    <Checkbox label="Zwiększony" isChecked={tempEnabledTriads.includes('aug')} onClick={() => toggleTriad('aug')}/>
-                </Column>
-                <Column>
                     <Text>Przewroty:</Text>
-                    <Checkbox label="Postać zas." isChecked={tempEnabledTriadsInversions.includes(0)} onClick={() => toggleTriadsInversion(0)}/>
-                    <Checkbox label="I przewrót" isChecked={tempEnabledTriadsInversions.includes(1)} onClick={() => toggleTriadsInversion(1)}/>
-                    <Checkbox label="II przewrót" isChecked={tempEnabledTriadsInversions.includes(2)} onClick={() => toggleTriadsInversion(2)}/>
-                    <Spacer length={1} />
-                </Column>
-                <Column width={0.5}>
-                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} />
-                    {sliderEnabled && <Spacer length={1} />}
-                    {sliderEnabled && <Text>Przykłady:</Text>}
-                    {sliderEnabled && <Slider min={1} max={5} initialValue={triadsN} onChange={setTriadsN} />}
-                    {!sliderEnabled && <Spacer length={2} />}
-                </Column>
+                </Row>
+                <Row>
+                    <Column>
+                        <Checkbox label="Durowy" isChecked={tempEnabledTriads.includes('maj')} onClick={() => toggleTriad('maj')}/>
+                        <Checkbox label="Molowy" isChecked={tempEnabledTriads.includes('min')} onClick={() => toggleTriad('min')}/>
+                        <Checkbox label="Zmniejszony" isChecked={tempEnabledTriads.includes('dim')} onClick={() => toggleTriad('dim')}/>
+                        <Checkbox label="Zwiększony" isChecked={tempEnabledTriads.includes('aug')} onClick={() => toggleTriad('aug')}/>
+                    </Column>
+                    <Column>
+                        <Checkbox label="Postać zas." isChecked={tempEnabledTriadsInversions.includes(0)} onClick={() => toggleTriadsInversion(0)}/>
+                        <Checkbox label="I przewrót" isChecked={tempEnabledTriadsInversions.includes(1)} onClick={() => toggleTriadsInversion(1)}/>
+                        <Checkbox label="II przewrót" isChecked={tempEnabledTriadsInversions.includes(2)} onClick={() => toggleTriadsInversion(2)}/>
+                        <Spacer length={1} />
+                    </Column>
+                    <Column width={0.5}>
+                        <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} />
+                        {sliderEnabled && <Spacer length={1} />}
+                        {sliderEnabled && <Text>Przykłady:</Text>}
+                        {sliderEnabled && <Slider min={1} max={5} initialValue={triadsN} onChange={setTriadsN} />}
+                        {!sliderEnabled && <Spacer length={2} />}
+                    </Column>
+                </Row>
+                <Row>
+                    <NoteAdjustmentSliders/>
+                </Row>
             </Table>
         </Overlay>
     );
