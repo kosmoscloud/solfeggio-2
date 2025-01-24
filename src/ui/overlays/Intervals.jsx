@@ -80,7 +80,7 @@ function Intervals({ sliderEnabled = false }) {
                             <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                             {sliderEnabled && <Spacer length={0.5} />}
                             {sliderEnabled && <Text>Przykłady: </Text>}
-                            {sliderEnabled && <Slider min={1} max={5} value={tempIntervalsN} onChange={setTempIntervalsN}/> }
+                            {sliderEnabled && <Slider min={1} max={5} value={tempIntervalsN} onChange={setTempIntervalsN} isEnabled={tempIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS}/> }
                             {sliderEnabled && <Spacer length={1} />}
                             {!sliderEnabled && <Spacer length={1} />}
                         </Column>

@@ -8,8 +8,14 @@ function Button({label, isEnabled = true, onClick, icon, shadow = true, children
 
     let className = isEnabled ? "button" : "disabled-button";
 
+    let style = {};
+
     if (shadow) {
         className += " shadow";
+    }
+
+    if (onClick) {
+        className += " clickable";
     }
 
     return (

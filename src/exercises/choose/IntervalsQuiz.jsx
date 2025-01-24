@@ -16,24 +16,26 @@ function IntervalQuiz() {
     const { dictionary } = useContext(LanguageContext);
 
     function generateInterval() {
-        if (currentIntervalPlayingMode === IntervalPlayingMode.RANDOM) {
+        let intervalPlayingMode = currentIntervalPlayingMode;
+        if (settingsIntervalPlayingMode === IntervalPlayingMode.RANDOM) {
             const modes = [
                 IntervalPlayingMode.SEQUENTIAL_ASCENDING,
                 IntervalPlayingMode.SEQUENTIAL_DESCENDING,
                 IntervalPlayingMode.SIMULTANEOUS
             ];
-            setCurrentIntervalPlayingMode(modes[Math.floor(Math.random() * modes.length)]);
+            intervalPlayingMode = modes[Math.floor(Math.random() * modes.length)];
+            setCurrentIntervalPlayingMode(intervalPlayingMode);
         }
         const intervalsToPlay = Array.from({ length: intervalsN }, () => {
             const interval = enabledIntervals[Math.floor(Math.random() * enabledIntervals.length)];
             const note = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
             return [note, note + interval];
         });
-        if (currentIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS) 
+        if (intervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS) 
             return intervalsToPlay;
-        if (currentIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING)
+        if (intervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING)
             return intervalsToPlay.flat();
-        if (currentIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING)
+        if (intervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING)
             return intervalsToPlay.flat().sort((a, b) => b - a);
     }
 

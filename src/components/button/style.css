@@ -2,7 +2,6 @@
     flex: 1;
     max-width: 100%;
     max-height: 100%;
-    cursor: pointer;
     border: 2px solid black;
     display: flex;
     justify-content: center;
@@ -17,21 +16,24 @@
 
 .disabled-button {
     background-color: #333;
-    cursor: default;
 }
 
-.button:hover {
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
     background-color: black;
     color: white;
+}
+.clickable:hover .icon {
+    filter: invert(1)
 }
 
 .shadow {
     box-shadow: 1vmin 1vmin 0 #333;
 }
 
-.button:hover .icon {
-    filter: invert(1)
-}
 
 .icon {
     height: 100%;

@@ -103,10 +103,10 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
                 setMarkedNotes([]);
                 setTimeout(() => {
                     nextExample();
-                }, 500);
+                }, 900);
             } else {
-                if (repeatEnabled) setTimeout(() => repeatExample(), 500);
-                else setTimeout(() => nextExample(), 500);
+                if (repeatEnabled) setTimeout(() => repeatExample(), 900);
+                else setTimeout(() => nextExample(), 900);
             }
         }
         prevAnswersLengthRef.current = answers.length;
