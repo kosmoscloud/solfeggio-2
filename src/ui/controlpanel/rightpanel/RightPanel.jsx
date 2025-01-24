@@ -34,9 +34,9 @@ function RightPanel() {
             </Spacer>
             <Column width={1} padding={false} >
                 {/* spacing slider - 0 means 0.1 second, 100 means 1 second */}
-                <Slider text={dictionary.notespacing} isEnabled={hasStarted} onChange={setScaledNoteSpacing} initialValue={invertedNoteSpacing} />
+                <Slider text={dictionary.notespacing} isEnabled={hasStarted} onChange={setScaledNoteSpacing} value={invertedNoteSpacing} />
                 {/* note length slider - 0 means 0.1 second, 100 means 1 seconds */}
-                <Slider text={dictionary.notelength} isEnabled={hasStarted} onChange={setScaledNoteLength} initialValue = {invertedNoteLength}/>
+                <Slider text={dictionary.notelength} isEnabled={hasStarted} onChange={setScaledNoteLength} value={invertedNoteLength}/>
             </Column>
         </Column>
     );

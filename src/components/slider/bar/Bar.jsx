@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 
-import Button from '../../button/Button';
-
 import './style.css';
 
-function Bar ({min, max, initialValue, isEnabled, onChange}) {
+function Bar ({min, max, value, isEnabled, onChange}) {
     const minValue = min || 0;
     const maxValue = max || 100;
-    const [value, setValue] = React.useState(initialValue || (minValue + maxValue) / 2);
     const sliderAreaRef = React.useRef();
     const sliderBlockRef = React.useRef();
 
@@ -20,7 +17,7 @@ function Bar ({min, max, initialValue, isEnabled, onChange}) {
     useEffect(() => {
         updateBlockPosition(value);
     //eslint-disable-next-line
-    }, []);
+    }, [value]);
 
     const handleMouseDown = (e) => {
         const sliderArea = sliderAreaRef.current;
@@ -33,7 +30,7 @@ function Bar ({min, max, initialValue, isEnabled, onChange}) {
                 const newLeft = Math.min(Math.max(0, e.clientX - left - sliderBlockWidth / 2), sliderAreaWidth - sliderBlockWidth);
                 const newValue = Math.round((newLeft / (sliderAreaWidth - sliderBlockWidth)) * (maxValue - minValue) + minValue);
                 sliderBlock.style.left = `${newLeft}px`;
-                setValue(newValue);
+                value = newValue;
                 onChange(newValue);
         };
 

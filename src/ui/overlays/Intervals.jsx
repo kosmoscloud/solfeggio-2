@@ -71,15 +71,15 @@ function Intervals({ sliderEnabled = false }) {
                     </Grid>
                     <Grid dimx={2} dimy={1} padding={false}>
                         <Grid dimx={1} dimy={4} padding={false}>
-                            <Checkbox label={dictionary.simultaneousmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS} onClick={() => setTempIntervalPlayingMode(IntervalPlayingMode.SIMULTANEOUS)}/>
-                            <Checkbox label={dictionary.ascendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING} onClick={() => setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_ASCENDING)}/>
-                            <Checkbox label={dictionary.descendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING} onClick={() => setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_DESCENDING)}/>
+                            <Checkbox label={dictionary.simultaneousmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SIMULTANEOUS)}}/>
+                            <Checkbox label={dictionary.ascendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_ASCENDING); setTempIntervalsN(1)}}/>
+                            <Checkbox label={dictionary.descendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_DESCENDING); setTempIntervalsN(1)}}/>
                         </Grid>
                         <Column padding={true}>
                             <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                             {sliderEnabled && <Spacer length={0.5} />}
                             {sliderEnabled && <Text>Przykłady: </Text>}
-                            {sliderEnabled && <Slider min={1} max={5} initialValue={tempIntervalsN} onChange={setTempIntervalsN}/> }
+                            {sliderEnabled && <Slider min={1} max={5} value={tempIntervalsN} onChange={setTempIntervalsN}/> }
                             {sliderEnabled && <Spacer length={1} />}
                             {!sliderEnabled && <Spacer length={1} />}
                         </Column>

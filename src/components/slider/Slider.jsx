@@ -4,7 +4,7 @@ import Header from "../header/Header";
 import Bar from "./bar/Bar";
 import Spacer from "../spacer/Spacer";
 
-function Slider({ text, isEnabled = true, onChange, min, max, initialValue }) {
+function Slider({ text, isEnabled = true, onChange, min, max, value }) {
 
     return (
         <Spacer>
@@ -13,7 +13,7 @@ function Slider({ text, isEnabled = true, onChange, min, max, initialValue }) {
             </Spacer>}
             <Spacer length={0.1}/>
             <Spacer length={2}>
-                <Bar isEnabled={isEnabled} initialValue={initialValue} onChange={onChange} min={min} max={max}/>
+                <Bar isEnabled={isEnabled} value={value} onChange={onChange} min={min} max={max}/>
             </Spacer>
         </Spacer>
     );
