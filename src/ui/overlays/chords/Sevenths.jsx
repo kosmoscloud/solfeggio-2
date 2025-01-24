@@ -15,7 +15,7 @@ import Overlay from '../Overlay';
 import OKCancel from '../okcancel/OKCancel';
 
 function Sevenths({sliderEnabled = false}) {
-    const { hideOverlay } = useContext(UIContext); 
+    const { showElement, lastOpenedElement } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType, seventhsN, setSeventhsN } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
     const [ tempEnabledSevenths, setTempEnabledSevenths ] = useState(enabledChords['sevenths']);
@@ -23,12 +23,12 @@ function Sevenths({sliderEnabled = false}) {
 
     const acceptChanges = () => {
         if (tempEnabledSevenths === enabledChords['sevenths'] && tempEnabledSeventhsInversions === enabledInversions['sevenths']) {
-            hideOverlay();
+            showElement(lastOpenedElement);
             return;
         }
         setEnabledChordsByType('sevenths', tempEnabledSevenths);
         setEnabledInversionsByType('sevenths', tempEnabledSeventhsInversions);
-        hideOverlay();
+        showElement(lastOpenedElement);
     };
 
     const toggleSeventhChord = (type) => {
@@ -66,7 +66,7 @@ function Sevenths({sliderEnabled = false}) {
                     <Checkbox label="III przewrót" isChecked={tempEnabledSeventhsInversions.includes(3)} onClick={() => toggleInversion(3)}/>
                 </Column>
                 <Column width={0.5}>
-                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     {sliderEnabled && <Spacer length={1} />}
                     {sliderEnabled && <Text>Przykłady:</Text>}
                     {sliderEnabled && <Slider min={1} max={5} initialValue={seventhsN} onChange={setSeventhsN} />}

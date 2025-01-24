@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { UIContext, LanguageContext } from '../../managers/UILayer';
 
-import Button from '../../components/button/Button';
 import Checkbox from '../../components/checkbox/Checkbox';
 import Row from '../../components/table/row/Row';
 import Column from '../../components/table/column/Column';
@@ -15,28 +14,32 @@ import Slider from '../../components/slider/Slider';
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
 
+import IntervalPlayingMode from '../../managers/enums/IntervalPlayingMode';
 
 function Intervals({ sliderEnabled = false }) {
-    const { hideOverlay, showAlert } = useContext(UIContext); 
+    const { showElement, lastOpenedElement, showAlert } = useContext(UIContext); 
     const { enabledIntervals, setEnabledIntervals } = useContext(GlobalSettingsContext);
     const { intervalsN, setIntervalsN } = useContext(GlobalSettingsContext);
+    const { intervalPlayingMode, setIntervalPlayingMode } = useContext(GlobalSettingsContext);
     const [ tempIntervalsN, setTempIntervalsN ] = useState(intervalsN);
     const [ tempEnabledIntervals, setTempEnabledIntervals ] = useState(enabledIntervals);
+    const [ tempIntervalPlayingMode, setTempIntervalPlayingMode ] = useState(intervalPlayingMode);
 
     const { dictionary } = useContext(LanguageContext);
 
     const acceptChanges = () => {
-        if (tempEnabledIntervals === enabledIntervals && tempIntervalsN === intervalsN) {
-            hideOverlay();
+        if (tempEnabledIntervals === enabledIntervals && tempIntervalsN === intervalsN && tempIntervalPlayingMode === intervalPlayingMode) {
+            showElement(lastOpenedElement);
             return;
         }
         if (tempEnabledIntervals.length === 0) {
             showAlert("Wybierz przynajmniej jeden interwał.");
             return;
         }
+        setIntervalPlayingMode(tempIntervalPlayingMode);
         setEnabledIntervals(tempEnabledIntervals);
         setIntervalsN(tempIntervalsN);
-        hideOverlay();
+        showElement(lastOpenedElement);
     };
 
     const toggleInterval = (interval) => {
@@ -47,9 +50,12 @@ function Intervals({ sliderEnabled = false }) {
     return (
         <Overlay>
             <Table direction='column'>
-                <Text center={false}>{dictionary.intervals}</Text>
-                <Row alignItems='flex-start'>
-                    <Grid dimx={2} padding={false}>
+                <Row>
+                    <Text center={false}>{dictionary.intervals}</Text>
+                    <Text center={false}>{dictionary.intervalplayingmode}</Text>
+                </Row>
+                <Grid dimx={2} dimy={1} alignItems='flex-start'>
+                    <Grid dimx={3} dimy={4} padding={false}>
                         <Checkbox label={dictionary.minorsecond} isChecked={tempEnabledIntervals.includes(1)} onClick={() => toggleInterval(1)}/>
                         <Checkbox label={dictionary.majorsecond} isChecked={tempEnabledIntervals.includes(2)} onClick={() => toggleInterval(2)}/>
                         <Checkbox label={dictionary.minorthird} isChecked={tempEnabledIntervals.includes(3)} onClick={() => toggleInterval(3)}/>
@@ -63,15 +69,22 @@ function Intervals({ sliderEnabled = false }) {
                         <Checkbox label={dictionary.majorseventh} isChecked={tempEnabledIntervals.includes(11)} onClick={() => toggleInterval(11)}/>
                         <Checkbox label={dictionary.octave} isChecked={tempEnabledIntervals.includes(12)} onClick={() => toggleInterval(12)}/>
                     </Grid>
-                    <Column padding={false}>
-                        <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
-                        {sliderEnabled && <Spacer length={0.5} />}
-                        {sliderEnabled && <Text>Przykłady: </Text>}
-                        {sliderEnabled && <Slider min={1} max={5} initialValue={tempIntervalsN} onChange={setTempIntervalsN}/> }
-                        {sliderEnabled && <Spacer length={1} />}
-                        {!sliderEnabled && <Spacer length={3} />}
-                    </Column>
-                </Row>
+                    <Grid dimx={2} dimy={1} padding={false}>
+                        <Grid dimx={1} dimy={4} padding={false}>
+                            <Checkbox label={dictionary.simultaneousmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS} onClick={() => setTempIntervalPlayingMode(IntervalPlayingMode.SIMULTANEOUS)}/>
+                            <Checkbox label={dictionary.ascendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING} onClick={() => setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_ASCENDING)}/>
+                            <Checkbox label={dictionary.descendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING} onClick={() => setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_DESCENDING)}/>
+                        </Grid>
+                        <Column padding={true}>
+                            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
+                            {sliderEnabled && <Spacer length={0.5} />}
+                            {sliderEnabled && <Text>Przykłady: </Text>}
+                            {sliderEnabled && <Slider min={1} max={5} initialValue={tempIntervalsN} onChange={setTempIntervalsN}/> }
+                            {sliderEnabled && <Spacer length={1} />}
+                            {!sliderEnabled && <Spacer length={1} />}
+                        </Column>
+                    </Grid>
+                </Grid>
             </Table>
         </Overlay>
     );

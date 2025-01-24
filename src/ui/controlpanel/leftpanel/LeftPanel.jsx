@@ -9,7 +9,7 @@ import Button from "../../../components/button/Button.jsx";
 import "./style.css";
 
 function LeftPanel() {
-    const { exerciseName, hasStarted, startExercise, nextExample, repeatExample, undoNote, showHint, openSettings, returnToMenu } = React.useContext(ExerciseContext);
+    const { hasStarted, startExercise, nextExample, repeatExample, undoNote, showHint, openSettings, returnToMenu } = React.useContext(ExerciseContext);
     const { resetNotesResults, resetExamplesResults } = React.useContext(ResultsContext);
     const { dictionary } = React.useContext(LanguageContext);
 

@@ -3,4 +3,5 @@
     box-sizing: border-box;
     grid-row-gap: 2vw;
     grid-column-gap: 3vw;
+    flex: 1;
 }

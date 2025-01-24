@@ -15,7 +15,7 @@ import Overlay from '../Overlay';
 import OKCancel from '../okcancel/OKCancel';
 
 function Elevenths() {
-    const { hideOverlay } = useContext(UIContext); 
+    const { showElement, lastOpenedElement } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
     const [ tempEnabledElevenths, setTempEnabledElevenths ] = useState(enabledChords['elevenths']);
@@ -23,12 +23,12 @@ function Elevenths() {
 
     const acceptChanges = () => {
         if (tempEnabledElevenths === enabledChords['elevenths'] && tempEnabledEleventhsInversions === enabledInversions['elevenths']) {
-            hideOverlay();
+            showElement(lastOpenedElement);
             return;
         }
         setEnabledChordsByType('elevenths', tempEnabledElevenths);
         setEnabledInversionsByType('elevenths', tempEnabledEleventhsInversions);
-        hideOverlay();
+        showElement(lastOpenedElement);
     };
 
     const toggleEleventhChord = (type) => {
@@ -55,7 +55,7 @@ function Elevenths() {
                 </Column>
                 <Column>
                     <Spacer length={0.5}/>
-                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={3}/>
                 </Column>
             </Table>

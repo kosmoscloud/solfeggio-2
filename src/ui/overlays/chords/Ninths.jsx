@@ -15,7 +15,7 @@ import Overlay from '../Overlay';
 import OKCancel from '../okcancel/OKCancel';
 
 function Ninths() {
-    const { hideOverlay } = useContext(UIContext); 
+    const { showElement, lastOpenedElement } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
     const [ tempEnabledNinths, setTempEnabledNinths ] = useState(enabledChords['ninths']);
@@ -23,12 +23,12 @@ function Ninths() {
 
     const acceptChanges = () => {
         if (tempEnabledNinths === enabledChords['ninths'] && tempEnabledNinthsInversions === enabledInversions['ninths']) {
-            hideOverlay();
+            showElement(lastOpenedElement);
             return;
         }
         setEnabledChordsByType('ninths', tempEnabledNinths);
         setEnabledInversionsByType('ninths', tempEnabledNinthsInversions);
-        hideOverlay();
+        showElement(lastOpenedElement);
     };
 
     const toggleNinthChord = (type) => {
@@ -66,7 +66,7 @@ function Ninths() {
                 </Column>
                 <Column width={0.5}>
                     <Spacer length={0.5}/>
-                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={3.5}/>
                 </Column>
                 <Spacer length={0.1}/>

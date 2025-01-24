@@ -13,12 +13,12 @@ import TriadsInversionsInput from '../../ui/quizinput/TriadsInversionsInput.jsx'
 import SeventhsInput from '../../ui/quizinput/SeventhsInput.jsx';
 import SeventhsInversionsInput from '../../ui/quizinput/SeventhsInversionsInput.jsx';
 
-function Exercise({ name, inputType, generateExample, predicate, settingsComponent, repeatEnabled = true, showHintEnabled = true, undoNoteEnabled = true }) {
+function Exercise({ name, inputType, generateExample, predicate, settingsComponent, repeatEnabled = true, showHintEnabled = true, undoNoteEnabled = true, includeFirstNoteInAnswers = false, menu }) {
     const exerciseName = name;
     const { playNotes, shuffleInstruments, triggerInstrumentChange, trigger, lastAnswer, lastQuizAnswer, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
     const { updateNotesResults, updateExamplesResults, resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
     const [ hasStarted, setHasStarted ] = useState(false);
-    const { showOverlay, showElement, lastOpenedElement } = useContext(UIContext);
+    const { showElement } = useContext(UIContext);
 
     const [ generatedExample, setGeneratedExample ] = useState([]);
     const [ answers, setAnswers ] = useState([]);
@@ -60,6 +60,7 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
         setAnswers([]);
         if (shuffleInstruments) await triggerInstrumentChange();
         const newExample = await generateExample();
+        if (includeFirstNoteInAnswers) setAnswers([newExample[0]]);
         if (inputType === 'keyboard') {
             setPlayedNotes([]);
             setMarkedNotes([]);
@@ -78,7 +79,8 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     };
 
     const repeatExample = repeatEnabled ?  () => {
-        setAnswers([]);
+        if (includeFirstNoteInAnswers) setAnswers([generatedExample[0]]);
+        else setAnswers([]);
         setPlayedNotes([]);
         playExample(generatedExample);
     } : undefined;
@@ -111,13 +113,13 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     }, [answers, generatedExample]);
 
     const openSettings = (settingsComponent !== undefined) ? (() => {
-        showOverlay(settingsComponent);
+        showElement(settingsComponent);
     }) : undefined;
 
     const returnToMenu = () => {
         resetResults();
         setHasStarted(false);
-        showElement(lastOpenedElement);
+        showElement(menu);
     }
 
     return (

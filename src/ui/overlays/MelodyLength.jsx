@@ -14,8 +14,10 @@ import Table from '../../components/table/Table';
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
 
+import MelodyType from '../../managers/enums/MelodyType';
+
 function MelodyLength() {
-    const { hideOverlay } = useContext(UIContext); 
+    const { showElement, lastOpenedElement } = useContext(UIContext); 
     const { melodyLength, setMelodyLength } = useContext(GlobalSettingsContext);
     const [ tempMelodyLength, setTempMelodyLength ] = useState(melodyLength);
     const { melodyType, setMelodyType } = useContext(GlobalSettingsContext);
@@ -26,7 +28,7 @@ function MelodyLength() {
     const acceptChanges = () => {
         setMelodyLength(tempMelodyLength);
         setMelodyType(tempMelodyType);
-        hideOverlay();
+        showElement(lastOpenedElement);
     };
 
     return (
@@ -35,15 +37,15 @@ function MelodyLength() {
                 <Column>
                     <Text>{dictionary.melodytype}</Text>
                     <Select value={tempMelodyType} onChange={e => setTempMelodyType(e.target.value)}>
-                        <option value="ascending">{dictionary.ascending}</option>
-                        <option value="descending">{dictionary.descending}</option>
-                        <option value="random">{dictionary.free}</option>
+                        <option value={MelodyType.ASCENDING}>{dictionary.ascending}</option>
+                        <option value={MelodyType.DESCENDING}>{dictionary.descending}</option>
+                        <option value={MelodyType.FREE}>{dictionary.free}</option>
                     </Select>
                     <Text>{dictionary.length}</Text>
                     <Slider initialValue={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
                 </Column>
                 <Column width={0.5}>
-                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={1}/>
                 </Column>
             </Table>

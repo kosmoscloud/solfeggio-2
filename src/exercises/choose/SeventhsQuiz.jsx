@@ -7,6 +7,7 @@ import Exercise from '../model/Exercise';
 import Sevenths from '../../ui/overlays/chords/Sevenths';
 
 import chordTypes from '../data/ChordTypes';
+import QuizMenu from '../../ui/menu/quizmenu/QuizMenu';
 
 function SeventhsQuiz() {
 
@@ -53,6 +54,7 @@ function SeventhsQuiz() {
         settingsComponent={<Sevenths sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}
+        menu={<QuizMenu/>}
     />
 }
 

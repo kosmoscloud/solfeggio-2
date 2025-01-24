@@ -15,7 +15,7 @@ import Slider from '../../../components/slider/Slider';
 import Overlay from '../Overlay';
 
 function Triads({sliderEnabled=false}) {
-    const { hideOverlay, showAlert } = useContext(UIContext); 
+    const { showElement, lastOpenedElement, showAlert } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
     const { triadsN, setTriadsN } = useContext(GlobalSettingsContext);
@@ -24,7 +24,7 @@ function Triads({sliderEnabled=false}) {
 
     const acceptChanges = () => {
         if (tempEnabledTriads === enabledChords['triads'] && tempEnabledTriadsInversions === enabledInversions['triads']) {
-            hideOverlay();
+            showElement(lastOpenedElement);
             return;
         }
         if (tempEnabledTriads.length === 0) {
@@ -37,7 +37,7 @@ function Triads({sliderEnabled=false}) {
         }
         setEnabledChordsByType('triads', tempEnabledTriads);
         setEnabledInversionsByType('triads', tempEnabledTriadsInversions);
-        hideOverlay();
+        showElement(lastOpenedElement);
     };
 
     const toggleTriad = (type) => {
@@ -68,7 +68,7 @@ function Triads({sliderEnabled=false}) {
                     <Spacer length={1} />
                 </Column>
                 <Column width={0.5}>
-                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay} />
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} />
                     {sliderEnabled && <Spacer length={1} />}
                     {sliderEnabled && <Text>Przykłady:</Text>}
                     {sliderEnabled && <Slider min={1} max={5} initialValue={triadsN} onChange={setTriadsN} />}

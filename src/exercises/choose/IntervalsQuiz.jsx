@@ -5,6 +5,7 @@ import { LanguageContext } from '../../managers/UILayer';
 
 import Exercise from '../model/Exercise';
 import Intervals from '../../ui/overlays/Intervals';
+import QuizMenu from '../../ui/menu/quizmenu/QuizMenu';
 
 function IntervalQuiz() {
 
@@ -35,6 +36,7 @@ function IntervalQuiz() {
         settingsComponent={<Intervals sliderEnabled={true}/>}
         showHintEnabled={false}
         undoNoteEnabled={true}
+        menu={<QuizMenu/>}
     />
 }
 

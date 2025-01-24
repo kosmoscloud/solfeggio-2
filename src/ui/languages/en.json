@@ -94,6 +94,12 @@
     "majorsixth": "M6",
     "minorseventh": "m7",
     "majorseventh": "M7",
-    "octave": "P8"
+    "octave": "P8",
+
+    "intervalplayingmode": "play mode",
+    "randommode": "random",
+    "simultaneousmode": "simultaneous",
+    "ascendingmode": "ascending",
+    "descendingmode": "descending"
 
 }

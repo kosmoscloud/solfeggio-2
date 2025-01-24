@@ -15,17 +15,17 @@ import Overlay from '../Overlay';
 import OKCancel from '../okcancel/OKCancel';
 
 function Random() {
-    const { hideOverlay } = useContext(UIContext); 
+    const { showElement, lastOpenedElement } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType } = useContext(GlobalSettingsContext);
     const [ tempEnabledRandomChords, setTempEnabledRandomChords ] = useState(enabledChords['random']);
 
     const acceptChanges = () => {
         if (tempEnabledRandomChords === enabledChords['random']) {
-            hideOverlay();
+            showElement(lastOpenedElement);
             return;
         }
         setEnabledChordsByType('random', tempEnabledRandomChords);
-        hideOverlay();
+        showElement(lastOpenedElement);
     };
 
     const toggleRandom = (type) => {
@@ -44,7 +44,7 @@ function Random() {
                 </Column>
                 <Column>
                     <Spacer length={0.5}/>
-                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={3}/>
                 </Column>
             </Table>

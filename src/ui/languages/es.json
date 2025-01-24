@@ -94,5 +94,11 @@
     "majorsixth": "6ªM",
     "minorseventh": "7ªm",
     "majorseventh": "7ªM",
-    "octave": "8ª"
+    "octave": "8ª",
+
+    "intervalplayingmode": "reproducción",
+    "randommode": "aleatoria",
+    "simultaneousmode": "simultánea",
+    "ascendingmode": "ascendente",
+    "descendingmode": "descendente"
 }

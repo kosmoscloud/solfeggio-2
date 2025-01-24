@@ -1,5 +1,8 @@
 import React, { createContext, useState, useRef } from 'react';
 
+import MelodyType from './enums/MelodyType';
+import IntervalPlayingMode from './enums/IntervalPlayingMode';
+
 export const GlobalSettingsContext = createContext();
 
 function GlobalSettingsLayer({ children }) {
@@ -8,7 +11,7 @@ function GlobalSettingsLayer({ children }) {
     const [lastNote, setLastNote] = useState(72);
     const [scale, setScale] = useState('chromatic');
     const effectiveScale = calculateEffectiveScale(firstNote, lastNote, scale);
-    const [melodyLength, setMelodyLength] = useState(5);
+    const [melodyLength, setMelodyLength] = useState(4);
     const [noteLength, setNoteLength] = useState(0.55);
     const [noteSpacing, setNoteSpacing] = useState(0.55);
     const [enabledIntervals, setEnabledIntervals] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
@@ -30,7 +33,8 @@ function GlobalSettingsLayer({ children }) {
     const [intervalsN, setIntervalsN] = useState(2);
     const [triadsN, setTriadsN] = useState(2);
     const [seventhsN, setSeventhsN] = useState(2);
-    const [melodyType, setMelodyType] = useState('random');
+    const [melodyType, setMelodyType] = useState(MelodyType.FREE);
+    const [intervalPlayingMode, setIntervalPlayingMode] = useState(IntervalPlayingMode.SIMULTANEOUS);
 
     const setEnabledChordsByType = (type, chords) => {
         setEnabledChords({ ...enabledChords, [type]: chords });
@@ -52,6 +56,7 @@ function GlobalSettingsLayer({ children }) {
             triadsN, setTriadsN,
             seventhsN, setSeventhsN,
             melodyType, setMelodyType,
+            intervalPlayingMode, setIntervalPlayingMode,
             isMobile
         }}>
             {children}

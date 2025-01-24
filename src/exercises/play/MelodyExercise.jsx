@@ -6,12 +6,15 @@ import { LanguageContext } from '../../managers/UILayer';
 import Exercise from '../model/Exercise';
 import MelodyLength from '../../ui/overlays/MelodyLength';
 
+import MelodyType from '../../managers/enums/MelodyType';
+import ExerciseMenu from '../../ui/menu/exercisemenu/ExerciseMenu';
+
 function MelodyExercise() {
 
-    const { effectiveScale, melodyType: type, melodyLength } = useContext(GlobalSettingsContext);
+    const { effectiveScale, melodyType, melodyLength } = useContext(GlobalSettingsContext);
     const { dictionary } = useContext(LanguageContext);
 
-    const name = type === 'ascending' ? dictionary.ascendingmelody : type === 'descending' ? dictionary.descendingmelody : dictionary.freemelody;
+    const name = melodyType === MelodyType.ASCENDING ? dictionary.ascendingmelody : melodyType === MelodyType.DESCENDING ? dictionary.descendingmelody : dictionary.freemelody;
 
     function generateMelody() {
         const randomMelody = [];
@@ -19,12 +22,16 @@ function MelodyExercise() {
         while (randomMelody.length < melodyLength) {
             const note = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
             if (!usedNotes.has(note)) {
-            usedNotes.add(note);
-            randomMelody.push(note);
+                usedNotes.add(note);
+                randomMelody.push(note);
             }
         }
-        if (type === 'ascending') randomMelody.sort((a, b) => a[0] - b[0])
-        if (type === 'descending') randomMelody.sort((a, b) => b[0] - a[0])
+        if (melodyType === MelodyType.ASCENDING) {
+            randomMelody.sort((a, b) => a - b)
+        } else if (melodyType === MelodyType.DESCENDING) {
+            randomMelody.sort((a, b) => b - a)
+        }
+            
         return randomMelody;
     }
 
@@ -38,6 +45,7 @@ function MelodyExercise() {
         generateExample={generateMelody}
         predicate={isMelodyCorrect}
         settingsComponent={<MelodyLength/>}
+        menu={<ExerciseMenu/>}
     />
 }
 

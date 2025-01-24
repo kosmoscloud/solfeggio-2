@@ -15,6 +15,7 @@ import Random from '../../ui/overlays/chords/Random';
 
 import Ranges from '../../ui/overlays/Ranges';
 import Alert from '../../ui/overlays/alert/Alert';
+import ExerciseMenu from '../../ui/menu/exercisemenu/ExerciseMenu';
 
 function ChordExercise({type}) {
 
@@ -114,6 +115,7 @@ function ChordExercise({type}) {
         generateExample={generateChord}
         predicate={isChordCorrect}
         settingsComponent={settingsComponent}
+        menu={<ExerciseMenu/>}
     />
 }
 

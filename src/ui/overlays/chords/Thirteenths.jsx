@@ -14,7 +14,7 @@ import Overlay from '../Overlay';
 import OKCancel from '../okcancel/OKCancel';
 
 function Thirteenths() {
-    const { hideOverlay } = useContext(UIContext); 
+    const { showElement, lastOpenedElement } = useContext(UIContext); 
     const { enabledChords, setEnabledChordsByType } = useContext(GlobalSettingsContext);
     const { enabledInversions, setEnabledInversionsByType } = useContext(GlobalSettingsContext);
     const [ tempEnabledThirteenths, setTempEnabledThirteenths ] = useState(enabledChords['thirteenths']);
@@ -22,12 +22,12 @@ function Thirteenths() {
 
     const acceptChanges = () => {
         if (tempEnabledThirteenths === enabledChords['thirteenths'] && tempEnabledThirteenthsInversions === enabledInversions['thirteenths']) {
-            hideOverlay();
+            showElement(lastOpenedElement);
             return;
         }
         setEnabledChordsByType('thirteenths', tempEnabledThirteenths);
         setEnabledInversionsByType('thirteenths', tempEnabledThirteenthsInversions);
-        hideOverlay();
+        showElement(lastOpenedElement);
     };
 
     const toggleThirteenthChord = (type) => {
@@ -56,7 +56,7 @@ function Thirteenths() {
                 </Column>
                 <Column>
                     <Spacer length={0.5}/>
-                    <OKCancel onOK={acceptChanges} onCancel={hideOverlay}/>
+                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={4}/>
                 </Column>
             </Table>
