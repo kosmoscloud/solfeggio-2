@@ -3,9 +3,9 @@ import React from 'react';
 import { ResultsContext } from '../../managers/ExerciseLayer';
 import { LanguageContext } from '../../managers/UILayer';
 
-import Button from '../../components/button/Button';
-import Spacer from '../../components/spacer/Spacer';
-import Text from '../../components/text/Text';
+import Button from '../../components/Button';
+import Spacer from '../../components/FlexContainer';
+import Text from '../../components/Text';
 
 import './style.css';
 

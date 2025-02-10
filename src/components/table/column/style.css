@@ -1,7 +1,0 @@
-.column {
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
-}

@@ -3,13 +3,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
 import { UIContext } from '../../../managers/UILayer';
 
-import Checkbox from '../../../components/checkbox/Checkbox';
+import Checkbox from '../../../components/Checkbox';
 
-import Table from '../../../components/table/Table';
-import Column from '../../../components/table/column/Column';
-import Text from '../../../components/text/Text';
-import Spacer from '../../../components/spacer/Spacer';
-import Slider from '../../../components/slider/Slider';
+import FlexContainer from '../../../components/FlexContainer';
+import Text from '../../../components/Text';
+import Spacer from '../../../components/FlexContainer';
+import Slider from '../../../components/Slider';
 
 import Overlay from '../Overlay';
 import OKCancel from '../okcancel/OKCancel';
@@ -42,37 +41,37 @@ function Sevenths({sliderEnabled = false}) {
     }
 
     return (
-        <Overlay>
-            <Table>
-                <Column>
+        <Overlay minWidth="50%" minHeight="40%">
+            <FlexContainer direction='row'>
+                <FlexContainer>
                     <Text>Akordy z septymą:</Text>
                     <Checkbox label="Durowy (7<)" isChecked={tempEnabledSevenths.includes('maj7')} onClick={() => toggleSeventhChord('maj7')}/>
                     <Checkbox label="Dominantowy" isChecked={tempEnabledSevenths.includes('dom7')} onClick={() => toggleSeventhChord('dom7')}/>
                     <Checkbox label="Molowy (7>)" isChecked={tempEnabledSevenths.includes('min7')} onClick={() => toggleSeventhChord('min7')}/>
                     <Checkbox label="Molowy (7<)" isChecked={tempEnabledSevenths.includes('minmaj7')} onClick={() => toggleSeventhChord('minmaj7')}/>
-                </Column>
-                <Column>
+                </FlexContainer>
+                <FlexContainer>
                     <Spacer length={1}/>
                     <Checkbox label="Zmniejszony" isChecked={tempEnabledSevenths.includes('dim7')} onClick={() => toggleSeventhChord('dim7')}/>
                     <Checkbox label="Półzmniejszony" isChecked={tempEnabledSevenths.includes('min7b5')} onClick={() => toggleSeventhChord('min7b5')}/>
                     <Checkbox label="Zwiększony (7>)" isChecked={tempEnabledSevenths.includes('aug7')} onClick={() => toggleSeventhChord('aug7')}/>
                     <Checkbox label="Zwiększony (7<)" isChecked={tempEnabledSevenths.includes('augmaj7')} onClick={() => toggleSeventhChord('augmaj7')}/>
-                </Column>
-                <Column>
+                </FlexContainer>
+                <FlexContainer>
                     <Text>Przewroty:</Text>
                     <Checkbox label="Postać zas." isChecked={tempEnabledSeventhsInversions.includes(0)} onClick={() => toggleInversion(0)}/>
                     <Checkbox label="I przewrót" isChecked={tempEnabledSeventhsInversions.includes(1)} onClick={() => toggleInversion(1)}/>
                     <Checkbox label="II przewrót" isChecked={tempEnabledSeventhsInversions.includes(2)} onClick={() => toggleInversion(2)}/>
                     <Checkbox label="III przewrót" isChecked={tempEnabledSeventhsInversions.includes(3)} onClick={() => toggleInversion(3)}/>
-                </Column>
-                <Column width={0.5}>
+                </FlexContainer>
+                <FlexContainer length={0.5}>
                     <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     {sliderEnabled && <Spacer length={1} />}
                     {sliderEnabled && <Text>Przykłady:</Text>}
                     {sliderEnabled && <Slider min={1} max={5} initialValue={seventhsN} onChange={setSeventhsN} />}
                     {!sliderEnabled && <Spacer length={4} />}
-                </Column>
-            </Table>
+                </FlexContainer>
+            </FlexContainer>
         </Overlay>
     );
 

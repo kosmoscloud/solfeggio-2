@@ -1,7 +1,0 @@
-.grid {
-    display: grid;
-    box-sizing: border-box;
-    grid-row-gap: 1vw;
-    grid-column-gap: 1vw;
-    flex: 1;
-}

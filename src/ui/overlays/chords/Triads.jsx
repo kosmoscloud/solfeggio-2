@@ -4,14 +4,12 @@ import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
 import { UIContext } from '../../../managers/UILayer';
 
 import OKCancel from '../../../ui/overlays/okcancel/OKCancel';
-import Checkbox from '../../../components/checkbox/Checkbox';
+import Checkbox from '../../../components/Checkbox';
 
-import Table from '../../../components/table/Table';
-import Column from '../../../components/table/column/Column';
-import Row from '../../../components/table/row/Row';
-import Text from '../../../components/text/Text';
-import Spacer from '../../../components/spacer/Spacer';
-import Slider from '../../../components/slider/Slider';
+import FlexContainer from '../../../components/FlexContainer';
+import Text from '../../../components/Text';
+import Spacer from '../../../components/FlexContainer';
+import Slider from '../../../components/Slider';
 
 import Overlay from '../Overlay';
 import NoteAdjustmentSliders from '../noteadjustmentsliders/NoteAdjustmentSliders';
@@ -53,37 +51,36 @@ function Triads({sliderEnabled=false}) {
     }
 
     return (
-        <Overlay>
-            <Table direction='column'>
-                <Row>
-                    <Text>Trójdźwięki:</Text>
-                    <Text>Przewroty:</Text>
-                </Row>
-                <Row>
-                    <Column>
+        <Overlay minWidth="50%" minHeight="60%">
+            <FlexContainer>
+                <FlexContainer direction='row'>
+                    <Text center={false}>Trójdźwięki:</Text>
+                    <Text center={false}>Przewroty:</Text>
+                    <Spacer length={0.5} />
+                </FlexContainer>
+                <FlexContainer direction='row' length={3}>
+                    <FlexContainer>
                         <Checkbox label="Durowy" isChecked={tempEnabledTriads.includes('maj')} onClick={() => toggleTriad('maj')}/>
                         <Checkbox label="Molowy" isChecked={tempEnabledTriads.includes('min')} onClick={() => toggleTriad('min')}/>
                         <Checkbox label="Zmniejszony" isChecked={tempEnabledTriads.includes('dim')} onClick={() => toggleTriad('dim')}/>
                         <Checkbox label="Zwiększony" isChecked={tempEnabledTriads.includes('aug')} onClick={() => toggleTriad('aug')}/>
-                    </Column>
-                    <Column>
+                    </FlexContainer>
+                    <FlexContainer>
                         <Checkbox label="Postać zas." isChecked={tempEnabledTriadsInversions.includes(0)} onClick={() => toggleTriadsInversion(0)}/>
                         <Checkbox label="I przewrót" isChecked={tempEnabledTriadsInversions.includes(1)} onClick={() => toggleTriadsInversion(1)}/>
                         <Checkbox label="II przewrót" isChecked={tempEnabledTriadsInversions.includes(2)} onClick={() => toggleTriadsInversion(2)}/>
                         <Spacer length={1} />
-                    </Column>
-                    <Column width={0.5}>
+                    </FlexContainer>
+                    <FlexContainer length={0.5}>
                         <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} />
                         {sliderEnabled && <Spacer length={1} />}
                         {sliderEnabled && <Text>Przykłady:</Text>}
                         {sliderEnabled && <Slider min={1} max={5} initialValue={triadsN} onChange={setTriadsN} />}
                         {!sliderEnabled && <Spacer length={2} />}
-                    </Column>
-                </Row>
-                <Row>
-                    <NoteAdjustmentSliders/>
-                </Row>
-            </Table>
+                    </FlexContainer>
+                </FlexContainer>
+                <NoteAdjustmentSliders/>
+            </FlexContainer>
         </Overlay>
     );
 

@@ -6,7 +6,9 @@ function GridPositioner({children, x=1, y=1}) {
         gridColumnStart: x,
         gridColumnEnd: x,
         gridRowStart: y,
-        gridRowEnd: y
+        gridRowEnd: y,
+        display: 'flex',
+        alignItems: 'stretch',
     }
 
     React.useEffect(() => {

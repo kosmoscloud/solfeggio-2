@@ -3,7 +3,6 @@ import React, {useContext} from "react";
 import { OverlaysContext } from "../../managers/OverlayLayer.jsx";
 import Overlay from "./Overlay.jsx";
 import Button from "../../components/button/Button.jsx";
-import Column from "../../components/table/column/Column";
 
 import Text from "../../components/text/Text";
 
@@ -15,10 +14,10 @@ function About() {
 
     return (
         <Overlay minHeight="20%" minWidth="50%">
-            <Column>
+            <FlexContainer>
                 <Text wrap={true}>Program Solfeggio-2 służy do ćwiczenia słuchu muzycznego.</Text>
                 <Button label='OK' onClick={hideAlert}/>
-            </Column>
+            </FlexContainer>
         </Overlay>
     );
 }

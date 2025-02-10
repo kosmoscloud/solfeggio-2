@@ -3,13 +3,11 @@ import React, { useContext, useState } from 'react';
 import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
 import { UIContext } from '../../../managers/UILayer';
 
-import Button from '../../../components/button/Button';
-import Checkbox from '../../../components/checkbox/Checkbox';
+import Checkbox from '../../../components/Checkbox';
 
-import Table from '../../../components/table/Table';
-import Column from '../../../components/table/column/Column';
-import Text from '../../../components/text/Text';
-import Spacer from '../../../components/spacer/Spacer';
+import FlexContainer from '../../../components/FlexContainer';
+import Text from '../../../components/Text';
+import Spacer from '../../../components/FlexContainer';
 
 import Overlay from '../Overlay';
 import OKCancel from '../okcancel/OKCancel';
@@ -35,19 +33,19 @@ function Random() {
 
     return (
         <Overlay>
-            <Table>
-                <Column>
+            <FlexContainer direction='row'>
+                <FlexContainer>
                     <Text>Akordy przypadkowe:</Text>
                     <Checkbox label="Dwudźwięk" isChecked={tempEnabledRandomChords.includes(2)} onClick={() => toggleRandom(2)}/>
                     <Checkbox label="Trójdźwięk" isChecked={tempEnabledRandomChords.includes(3)} onClick={() => toggleRandom(3)}/>
                     <Checkbox label="Czterodźwięk" isChecked={tempEnabledRandomChords.includes(4)} onClick={() => toggleRandom(4)}/>
-                </Column>
-                <Column>
+                </FlexContainer>
+                <FlexContainer>
                     <Spacer length={0.5}/>
                     <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={3}/>
-                </Column>
-            </Table>
+                </FlexContainer>
+            </FlexContainer>
         </Overlay>
     );
 

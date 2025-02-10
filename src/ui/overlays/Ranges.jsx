@@ -6,13 +6,12 @@ import { LanguageContext } from '../../managers/UILayer';
 
 import { calculateEffectiveScale, GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import OverlayKeyboard from '../keyboard/OverlayKeyboard';
-import Button from '../../components/button/Button';
-import Checkbox from '../../components/checkbox/Checkbox';
-import Select from '../../components/select/Select';
-import Table from '../../components/table/Table';
-import Column from '../../components/table/column/Column';
-import Spacer from '../../components/spacer/Spacer';
-import Text from '../../components/text/Text';
+import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
+import Select from '../../components/Select';
+import FlexContainer from '../../components/FlexContainer';
+import Spacer from '../../components/FlexContainer';
+import Text from '../../components/Text';
 
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
@@ -71,16 +70,16 @@ function Ranges() {
         <div className="ranges">
             <RangesContext.Provider value={{ firstNote, setFirstNote, lastNote, setLastNote, scale, setScale, keyRange, markedNotes }}>
                 <OverlayKeyboard keyRange={keyRange} onNotePlayed={onNotePlayed} markedNotes={markedNotes} />
-                <Overlay type='bottom'>
-                    <Table>
-                        <Column>
+                <Overlay type='bottom' minWidth="50%" minHeight="20%">
+                    <FlexContainer direction='row' gap={2}>
+                        <FlexContainer>
                             <Text>{dictionary.firstnote}</Text>
                             <Checkbox value={tempFirstNote} label={dictionary.choose} onClick={() => setIsListeningForFirstNote(true)} isChecked={isListeningForFirstNote}/>
                             <Spacer length={2}/>
                             <Text>{dictionary.lastnote}</Text>
                             <Checkbox value={tempLastNote} label={dictionary.choose} onClick={() => setIsListeningForLastNote(true)} isChecked={isListeningForLastNote}/>
-                        </Column>
-                        <Column>
+                        </FlexContainer>
+                        <FlexContainer >
                             <Text>{dictionary.scale}</Text>
                             <Select value={tempScale} onChange={e => setTempScale(e.target.value)}>
                                 <option value="major">{dictionary.major}</option>
@@ -94,12 +93,12 @@ function Ranges() {
                             </Select>
                             <Spacer length={5}/>
                             <Button label={dictionary.playscale} onClick={playTempScale} isEnabled={!isPlayingBack}/>
-                        </Column>
-                        <Column width={0.5}>
+                        </FlexContainer>
+                        <FlexContainer length={0.5}>
                             <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                             <Spacer length={3}/>
-                        </Column>
-                    </Table>
+                        </FlexContainer>
+                    </FlexContainer>
                 </Overlay>
             </RangesContext.Provider>
         </div>

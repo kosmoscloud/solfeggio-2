@@ -3,13 +3,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
 import { UIContext } from '../../../managers/UILayer';
 
-import Checkbox from '../../../components/checkbox/Checkbox';
+import Checkbox from '../../../components/Checkbox';
 
-import Table from '../../../components/table/Table';
-import Column from '../../../components/table/column/Column';
-import Row from '../../../components/table/row/Row';
-import Text from '../../../components/text/Text';
-import Spacer from '../../../components/spacer/Spacer';
+import FlexContainer from '../../../components/FlexContainer';
+import Text from '../../../components/Text';
+import Spacer from '../../../components/FlexContainer';
 
 import Overlay from '../Overlay';
 import OKCancel from '../okcancel/OKCancel';
@@ -38,36 +36,36 @@ function Thirteenths() {
     }
 
     return (
-        <Overlay>
-            <Table direction='column'>
-                <Row>
+        <Overlay minWidth="50%" minHeight="60%">
+            <FlexContainer>
+                <FlexContainer>
                     <Text center={false}>Akordy z tercdecymą:</Text>
-                </Row>
-                <Row>
-                    <Column>
+                </FlexContainer>
+                <FlexContainer direction='row' length={3}>
+                    <FlexContainer>
                         <Checkbox label="3w, 13w, 7w" isChecked={tempEnabledThirteenths.includes('3w13w7w')} onClick={() => toggleThirteenthChord('3w13w7w')}/>
                         <Checkbox label="3m, 13w, 7w" isChecked={tempEnabledThirteenths.includes('3m13w7w')} onClick={() => toggleThirteenthChord('3m13w7w')}/>
                         <Checkbox label="3w, 13w, 7m" isChecked={tempEnabledThirteenths.includes('3w13w7m')} onClick={() => toggleThirteenthChord('3w13w7m')}/>
                         <Checkbox label="3m, 13w, 7m" isChecked={tempEnabledThirteenths.includes('3m13w7m')} onClick={() => toggleThirteenthChord('3m13w7m')}/>
                         <Checkbox label="3w, 13w, 9w" isChecked={tempEnabledThirteenths.includes('3w13w9w')} onClick={() => toggleThirteenthChord('3w13w9w')}/>
-                    </Column>
-                    <Column>
+                    </FlexContainer>
+                    <FlexContainer>
                         <Checkbox label="3m, 13w, 9w" isChecked={tempEnabledThirteenths.includes('3m13w9w')} onClick={() => toggleThirteenthChord('3m13w9w')}/>
                         <Checkbox label="3w, 13w, 9m" isChecked={tempEnabledThirteenths.includes('3w13w9m')} onClick={() => toggleThirteenthChord('3w13w9m')}/>
                         <Checkbox label="3m, 13w, 9m" isChecked={tempEnabledThirteenths.includes('3m13w9m')} onClick={() => toggleThirteenthChord('3m13w9m')}/>
                         <Text center={false}>Przewroty</Text>
                         <Checkbox label="używaj przewrotów" isChecked={tempEnabledThirteenthsInversions.length > 1} onClick={() => setTempEnabledThirteenthsInversions(tempEnabledThirteenthsInversions.length > 1 ? [0] : [0, 1, 2, 3])}/>
-                    </Column>
-                    <Column>
+                    </FlexContainer>
+                    <FlexContainer>
                         <Spacer length={0.5}/>
                         <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                         <Spacer length={4}/>
-                    </Column>
-                </Row>
-                <Row>
+                    </FlexContainer>
+                </FlexContainer>
+                <FlexContainer>
                     <NoteAdjustmentSliders/>
-                </Row>
-            </Table>
+                </FlexContainer>
+            </FlexContainer>
         </Overlay>
     );
 

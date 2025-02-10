@@ -1,12 +1,35 @@
 import React, { useEffect } from 'react';
 
-import './style.css';
-
-function Bar ({min, max, value, isEnabled, onChange}) {
+function SliderTrack ({min, max, value, isEnabled, onChange}) {
     const minValue = min || 0;
     const maxValue = max || 100;
     const sliderAreaRef = React.useRef();
     const sliderBlockRef = React.useRef();
+
+    const trackstyle = {
+        backgroundColor: '#ccc',
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'left',
+        alignItems: 'center',
+        border: '2px solid black',
+        boxSizing: 'border-box',
+    }
+
+    const thumbstyle = {
+        backgroundColor: isEnabled ? '#fff' : '#888',
+        cursor: 'pointer',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+        aspectRatio: '3',
+        borderLeft: '2px solid black',
+        borderRight: '2px solid black',
+        padding: '0.5vmin',
+        boxSizing: 'border-box',
+        zIndex: 1,
+    };
 
     const updateBlockPosition = (newValue) => {
         const { offsetWidth: areaWidth } = sliderAreaRef.current;
@@ -46,12 +69,12 @@ function Bar ({min, max, value, isEnabled, onChange}) {
     }
 
     return (
-        <div className={isEnabled ? "slider-area" : "disabled-slider-area"} ref={sliderAreaRef}>
-            <div className={isEnabled ? "slider-block" : "disabled-slider-block"} onMouseDown={isEnabled ? handleMouseDown : null} ref={sliderBlockRef}>
+        <div style={trackstyle} ref={sliderAreaRef}>
+            <div style={thumbstyle} onMouseDown={isEnabled ? handleMouseDown : null} ref={sliderBlockRef}>
                 {Math.round(value)}
             </div>
         </div>
     );
 }
 
-export default Bar;
+export default SliderTrack;

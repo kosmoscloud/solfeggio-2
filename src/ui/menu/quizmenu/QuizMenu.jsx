@@ -10,10 +10,10 @@ import TriadsInversionsQuiz from '../../../exercises/choose/TriadsInversionsQuiz
 import SeventhsQuiz from '../../../exercises/choose/SeventhsQuiz.jsx';
 import SeventhsInversionsQuiz from '../../../exercises/choose/SeventhsInversionsQuiz.jsx';
 
-import MenuOption from '../../../components/menuoption/MenuOption.jsx';
+import Button from '../../../components/Button.jsx';
 import Overlay from '../../overlays/Overlay.jsx';
-import Grid from '../../../components/grid/Grid.jsx';
-import GridPositioner from '../../../components/grid/gridpositioner/GridPositioner.jsx';
+import Grid from '../../../components/Grid.jsx';
+import GridPositioner from '../../../components/GridPositioner.jsx';
 
 function QuizMenu() {
 
@@ -29,16 +29,16 @@ function QuizMenu() {
     const { dimx, dimy } = dimensions;
 
     return (
-        <Overlay minWidth="60%">
+        <Overlay minWidth="60%" minHeight="30%">
             <Grid dimx={dimx} dimy={dimy}>
-                    <MenuOption label={dictionary.intervals} onClick={() => showElement(<IntervalsQuiz />)}/>
-                    <MenuOption label={dictionary.triads} onClick={() => showElement(<TriadsQuiz />)}/>
-                    <MenuOption label={dictionary.seventhchords} onClick={() => showElement(<SeventhsQuiz />)}/>
+                    <Button label={dictionary.intervals} onClick={() => showElement(<IntervalsQuiz />)}/>
+                    <Button label={dictionary.triads} onClick={() => showElement(<TriadsQuiz />)}/>
+                    <Button label={dictionary.seventhchords} onClick={() => showElement(<SeventhsQuiz />)}/>
                     <GridPositioner x={1} y={dimy}>
-                        <MenuOption label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
+                        <Button label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
                     </GridPositioner>
-                    <MenuOption label={dictionary.triadsinversions} onClick={() => showElement(<TriadsInversionsQuiz />)}/>
-                    <MenuOption label={dictionary.seventhsinversions} onClick={() => showElement(<SeventhsInversionsQuiz />)}/>
+                    <Button label={dictionary.triadsinversions} onClick={() => showElement(<TriadsInversionsQuiz />)}/>
+                    <Button label={dictionary.seventhsinversions} onClick={() => showElement(<SeventhsInversionsQuiz />)}/>
             </Grid>
         </Overlay>
     )

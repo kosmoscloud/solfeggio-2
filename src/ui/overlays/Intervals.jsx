@@ -2,14 +2,12 @@ import React, { useContext, useState } from 'react';
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { UIContext, LanguageContext } from '../../managers/UILayer';
 
-import Checkbox from '../../components/checkbox/Checkbox';
-import Row from '../../components/table/row/Row';
-import Column from '../../components/table/column/Column';
-import Grid from '../../components/grid/Grid';
-import Table from '../../components/table/Table';
-import Text from '../../components/text/Text';
-import Spacer from '../../components/spacer/Spacer';
-import Slider from '../../components/slider/Slider';
+import Checkbox from '../../components/Checkbox';
+import FlexContainer from '../../components/FlexContainer';
+import Grid from '../../components/Grid';
+import Text from '../../components/Text';
+import Spacer from '../../components/FlexContainer';
+import Slider from '../../components/Slider';
 
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
@@ -50,11 +48,11 @@ function Intervals({ sliderEnabled = false }) {
 
     return (
         <Overlay>
-            <Table direction='column'>
-                <Row>
+            <FlexContainer>
+                <FlexContainer direction='row'>
                     <Text center={false}>{dictionary.intervals}</Text>
                     <Text center={false}>{dictionary.intervalplayingmode}</Text>
-                </Row>
+                </FlexContainer>
                 <Grid dimx={2} dimy={1} alignItems='flex-start'>
                     <Grid dimx={3} dimy={4} padding={false}>
                         <Checkbox label={dictionary.minorsecond} isChecked={tempEnabledIntervals.includes(1)} onClick={() => toggleInterval(1)}/>
@@ -77,20 +75,20 @@ function Intervals({ sliderEnabled = false }) {
                             <Checkbox label={dictionary.descendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_DESCENDING); setTempIntervalsN(1)}}/>
                             <Checkbox label={dictionary.randommode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.RANDOM} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.RANDOM); setTempIntervalsN(1)}}/>
                         </Grid>
-                        <Column padding={true}>
+                        <FlexContainer>
                             <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                             {sliderEnabled && <Spacer length={0.5} />}
                             {sliderEnabled && <Text>Przykłady: </Text>}
                             {sliderEnabled && <Slider min={1} max={5} value={tempIntervalsN} onChange={setTempIntervalsN} isEnabled={tempIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS}/> }
                             {sliderEnabled && <Spacer length={1} />}
                             {!sliderEnabled && <Spacer length={1} />}
-                        </Column>
+                        </FlexContainer>
                     </Grid>
                 </Grid>
-                <Row>
+                <FlexContainer direction='row'>
                     <NoteAdjustmentSliders/>
-                </Row>
-            </Table>
+                </FlexContainer>
+            </FlexContainer>
         </Overlay>
     );
 

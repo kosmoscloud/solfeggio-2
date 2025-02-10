@@ -4,9 +4,9 @@ import { IOContext } from '../../managers/IOLayer';
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { LanguageContext } from '../../managers/UILayer';
 
-import Button from '../../components/button/Button';
-import Header from '../../components/header/Header';
-import Spacer from '../../components/spacer/Spacer';
+import Button from '../../components/Button';
+import Header from '../../components/Header';
+import Spacer from '../../components/FlexContainer';
 
 import './style.css';
 

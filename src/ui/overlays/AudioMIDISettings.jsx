@@ -4,12 +4,10 @@ import { IOContext } from "../../managers/IOLayer";
 import { UIContext } from "../../managers/UILayer";
 import { LanguageContext } from "../../managers/UILayer";
 
-import Checkbox from "../../components/checkbox/Checkbox";
-import Column from "../../components/table/column/Column";
-import Table from "../../components/table/Table";
-import Button from "../../components/button/Button";
-import Spacer from "../../components/spacer/Spacer";
-import Text from "../../components/text/Text";
+import Checkbox from "../../components/Checkbox";
+import FlexContainer from "../../components/FlexContainer";
+import Spacer from "../../components/FlexContainer";
+import Text from "../../components/Text";
 
 import Overlay from "./Overlay";
 import OKCancel from "./okcancel/OKCancel";
@@ -36,18 +34,18 @@ function AudioMIDISettings() {
     }
 
     return (
-        <Overlay>
-            <Table>
-                <Column>
-                    <Text>{dictionary.outputinterface}:</Text>
+        <Overlay minWidth="30%" minHeight="20%">
+            <FlexContainer direction='row'>
+                <FlexContainer length={3}>
+                    <Text center={false}>{dictionary.outputinterface}:</Text>
                     <Checkbox label="Audio" isChecked={!tempIsMidiEnabled} onClick={() => tempSetIsMidiEnabled(false)}/>
                     <Checkbox label="MIDI" isChecked={tempIsMidiEnabled} onClick={() => setMidi(true)} />
-                </Column>
-                <Column>
+                </FlexContainer>
+                <FlexContainer>
                     <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={0.5}/>
-                </Column>
-            </Table>
+                </FlexContainer>
+            </FlexContainer>
         </Overlay>)
 
 }

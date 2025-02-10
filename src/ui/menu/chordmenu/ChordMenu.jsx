@@ -6,8 +6,8 @@ import { LanguageContext } from '../../../managers/UILayer.jsx';
 import ChordExercise from '../../../exercises/play/ChordExercise.jsx';
 
 import Overlay from '../../overlays/Overlay.jsx';
-import Grid from '../../../components/grid/Grid.jsx';
-import MenuOption from '../../../components/menuoption/MenuOption.jsx';
+import Grid from '../../../components/Grid.jsx';
+import Button from '../../../components/Button.jsx';
 import ExerciseMenu from '../exercisemenu/ExerciseMenu.jsx';
 
 function ChordMenu() {
@@ -18,14 +18,14 @@ function ChordMenu() {
     const dimx = aspectRatio >= 1.25 ? 3 : aspectRatio < 0.8 ? 1 : 2;
 
     return (
-        <Overlay minWidth="60%" minHeight="60%">
-            <Grid dimx={dimx}>
-                <MenuOption label={dictionary.seventhchord} onClick={() => showElement(<ChordExercise type='sevenths' />)}/>
-                <MenuOption label={dictionary.ninthchord} onClick={() => showElement(<ChordExercise type='ninths' />)}/>
-                <MenuOption label={dictionary.eleventhchord} onClick={() => showElement(<ChordExercise type='elevenths' />)}/>
-                <MenuOption label={dictionary.back} onClick={() => showElement(<ExerciseMenu />)}/>
-                <MenuOption label={dictionary.thirteenthchord} onClick={() => showElement(<ChordExercise type='thirteenths' />)}/>
-                <MenuOption label={dictionary.randomchord} onClick={() => showElement(<ChordExercise type='random' />)}/>
+        <Overlay minWidth="60%" minHeight="30%">
+            <Grid dimx={dimx} dimy={2}>
+                <Button label={dictionary.seventhchord} onClick={() => showElement(<ChordExercise type='sevenths' />)}/>
+                <Button label={dictionary.ninthchord} onClick={() => showElement(<ChordExercise type='ninths' />)}/>
+                <Button label={dictionary.eleventhchord} onClick={() => showElement(<ChordExercise type='elevenths' />)}/>
+                <Button label={dictionary.back} onClick={() => showElement(<ExerciseMenu />)}/>
+                <Button label={dictionary.thirteenthchord} onClick={() => showElement(<ChordExercise type='thirteenths' />)}/>
+                <Button label={dictionary.randomchord} onClick={() => showElement(<ChordExercise type='random' />)}/>
             </Grid>
         </Overlay>
     )

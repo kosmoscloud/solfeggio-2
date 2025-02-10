@@ -8,10 +8,10 @@ import Ranges from '../../overlays/Ranges.jsx';
 import AudioMIDISettings from '../../overlays/AudioMIDISettings.jsx';
 import SelectInstruments from '../../overlays/SelectInstruments.jsx';
 
-import MenuOption from '../../../components/menuoption/MenuOption.jsx';
+import Button from '../../../components/Button.jsx';
 import Overlay from '../../overlays/Overlay.jsx';
-import Grid from '../../../components/grid/Grid.jsx';
-import GridPositioner from '../../../components/grid/gridpositioner/GridPositioner.jsx';
+import Grid from '../../../components/Grid.jsx';
+import GridPositioner from '../../../components/GridPositioner.jsx';
 
 function SettingsMenu() {
 
@@ -29,12 +29,12 @@ function SettingsMenu() {
     return (
         <Overlay minWidth="20%">
             <Grid dimx={dimx} dimy={dimy}>
-                <MenuOption label={dictionary.rangeandscale} onClick={() => showElement(<Ranges />)}/>
-                <MenuOption label={dictionary.instruments} onClick={() => showElement(<SelectInstruments />)}/>
+                <Button label={dictionary.rangeandscale} onClick={() => showElement(<Ranges />)}/>
+                <Button label={dictionary.instruments} onClick={() => showElement(<SelectInstruments />)}/>
                 <GridPositioner x={1} y={dimy}>
-                    <MenuOption label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
+                    <Button label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
                 </GridPositioner>
-                <MenuOption label={dictionary.audiomidi} onClick={() => showElement(<AudioMIDISettings />)}/>
+                <Button label={dictionary.audiomidi} onClick={() => showElement(<AudioMIDISettings />)}/>
             </Grid>
         </Overlay>
     )

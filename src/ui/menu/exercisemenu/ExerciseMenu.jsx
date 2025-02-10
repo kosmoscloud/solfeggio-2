@@ -11,9 +11,9 @@ import MelodyExercise from '../../../exercises/play/MelodyExercise.jsx';
 import ChordExercise from '../../../exercises/play/ChordExercise.jsx';
 
 import Overlay from '../../overlays/Overlay.jsx';
-import MenuOption from '../../../components/menuoption/MenuOption.jsx';
-import Grid from '../../../components/grid/Grid.jsx';
-import GridPositioner from '../../../components/grid/gridpositioner/GridPositioner.jsx';
+import Button from '../../../components/Button.jsx';
+import Grid from '../../../components/Grid.jsx';
+import GridPositioner from '../../../components/GridPositioner.jsx';
 
 function ExerciseMenu() {
 
@@ -29,16 +29,16 @@ function ExerciseMenu() {
     const { dimx, dimy } = dimensions;
 
     return (
-        <Overlay minWidth="60%">
+        <Overlay minWidth="60%" minHeight="30%">
             <Grid dimx={dimx} dimy={dimy}>
-                <MenuOption label={dictionary.perfectpitch} onClick={() => showElement(<SingleNoteExercise />)} enabled={false}/>
-                <MenuOption label={dictionary.interval} onClick={() => showElement(<IntervalExercise />)}/>
-                <MenuOption label={dictionary.triad} onClick={() => showElement(<ChordExercise type='triads' />)}/>
+                <Button label={dictionary.perfectpitch} onClick={() => showElement(<SingleNoteExercise />)} enabled={false}/>
+                <Button label={dictionary.interval} onClick={() => showElement(<IntervalExercise />)}/>
+                <Button label={dictionary.triad} onClick={() => showElement(<ChordExercise type='triads' />)}/>
                 <GridPositioner x={1} y={dimy}>
-                    <MenuOption label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
+                    <Button label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
                 </GridPositioner>
-                <MenuOption label={dictionary.melody} onClick={() => showElement(<MelodyExercise />)}/>
-                <MenuOption label={dictionary.chords} onClick={() => showElement(<ChordMenu />)}/>
+                <Button label={dictionary.melody} onClick={() => showElement(<MelodyExercise />)}/>
+                <Button label={dictionary.chords} onClick={() => showElement(<ChordMenu />)}/>
             </Grid>
         </Overlay>
     )

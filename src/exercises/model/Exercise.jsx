@@ -5,7 +5,7 @@ import { UIContext } from '../../managers/UILayer.jsx';
 import { IOContext } from '../../managers/IOLayer.jsx';
 
 import Keyboard from '../../ui/keyboard/Keyboard';
-import Banner from '../../components/banner/Banner';
+import Banner from '../../components/Banner';
 import ControlPanel from '../../ui/controlpanel/ControlPanel';
 import IntervalsInput from '../../ui/quizinput/IntervalsInput.jsx';
 import TriadsInput from '../../ui/quizinput/TriadsInput.jsx';

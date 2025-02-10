@@ -3,10 +3,9 @@ import React, { useContext } from "react";
 import { UIContext } from "../../../managers/UILayer";
 
 import Overlay from "../Overlay";
-import Text from "../../../components/text/Text";
-import Column from "../../../components/table/column/Column";
-import Button from "../../../components/button/Button";
-import Spacer from "../../../components/spacer/Spacer";
+import Text from "../../../components/Text";
+import FlexContainer from "../../../components/FlexContainer";
+import Button from "../../../components/Button";
 
 import "./style.css";
 
@@ -23,12 +22,12 @@ function Alert({text, afterAlert}) {
 
     return (
         <Overlay>
-            <Column alignItems="center">
+            <FlexContainer>
                 <Text wrap={true}>{text}</Text>
                 <div style={{display: 'flex', justifyContent: 'center', height: '5vmin', width: '10vmax', flex: 1}}>
                     <Button label="OK" onClick={handleClick}/>
                 </div>
-            </Column>
+            </FlexContainer>
         </Overlay>
     );
 }

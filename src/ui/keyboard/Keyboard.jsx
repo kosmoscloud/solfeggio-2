@@ -3,8 +3,6 @@ import { IOContext } from "../../managers/IOLayer.jsx";
 import Key from "./key/Key.jsx";
 import "./style.css";
 import { GlobalSettingsContext } from "../../managers/GlobalSettingsLayer.jsx";
-import Column from "../../components/table/column/Column.jsx";
-import Header from "../../components/header/Header.jsx";
 
 function Keyboard() {
     const { playNotes, triggerLastAnswer, markedNotes, playedNotes } = useContext(IOContext); 

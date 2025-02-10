@@ -3,12 +3,11 @@ import React, { useContext, useState } from 'react';
 import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { LanguageContext, UIContext } from '../../managers/UILayer';
 
-import Column from '../../components/table/column/Column';
-import Slider from '../../components/slider/Slider';
-import Text from '../../components/text/Text';
-import Spacer from '../../components/spacer/Spacer';
-import Select from "../../components/select/Select"
-import Table from '../../components/table/Table';
+import Slider from '../../components/Slider';
+import Text from '../../components/Text';
+import Spacer from '../../components/FlexContainer';
+import Select from "../../components/Select"
+import FlexContainer from '../../components/FlexContainer';
 
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
@@ -32,9 +31,9 @@ function MelodyLength() {
     };
 
     return (
-        <Overlay>
-            <Table>
-                <Column>
+        <Overlay minWidth="30%" minHeight="20%">
+            <FlexContainer direction='row'>
+                <FlexContainer length={3}>
                     <Text>{dictionary.melodytype}</Text>
                     <Select value={tempMelodyType} onChange={e => setTempMelodyType(e.target.value)}>
                         <option value={MelodyType.ASCENDING}>{dictionary.ascending}</option>
@@ -43,12 +42,12 @@ function MelodyLength() {
                     </Select>
                     <Slider text={dictionary.melodylength} value={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
                 <NoteAdjustmentSliders/>
-                </Column>
-                <Column width={0.5}>
+                </FlexContainer>
+                <FlexContainer>
                     <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={2}/>
-                </Column>
-            </Table>
+                </FlexContainer>
+            </FlexContainer>
         </Overlay> 
     );
 }

@@ -4,8 +4,8 @@ import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
 import { IOContext } from '../../managers/IOLayer';
 import { LanguageContext } from '../../managers/UILayer';
 
-import Button from '../../components/button/Button';
-import Header from '../../components/header/Header';
+import Button from '../../components/Button';
+import Header from '../../components/Header';
 
 import './style.css';
 

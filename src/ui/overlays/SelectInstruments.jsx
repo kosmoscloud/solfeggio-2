@@ -4,12 +4,10 @@ import { IOContext } from '../../managers/IOLayer.jsx';
 import { UIContext } from '../../managers/UILayer.jsx';
 import { LanguageContext } from '../../managers/UILayer.jsx';
 
-import Table from '../../components/table/Table.jsx';
-import Column from '../../components/table/column/Column.jsx';
-import Text from '../../components/text/Text.jsx';
-import Checkbox from '../../components/checkbox/Checkbox.jsx';
-import Button from '../../components/button/Button.jsx';
-import Spacer from '../../components/spacer/Spacer.jsx';
+import FlexContainer from '../../components/FlexContainer.jsx';
+import Text from '../../components/Text.jsx';
+import Checkbox from '../../components/Checkbox.jsx';
+import Spacer from '../../components/FlexContainer.jsx';
 
 import Overlay from './Overlay.jsx';
 import OKCancel from './okcancel/OKCancel.jsx';
@@ -60,9 +58,9 @@ function SelectInstruments() {
     }
 
     return (
-        <Overlay>
-            <Table>
-                <Column>
+        <Overlay minWidth="30%" minHeight="30%">
+            <FlexContainer direction='row'>
+                <FlexContainer>
                     <Text>
                         {tempShuffleInstruments && dictionary.selectedinstruments}
                         {!tempShuffleInstruments && dictionary.selectedinstrument}
@@ -71,20 +69,19 @@ function SelectInstruments() {
                     <Checkbox label={dictionary.guitar} isChecked={isChecked('guitar')} onClick={() => toggleInstrument('guitar')} />
                     <Checkbox label={dictionary.marimba} isChecked={isChecked('marimba')} onClick={() => toggleInstrument('marimba')} />
                     <Checkbox label={dictionary.violin} isChecked={isChecked('violin')} onClick={() => toggleInstrument('violin')} />
-                </Column>
-                <Column>
+                </FlexContainer>
+                <FlexContainer>
                     <Spacer length={1}/>
                     <Checkbox label={dictionary.flute} isChecked={isChecked('flute')} onClick={() => toggleInstrument('flute')} />
                     <Checkbox label={dictionary.trombone} isChecked={isChecked('trombone')} onClick={() => toggleInstrument('trombone')} />
-                    <Spacer length={1}/>
                     <Text>{dictionary.selectrandom}</Text>
                     <Checkbox label={dictionary.yes} isChecked={tempShuffleInstruments} onClick={toggleShuffle}/>
-                </Column>
-                <Column width={0.5}>
+                </FlexContainer>
+                <FlexContainer length={0.5}>
                     <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
                     <Spacer length={3}/>
-                </Column>
-            </Table>
+                </FlexContainer>
+            </FlexContainer>
         </Overlay>
     )
 }
