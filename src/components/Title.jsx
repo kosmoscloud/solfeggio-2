@@ -11,7 +11,7 @@ function Title({children}) {
         width: 'auto',
         height: '100%',
         margin: '0.5rem',
-        fontSize: 'clamp(1.5rem, 2vmax, 3rem)',
+        fontSize: 'clamp(1.5rem, 2.5vmax, 3rem)',
         webkitTextSizeAdjust: 'none',
     }
 

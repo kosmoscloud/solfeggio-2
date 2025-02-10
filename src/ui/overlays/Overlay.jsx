@@ -1,30 +1,30 @@
 import React from 'react';
 
-import './style.css';
+function Overlay({children, minWidth, minHeight, type='center', padding=true}) {
 
-function Overlay({children, minWidth, minHeight, type="center"}) {
-
-    let className = "overlay";
-    let style = {};
-
-    if (type === "center") {
-        className += " center";
-    } else if (type === "top") {
-        className += " top";
-    } else if (type === "bottom") {
-        className += " bottom";
-    }
-
-    if (minWidth) {
-        style = {...style, minWidth: minWidth};
-    }
-
-    if (minHeight) {
-        style = {...style, minHeight: minHeight};
-    }
+    let style = {
+        position: 'fixed',
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: 'white',
+        width: 'fit-content',
+        maxWidth: '85%',
+        height: 'auto',
+        zIndex: 99,
+        border: '2px solid black',
+        boxShadow: '1vmin 1vmin',
+        cursor: 'default',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: '1vmin',
+        left: '50%',
+        top: type==='top' ? '75%' : type==='bottom' ? '25%' : '50%',
+        minHeight: minHeight || 'auto',
+        minWidth: minWidth || 'auto',
+    };
 
     return (
-        <div className={className} style={style}>
+        <div style={style}>
             {children}
         </div>
     );

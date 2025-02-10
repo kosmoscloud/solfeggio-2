@@ -20,16 +20,14 @@ function MainMenu() {
     const { dictionary } = useContext(LanguageContext);
 
     return (
-        <Overlay minWidth="50%" minHeight="20%">
-            <FlexContainer>
-                <FlexContainer direction='row'>
-                    <FlexContainer length={3} alignItems="flex-start">
-                        <Title>Solfeggio-2</Title>
-                        <Text>alpha</Text>
-                    </FlexContainer>
-                    <LanguageSelector />
+        <Overlay minWidth="50%" minHeight="40%">
+            <FlexContainer gap={2}>
+                <FlexContainer length={1} alignItems="center">
+                    <Title>Solfeggio-2</Title>
+                    <Text>alpha-1</Text>
                 </FlexContainer>
-                <Grid dimx={3} dimy={1}>
+                <LanguageSelector />
+                <Grid dimx={3} dimy={1} padding={false}>
                     <Button label={dictionary.exercises} onClick={() => showElement(<ExerciseMenu />)}/>
                     <Button label={dictionary.quizzes} onClick={() => showElement(<QuizMenu />)}/>
                     <Button label={dictionary.settings} onClick={() => showElement(<SettingsMenu />)}/>
