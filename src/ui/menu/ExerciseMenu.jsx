@@ -1,19 +1,19 @@
 import React, { useContext, useMemo } from 'react';
 
-import { UIContext, LanguageContext } from '../../../managers/UILayer.jsx';
+import { UIContext, LanguageContext } from '../../layers/UILayer.jsx';
 
-import MainMenu from '../mainmenu/MainMenu.jsx';
-import ChordMenu from '../chordmenu/ChordMenu.jsx';
+import MainMenu from './MainMenu.jsx';
+import ChordMenu from './ChordMenu.jsx';
 
-import SingleNoteExercise from '../../../exercises/play/SingleNoteExercise.jsx';
-import IntervalExercise from '../../../exercises/play/IntervalExercise.jsx';
-import MelodyExercise from '../../../exercises/play/MelodyExercise.jsx';
-import ChordExercise from '../../../exercises/play/ChordExercise.jsx';
+import SingleNoteExercise from '../../exercises/play/SingleNoteExercise.jsx';
+import IntervalExercise from '../../exercises/play/IntervalExercise.jsx';
+import MelodyExercise from '../../exercises/play/MelodyExercise.jsx';
+import ChordExercise from '../../exercises/play/ChordExercise.jsx';
 
-import Overlay from '../../overlays/Overlay.jsx';
-import Button from '../../../components/Button.jsx';
-import Grid from '../../../components/Grid.jsx';
-import GridPositioner from '../../../components/GridPositioner.jsx';
+import Overlay from '../overlays/Overlay.jsx';
+import Button from '../../components/Button.jsx';
+import Grid from '../../components/Grid.jsx';
+import GridPositioner from '../../components/GridPositioner.jsx';
 
 function ExerciseMenu() {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ResultsContext } from '../../managers/ExerciseLayer';
-import { LanguageContext } from '../../managers/UILayer';
+import { ResultsContext } from '../../layers/ExerciseLayer';
+import { LanguageContext } from '../../layers/UILayer';
 
 import Button from '../../components/Button';
 import Spacer from '../../components/FlexContainer';

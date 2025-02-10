@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { LanguageContext, UIContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { LanguageContext, UIContext } from '../../layers/UILayer';
 
-import Exercise from '../model/Exercise';
+import Exercise from '../Exercise';
 import chordTypes from '../data/ChordTypes';
 
 import Triads from '../../ui/overlays/chords/Triads';
@@ -15,7 +15,7 @@ import Random from '../../ui/overlays/chords/Random';
 
 import Ranges from '../../ui/overlays/Ranges';
 import Alert from '../../ui/overlays/alert/Alert';
-import ExerciseMenu from '../../ui/menu/exercisemenu/ExerciseMenu';
+import ExerciseMenu from '../../ui/menu/ExerciseMenu';
 
 function ChordExercise({type}) {
 

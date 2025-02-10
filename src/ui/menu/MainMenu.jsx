@@ -1,18 +1,18 @@
 import React, { useContext } from 'react';
 
-import { UIContext, LanguageContext } from '../../../managers/UILayer.jsx';
+import { UIContext, LanguageContext } from '../../layers/UILayer.jsx';
 
-import ExerciseMenu from '../exercisemenu/ExerciseMenu.jsx';
-import QuizMenu from '../quizmenu/QuizMenu.jsx';
-import SettingsMenu from '../settingsmenu/SettingsMenu';
+import ExerciseMenu from './ExerciseMenu.jsx';
+import QuizMenu from './QuizMenu.jsx';
+import SettingsMenu from './SettingsMenu.jsx';
 
-import Overlay from '../../overlays/Overlay.jsx';
-import Text from '../../../components/Text.jsx';
-import Title from '../../../components/Title.jsx';
-import Button from '../../../components/Button.jsx';
-import Grid from '../../../components/Grid.jsx';
-import FlexContainer from '../../../components/FlexContainer.jsx';
-import LanguageSelector from '../../languageselector/LanguageSelector.jsx';
+import Overlay from '../overlays/Overlay.jsx';
+import Text from '../../components/Text.jsx';
+import Title from '../../components/Title.jsx';
+import Button from '../../components/Button.jsx';
+import Grid from '../../components/Grid.jsx';
+import FlexContainer from '../../components/FlexContainer.jsx';
+import LanguageSelector from '../languageselector/LanguageSelector.jsx';
 
 function MainMenu() {
 

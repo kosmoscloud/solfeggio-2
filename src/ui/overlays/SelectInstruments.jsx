@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 
-import { IOContext } from '../../managers/IOLayer.jsx';
-import { UIContext } from '../../managers/UILayer.jsx';
-import { LanguageContext } from '../../managers/UILayer.jsx';
+import { IOContext } from '../../layers/IOLayer.jsx';
+import { UIContext } from '../../layers/UILayer.jsx';
+import { LanguageContext } from '../../layers/UILayer.jsx';
 
 import FlexContainer from '../../components/FlexContainer.jsx';
 import Text from '../../components/Text.jsx';

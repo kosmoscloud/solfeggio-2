@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 
-import MainMenu from '../ui/menu/mainmenu/MainMenu';
+import MainMenu from '../ui/menu/MainMenu';
 
 export const MenuContext = createContext();
 

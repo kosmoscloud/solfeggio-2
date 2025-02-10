@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState } from 'react';
 
-import { UIContext } from '../../managers/UILayer';
-import { IOContext } from '../../managers/IOLayer';
-import { LanguageContext } from '../../managers/UILayer';
+import { UIContext } from '../../layers/UILayer';
+import { IOContext } from '../../layers/IOLayer';
+import { LanguageContext } from '../../layers/UILayer';
 
-import { calculateEffectiveScale, GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
+import { calculateEffectiveScale, GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import OverlayKeyboard from '../keyboard/OverlayKeyboard';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';

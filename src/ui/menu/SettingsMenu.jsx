@@ -1,17 +1,17 @@
 import React, { useContext, useMemo } from 'react';
 
-import { LanguageContext, UIContext } from '../../../managers/UILayer.jsx';
+import { LanguageContext, UIContext } from '../../layers/UILayer.jsx';
 
-import MainMenu from '../mainmenu/MainMenu.jsx';
+import MainMenu from './MainMenu.jsx';
 
-import Ranges from '../../overlays/Ranges.jsx';
-import AudioMIDISettings from '../../overlays/AudioMIDISettings.jsx';
-import SelectInstruments from '../../overlays/SelectInstruments.jsx';
+import Ranges from '../overlays/Ranges.jsx';
+import AudioMIDISettings from '../overlays/AudioMIDISettings.jsx';
+import SelectInstruments from '../overlays/SelectInstruments.jsx';
 
-import Button from '../../../components/Button.jsx';
-import Overlay from '../../overlays/Overlay.jsx';
-import Grid from '../../../components/Grid.jsx';
-import GridPositioner from '../../../components/GridPositioner.jsx';
+import Button from '../../components/Button.jsx';
+import Overlay from '../overlays/Overlay.jsx';
+import Grid from '../../components/Grid.jsx';
+import GridPositioner from '../../components/GridPositioner.jsx';
 
 function SettingsMenu() {
 

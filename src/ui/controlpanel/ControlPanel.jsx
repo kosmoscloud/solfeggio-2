@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { UIContext } from '../../managers/UILayer.jsx';
+import { UIContext } from '../../layers/UILayer.jsx';
 
 import LeftPanel from './leftpanel/LeftPanel.jsx';
 

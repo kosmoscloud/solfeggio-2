@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 
-import { IOContext } from "../../managers/IOLayer";
-import { UIContext } from "../../managers/UILayer";
-import { LanguageContext } from "../../managers/UILayer";
+import { IOContext } from "../../layers/IOLayer";
+import { UIContext } from "../../layers/UILayer";
+import { LanguageContext } from "../../layers/UILayer";
 
 import Checkbox from "../../components/Checkbox";
 import FlexContainer from "../../components/FlexContainer";

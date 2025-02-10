@@ -1,7 +1,7 @@
-import IOLayer from './managers/IOLayer.jsx';
-import GlobalSettingsLayer from './managers/GlobalSettingsLayer.jsx';
-import ExerciseLayer from './managers/ExerciseLayer.jsx';
-import UILayer from './managers/UILayer.jsx';
+import IOLayer from './layers/IOLayer.jsx';
+import GlobalSettingsLayer from './layers/GlobalSettingsLayer.jsx';
+import ExerciseLayer from './layers/ExerciseLayer.jsx';
+import UILayer from './layers/UILayer.jsx';
 
 import './style.css';
 

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { LanguageContext, UIContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { LanguageContext, UIContext } from '../../layers/UILayer';
 
 import Slider from '../../components/Slider';
 import Text from '../../components/Text';
@@ -13,7 +13,7 @@ import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
 import NoteAdjustmentSliders from './noteadjustmentsliders/NoteAdjustmentSliders';
 
-import MelodyType from '../../managers/enums/MelodyType';
+import MelodyType from '../../layers/enums/MelodyType';
 
 function MelodyLength() {
     const { showElement, lastOpenedElement } = useContext(UIContext); 

@@ -1,19 +1,19 @@
 import React, { useContext, useMemo } from 'react';
 
-import { LanguageContext, UIContext } from '../../../managers/UILayer.jsx';
+import { LanguageContext, UIContext } from '../../layers/UILayer.jsx';
 
-import MainMenu from '../mainmenu/MainMenu.jsx';
+import MainMenu from './MainMenu.jsx';
 
-import IntervalsQuiz from '../../../exercises/choose/IntervalsQuiz.jsx';
-import TriadsQuiz from '../../../exercises/choose/TriadsQuiz.jsx';
-import TriadsInversionsQuiz from '../../../exercises/choose/TriadsInversionsQuiz.jsx';
-import SeventhsQuiz from '../../../exercises/choose/SeventhsQuiz.jsx';
-import SeventhsInversionsQuiz from '../../../exercises/choose/SeventhsInversionsQuiz.jsx';
+import IntervalsQuiz from '../../exercises/choose/IntervalsQuiz.jsx';
+import TriadsQuiz from '../../exercises/choose/TriadsQuiz.jsx';
+import TriadsInversionsQuiz from '../../exercises/choose/TriadsInversionsQuiz.jsx';
+import SeventhsQuiz from '../../exercises/choose/SeventhsQuiz.jsx';
+import SeventhsInversionsQuiz from '../../exercises/choose/SeventhsInversionsQuiz.jsx';
 
-import Button from '../../../components/Button.jsx';
-import Overlay from '../../overlays/Overlay.jsx';
-import Grid from '../../../components/Grid.jsx';
-import GridPositioner from '../../../components/GridPositioner.jsx';
+import Button from '../../components/Button.jsx';
+import Overlay from '../overlays/Overlay.jsx';
+import Grid from '../../components/Grid.jsx';
+import GridPositioner from '../../components/GridPositioner.jsx';
 
 function QuizMenu() {
 

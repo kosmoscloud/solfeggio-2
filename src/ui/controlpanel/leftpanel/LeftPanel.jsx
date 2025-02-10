@@ -1,8 +1,8 @@
 import React from "react";
 
-import { ResultsContext } from "../../../managers/ExerciseLayer.jsx";
-import { ExerciseContext } from "../../../managers/ExerciseLayer.jsx";
-import { LanguageContext } from "../../../managers/UILayer.jsx";
+import { ResultsContext } from "../../../layers/ExerciseLayer.jsx";
+import { ExerciseContext } from "../../../layers/ExerciseLayer.jsx";
+import { LanguageContext } from "../../../layers/UILayer.jsx";
 
 import Button from "../../../components/Button.jsx";
 import Grid from "../../../components/Grid.jsx";

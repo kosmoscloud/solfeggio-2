@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { UIContext, LanguageContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { UIContext, LanguageContext } from '../../layers/UILayer';
 
 import Checkbox from '../../components/Checkbox';
 import FlexContainer from '../../components/FlexContainer';
@@ -12,7 +12,7 @@ import Slider from '../../components/Slider';
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
 
-import IntervalPlayingMode from '../../managers/enums/IntervalPlayingMode';
+import IntervalPlayingMode from '../../layers/enums/IntervalPlayingMode';
 import NoteAdjustmentSliders from './noteadjustmentsliders/NoteAdjustmentSliders';
 
 function Intervals({ sliderEnabled = false }) {

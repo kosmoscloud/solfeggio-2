@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { LanguageContext } from '../../../managers/UILayer';
+import { LanguageContext } from '../../../layers/UILayer';
 
 import Button from '../../../components/Button';
 import FlexContainer from '../../../components/FlexContainer';

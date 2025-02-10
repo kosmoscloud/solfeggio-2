@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 
-import { OverlaysContext } from "../../managers/OverlayLayer.jsx";
+import { OverlaysContext } from "../../layers/OverlayLayer.js";
 import Overlay from "./Overlay.jsx";
 import Button from "../../components/button/Button.jsx";
 

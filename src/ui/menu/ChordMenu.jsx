@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 
-import { UIContext } from '../../../managers/UILayer.jsx';
-import { LanguageContext } from '../../../managers/UILayer.jsx';
+import { UIContext } from '../../layers/UILayer.jsx';
+import { LanguageContext } from '../../layers/UILayer.jsx';
 
-import ChordExercise from '../../../exercises/play/ChordExercise.jsx';
+import ChordExercise from '../../exercises/play/ChordExercise.jsx';
 
-import Overlay from '../../overlays/Overlay.jsx';
-import Grid from '../../../components/Grid.jsx';
-import Button from '../../../components/Button.jsx';
-import ExerciseMenu from '../exercisemenu/ExerciseMenu.jsx';
+import Overlay from '../overlays/Overlay.jsx';
+import Grid from '../../components/Grid.jsx';
+import Button from '../../components/Button.jsx';
+import ExerciseMenu from './ExerciseMenu.jsx';
 
 function ChordMenu() {
 

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { IOContext } from '../../managers/IOLayer';
-import { LanguageContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { IOContext } from '../../layers/IOLayer';
+import { LanguageContext } from '../../layers/UILayer';
 
-import Exercise from '../model/Exercise';
-import ExerciseMenu from '../../ui/menu/exercisemenu/ExerciseMenu';
+import Exercise from '../Exercise';
+import ExerciseMenu from '../../ui/menu/ExerciseMenu';
 
 function SingleNoteExercise() {
 

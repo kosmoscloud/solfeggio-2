@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { LanguageContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { LanguageContext } from '../../layers/UILayer';
 
-import Exercise from '../model/Exercise';
+import Exercise from '../Exercise';
 import Intervals from '../../ui/overlays/Intervals';
-import QuizMenu from '../../ui/menu/quizmenu/QuizMenu';
+import QuizMenu from '../../ui/menu/QuizMenu';
 
-import IntervalPlayingMode from '../../managers/enums/IntervalPlayingMode';
+import IntervalPlayingMode from '../../layers/enums/IntervalPlayingMode';
 
 function IntervalQuiz() {
 

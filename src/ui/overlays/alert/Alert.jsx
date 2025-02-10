@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { UIContext } from "../../../managers/UILayer";
+import { UIContext } from "../../../layers/UILayer";
 
 import Overlay from "../Overlay";
 import Text from "../../../components/Text";

@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { LanguageContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { LanguageContext } from '../../layers/UILayer';
 
-import Exercise from '../model/Exercise';
+import Exercise from '../Exercise';
 import Intervals from '../../ui/overlays/Intervals';
 
-import IntervalPlayingMode from '../../managers/enums/IntervalPlayingMode';
-import ExerciseMenu from '../../ui/menu/exercisemenu/ExerciseMenu';
+import IntervalPlayingMode from '../../layers/enums/IntervalPlayingMode';
+import ExerciseMenu from '../../ui/menu/ExerciseMenu';
 
 function IntervalExercise() {
 

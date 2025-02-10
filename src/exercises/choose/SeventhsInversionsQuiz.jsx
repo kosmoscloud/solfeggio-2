@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { LanguageContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { LanguageContext } from '../../layers/UILayer';
 
-import Exercise from '../../exercises/model/Exercise';
+import Exercise from '../Exercise';
 import Sevenths from '../../ui/overlays/chords/Sevenths';
 
 import chordTypes from '../../exercises/data/ChordTypes';
-import QuizMenu from '../../ui/menu/quizmenu/QuizMenu';
+import QuizMenu from '../../ui/menu/QuizMenu';
 
 function SeventhsInversionsQuiz() {
 

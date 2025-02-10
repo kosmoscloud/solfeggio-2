@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 
-import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
-import { LanguageContext } from '../../../managers/UILayer';
+import { GlobalSettingsContext } from '../../../layers/GlobalSettingsLayer';
+import { LanguageContext } from '../../../layers/UILayer';
 
 import FlexContainer from '../../../components/FlexContainer';
 import Slider from '../../../components/Slider';

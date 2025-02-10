@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { LanguageContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { LanguageContext } from '../../layers/UILayer';
 
-import Exercise from '../model/Exercise';
+import Exercise from '../Exercise';
 import MelodyLength from '../../ui/overlays/MelodyLength';
 
-import MelodyType from '../../managers/enums/MelodyType';
-import ExerciseMenu from '../../ui/menu/exercisemenu/ExerciseMenu';
+import MelodyType from '../../layers/enums/MelodyType';
+import ExerciseMenu from '../../ui/menu/ExerciseMenu';
 
 function MelodyExercise() {
 

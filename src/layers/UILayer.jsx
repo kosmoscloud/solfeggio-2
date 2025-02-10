@@ -1,7 +1,7 @@
 import React, { useEffect, createContext } from 'react';
 
 import Alert from '../ui/overlays/alert/Alert';
-import MainMenu from '../ui/menu/mainmenu/MainMenu';
+import MainMenu from '../ui/menu/MainMenu';
 
 export const UIContext = createContext();
 export const LanguageContext = createContext();

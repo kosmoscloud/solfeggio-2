@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
-import { GlobalSettingsContext } from '../../../managers/GlobalSettingsLayer';
-import { UIContext } from '../../../managers/UILayer';
+import { GlobalSettingsContext } from '../../../layers/GlobalSettingsLayer';
+import { UIContext } from '../../../layers/UILayer';
 
 import Checkbox from '../../../components/Checkbox';
 

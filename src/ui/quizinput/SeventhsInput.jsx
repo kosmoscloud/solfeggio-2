@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
-import { GlobalSettingsContext } from '../../managers/GlobalSettingsLayer';
-import { IOContext } from '../../managers/IOLayer';
-import { LanguageContext } from '../../managers/UILayer';
+import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
+import { IOContext } from '../../layers/IOLayer';
+import { LanguageContext } from '../../layers/UILayer';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';

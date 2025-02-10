@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 
-import { ResultsContext, ExerciseContext } from '../../managers/ExerciseLayer.jsx';
-import { UIContext } from '../../managers/UILayer.jsx';
-import { IOContext } from '../../managers/IOLayer.jsx';
+import { ResultsContext, ExerciseContext } from '../layers/ExerciseLayer.jsx';
+import { UIContext } from '../layers/UILayer.jsx';
+import { IOContext } from '../layers/IOLayer.jsx';
 
-import Keyboard from '../../ui/keyboard/Keyboard';
-import Banner from '../../components/Banner';
-import ControlPanel from '../../ui/controlpanel/ControlPanel';
-import IntervalsInput from '../../ui/quizinput/IntervalsInput.jsx';
-import TriadsInput from '../../ui/quizinput/TriadsInput.jsx';
-import TriadsInversionsInput from '../../ui/quizinput/TriadsInversionsInput.jsx';
-import SeventhsInput from '../../ui/quizinput/SeventhsInput.jsx';
-import SeventhsInversionsInput from '../../ui/quizinput/SeventhsInversionsInput.jsx';
+import Keyboard from '../ui/keyboard/Keyboard.jsx';
+import Banner from '../components/Banner.jsx';
+import ControlPanel from '../ui/controlpanel/ControlPanel.jsx';
+import IntervalsInput from '../ui/quizinput/IntervalsInput.jsx';
+import TriadsInput from '../ui/quizinput/TriadsInput.jsx';
+import TriadsInversionsInput from '../ui/quizinput/TriadsInversionsInput.jsx';
+import SeventhsInput from '../ui/quizinput/SeventhsInput.jsx';
+import SeventhsInversionsInput from '../ui/quizinput/SeventhsInversionsInput.jsx';
 
 function Exercise({ name, inputType, generateExample, predicate, settingsComponent, repeatEnabled = true, showHintEnabled = true, undoNoteEnabled = true, includeFirstNoteInAnswers = false, menu }) {
     const exerciseName = name;
