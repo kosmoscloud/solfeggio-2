@@ -27,7 +27,7 @@ function SettingsMenu() {
     const { dimx, dimy } = dimensions;      
 
     return (
-        <Overlay minWidth="20%">
+        <Overlay minWidth="20%" minHeight="25%">
             <Grid dimx={dimx} dimy={dimy}>
                 <Button label={dictionary.rangeandscale} onClick={() => showElement(<Ranges />)}/>
                 <Button label={dictionary.instruments} onClick={() => showElement(<SelectInstruments />)}/>

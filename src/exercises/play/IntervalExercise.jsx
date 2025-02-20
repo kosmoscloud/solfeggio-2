@@ -4,10 +4,10 @@ import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext } from '../../layers/UILayer';
 
 import Exercise from '../Exercise';
+import IntervalsQuiz from '../choose/IntervalsQuiz';
 import Intervals from '../../ui/overlays/Intervals';
 
 import IntervalPlayingMode from '../../layers/enums/IntervalPlayingMode';
-import ExerciseMenu from '../../ui/menu/ExerciseMenu';
 
 function IntervalExercise() {
 
@@ -30,7 +30,6 @@ function IntervalExercise() {
             randomInterval = randomInterval.flat();
         }
         if (intervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING) {
-            console.log('randomInterval', randomInterval);
             randomInterval.sort((a, b) => b - a);
         } else {
             randomInterval.sort((a, b) => a - b);
@@ -50,7 +49,7 @@ function IntervalExercise() {
         predicate={isIntervalCorrect}
         settingsComponent={<Intervals/>}
         includeFirstNoteInAnswers={true}
-        menu={<ExerciseMenu/>}
+        altVersion={<IntervalsQuiz/>}
     />
 }
 

@@ -17,7 +17,6 @@ function GridPositioner({children, x=1, y=1}) {
             gridRowStart: y,
             gridRowEnd: y
         };
-        console.log('new y', y);
     }, [y]);
 
     return (

@@ -3,6 +3,8 @@ import React, { useEffect, createContext } from 'react';
 import Alert from '../ui/overlays/alert/Alert';
 import MainMenu from '../ui/menu/MainMenu';
 
+import Background from '../components/Background';
+
 export const UIContext = createContext();
 export const LanguageContext = createContext();
 
@@ -16,11 +18,12 @@ function UILayer() {
     const [ language, setLanguage ] = React.useState('pl');
     const [ dictionary, setDictionary ] = React.useState({});
     const [ symbols, setSymbols ] = React.useState({})
+    const [ styleSheet, setStyleSheet ] = React.useState({});
 
-    
     useEffect(() => {
         setLanguageAndFetchDictionary(language);
         fetchAndSetSymbols();
+        fetchAndSetStyleSheet();
 
         const handleResize = () => {
             setAspectRatio(window.innerWidth / window.innerHeight);
@@ -30,14 +33,19 @@ function UILayer() {
     }, []);
     
     const setLanguageAndFetchDictionary = async (language) => {
-        const json = require(`../ui/languages/${language}.json`);
+        const json = require(`./languages/${language}.json`);
         setDictionary(json);
         setLanguage(language);
     }
 
     const fetchAndSetSymbols = () => {
-        const json = require(`../ui/languages/symbols.json`);
+        const json = require(`./languages/symbols.json`);
         setSymbols(json);
+    }
+
+    const fetchAndSetStyleSheet = () => {
+        const json = require(`./stylesheets/original.json`);
+        setStyleSheet(json);
     }
 
     const showElement = (element) => {
@@ -90,8 +98,9 @@ function UILayer() {
                 showElement, hideElement, lastOpenedElement,
                 showOverlay, hideOverlay,
                 showAlert, hideAlert,
-                aspectRatio }}>
+                aspectRatio, styleSheet }}>
             <LanguageContext.Provider value={{ dictionary, symbols, language, setLanguageAndFetchDictionary }}>
+                <Background/>
                 {renderActiveElement()}
                 {renderActiveOverlay()}
                 {renderActiveAlert()}

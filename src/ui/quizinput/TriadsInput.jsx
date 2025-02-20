@@ -26,10 +26,18 @@ function TriadsInput() {
 
     const { major, minor, diminished, augmented } = labels
 
-    return  <div className="quiz-input-triads">
-                <div className="quiz-input-header">
-                    <Header text={dictionary.triads} />
-                </div>
+    const containerstyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        top: '13%',
+        left: '30%',
+        height: '40%',
+        width: '40%',
+        gap: '8%'
+    };
+
+    return  <div style={containerstyle}>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">
                         <Button label={major} onClick={() => triggerLastAnswer('maj')} isEnabled={enabledTriads.includes('maj')} />

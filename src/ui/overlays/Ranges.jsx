@@ -38,7 +38,6 @@ function Ranges() {
 
     const acceptChanges = () => {
         if (tempFirstNote < tempLastNote) {
-            console.log('akceptowando, tempFirstNote:', tempFirstNote, 'tempLastNote:', tempLastNote, 'tempScale:', tempScale);
             setFirstNote(tempFirstNote);
             setLastNote(tempLastNote);
             setScale(tempScale);
@@ -94,12 +93,9 @@ function Ranges() {
                             <Spacer length={5}/>
                             <Button label={dictionary.playscale} onClick={playTempScale} isEnabled={!isPlayingBack}/>
                         </FlexContainer>
-                        <FlexContainer length={0.5}>
-                            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
-                            <Spacer length={3}/>
-                        </FlexContainer>
                     </FlexContainer>
                 </Overlay>
+                <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top='90%'/>
             </RangesContext.Provider>
         </div>
     );

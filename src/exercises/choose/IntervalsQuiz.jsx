@@ -4,8 +4,8 @@ import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext } from '../../layers/UILayer';
 
 import Exercise from '../Exercise';
+import IntervalExercise from '../play/IntervalExercise';
 import Intervals from '../../ui/overlays/Intervals';
-import QuizMenu from '../../ui/menu/QuizMenu';
 
 import IntervalPlayingMode from '../../layers/enums/IntervalPlayingMode';
 
@@ -60,7 +60,7 @@ function IntervalQuiz() {
         showHintEnabled={false}
         undoNoteEnabled={true}
         includeFirstNoteInAnswers={currentIntervalPlayingMode !== IntervalPlayingMode.SIMULTANEOUS}
-        menu={<QuizMenu/>}
+        altVersion={<IntervalExercise />}
     />
 }
 

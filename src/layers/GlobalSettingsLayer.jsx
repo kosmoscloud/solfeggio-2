@@ -30,7 +30,7 @@ function GlobalSettingsLayer({ children }) {
         elevenths: [0],
         thirteenths: [0]
     });
-    const [intervalsN, setIntervalsN] = useState(1);
+    const [intervalsN, setIntervalsN] = useState(2);
     const [triadsN, setTriadsN] = useState(1);
     const [seventhsN, setSeventhsN] = useState(1);
     const [melodyType, setMelodyType] = useState(MelodyType.FREE);

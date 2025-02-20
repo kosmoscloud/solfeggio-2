@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Spacer({ length=1, children, direction='column', padding=true, gap=0, alignItems='stretch' }) {
+function FlexContainer({ length=1, children, direction='column', padding=true, gap=0, alignItems='stretch' }) {
 
     const style = {
         flex: `${length}`,
@@ -8,8 +8,9 @@ function Spacer({ length=1, children, direction='column', padding=true, gap=0, a
         flexDirection: direction,
         alignItems: alignItems,
         justifyContent: 'space-between',
-        padding: padding ? '0.5vmin' : '0',
+        padding: padding ? '1vmin' : '0',
         gap: `${gap}vmin`,
+        boxSizing: 'border-box',
     }
 
     return <div style={style}>
@@ -17,4 +18,4 @@ function Spacer({ length=1, children, direction='column', padding=true, gap=0, a
     </div>;
 }
 
-export default Spacer;
+export default FlexContainer;

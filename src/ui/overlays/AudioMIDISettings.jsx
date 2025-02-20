@@ -34,19 +34,16 @@ function AudioMIDISettings() {
     }
 
     return (
-        <Overlay minWidth="30%" minHeight="20%">
-            <FlexContainer direction='row'>
-                <FlexContainer length={3}>
+        <div>
+            <Overlay minWidth="30%" minHeight="20%">
+                <FlexContainer>
                     <Text center={false}>{dictionary.outputinterface}:</Text>
                     <Checkbox label="Audio" isChecked={!tempIsMidiEnabled} onClick={() => tempSetIsMidiEnabled(false)}/>
                     <Checkbox label="MIDI" isChecked={tempIsMidiEnabled} onClick={() => setMidi(true)} />
                 </FlexContainer>
-                <FlexContainer>
-                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
-                    <Spacer length={0.5}/>
-                </FlexContainer>
-            </FlexContainer>
-        </Overlay>)
+            </Overlay>
+            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top='70%'/>
+        </div>)
 
 }
 

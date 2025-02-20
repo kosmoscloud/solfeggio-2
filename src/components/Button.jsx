@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+
+import { UIContext } from "../layers/UILayer";
 
 import Text from "./Text";
 
 function Button({label, isEnabled = true, onClick, icon, shadow = true, children}) {
 
-    const [isHovered, setIsHovered] = React.useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const { styleSheet } = useContext(UIContext);
     let isClickable = isEnabled && onClick
 
     const style = {
-        backgroundColor: isEnabled ? (isClickable && isHovered ? "#000" : "#fff") : "#333",
-        color: (isClickable && isHovered) ? "#fff" : "#000",
-        boxShadow: shadow ? "1vmin 1vmin 0 #333" : "none",
+        backgroundColor: isEnabled ? (isClickable && isHovered ? styleSheet.selected : styleSheet.enabled) : styleSheet.disabled,
+        boxShadow: shadow ? "1vmin 1vmin 0 " + styleSheet.disabled : "none",
         cursor: isClickable ? "pointer" : "default",
-        border: "2px solid black",
+        border: "2px solid " + styleSheet.text,
         display: "flex",
         flex: 1,
         justifyContent: "center",
@@ -23,7 +25,7 @@ function Button({label, isEnabled = true, onClick, icon, shadow = true, children
 
     return (
         <div style={style} onClick={isEnabled ? onClick : null} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            {label && <Text center={true}>{label}</Text>}
+            {label && <Text center={true} isSelected={isHovered && isEnabled}>{label}</Text>}
             {icon && <img src={icon} className={"icon"} alt="button with icon" />}
             {children && children}
         </div>

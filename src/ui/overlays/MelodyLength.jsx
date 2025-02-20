@@ -31,24 +31,21 @@ function MelodyLength() {
     };
 
     return (
-        <Overlay minWidth="30%" minHeight="20%">
-            <FlexContainer direction='row'>
-                <FlexContainer length={3}>
-                    <Text>{dictionary.melodytype}</Text>
+        <div>
+            <Overlay minWidth="30%" minHeight="30%">
+                <FlexContainer>
+                    <Text center={false}>{dictionary.melodytype}</Text>
                     <Select value={tempMelodyType} onChange={e => setTempMelodyType(e.target.value)}>
                         <option value={MelodyType.ASCENDING}>{dictionary.ascending}</option>
                         <option value={MelodyType.DESCENDING}>{dictionary.descending}</option>
                         <option value={MelodyType.FREE}>{dictionary.free}</option>
                     </Select>
-                    <Slider text={dictionary.melodylength} value={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
-                <NoteAdjustmentSliders/>
+                    <Text center={false}>{dictionary.melodylength}</Text>
+                    <Slider value={tempMelodyLength} onChange={setTempMelodyLength} min={3} max={10}/>
                 </FlexContainer>
-                <FlexContainer>
-                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
-                    <Spacer length={2}/>
-                </FlexContainer>
-            </FlexContainer>
-        </Overlay> 
+            </Overlay> 
+            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top='73%'/>
+        </div>
     );
 }
 

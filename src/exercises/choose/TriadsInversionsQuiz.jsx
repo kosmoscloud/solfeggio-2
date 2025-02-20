@@ -7,7 +7,6 @@ import Exercise from '../Exercise';
 import Triads from '../../ui/overlays/chords/Triads';
 
 import chordTypes from '../../exercises/data/ChordTypes';
-import QuizMenu from '../../ui/menu/QuizMenu';
 
 function TriadsInversionsQuiz() {
 
@@ -52,7 +51,6 @@ function TriadsInversionsQuiz() {
         settingsComponent={<Triads sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}
-        menu={<QuizMenu/>}
     />
 }
 

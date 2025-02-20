@@ -16,10 +16,18 @@ function IntervalsInput() {
     const enabledIntervals = useContext(GlobalSettingsContext).enabledIntervals;
     const { dictionary } = useContext(LanguageContext);
 
-    return <div className="quiz-input-intervals">
-                <div className="quiz-input-header">
-                    <Header text={dictionary.intervals} />
-                </div>
+    const containerstyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        top: '15%',
+        left: '10%',
+        height: '35%',
+        width: '80%',
+        gap: '8%'
+    };
+
+    return <div style={containerstyle}>
                 <div className="quiz-input-buttons">
                     <div className="quiz-input-buttons-row">
                         <Button label="2m" onClick={() => triggerLastAnswer(1)} isEnabled={enabledIntervals.includes(1)} />

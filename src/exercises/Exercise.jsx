@@ -13,10 +13,10 @@ import TriadsInversionsInput from '../ui/quizinput/TriadsInversionsInput.jsx';
 import SeventhsInput from '../ui/quizinput/SeventhsInput.jsx';
 import SeventhsInversionsInput from '../ui/quizinput/SeventhsInversionsInput.jsx';
 
-function Exercise({ name, inputType, generateExample, predicate, settingsComponent, repeatEnabled = true, showHintEnabled = true, undoNoteEnabled = true, includeFirstNoteInAnswers = false, menu }) {
+function Exercise({ name, inputType, generateExample, predicate, settingsComponent, repeatEnabled = true, showHintEnabled = true, undoNoteEnabled = true, includeFirstNoteInAnswers = false, altVersion }) {
     const exerciseName = name;
     const { playNotes, shuffleInstruments, triggerInstrumentChange, trigger, lastAnswer, lastQuizAnswer, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
-    const { updateNotesResults, updateExamplesResults, resetNotesResults, resetExamplesResults } = useContext(ResultsContext);
+    const { updateExamplesResults, resetExamplesResults } = useContext(ResultsContext);
     const [ hasStarted, setHasStarted ] = useState(false);
     const { showElement } = useContext(UIContext);
 
@@ -46,7 +46,6 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     }, [lastQuizAnswer]);
 
     const resetResults = () => {
-        resetNotesResults();
         resetExamplesResults();
     };
 
@@ -116,15 +115,9 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
         showElement(settingsComponent);
     }) : undefined;
 
-    const returnToMenu = () => {
-        resetResults();
-        setHasStarted(false);
-        showElement(menu);
-    }
-
     return (
-        <ExerciseContext.Provider value={{ answers, hasStarted, startExercise, nextExample, repeatExample, undoNote, showHint, openSettings, returnToMenu }}>
-            {inputType === 'keyboard' && <Banner text={exerciseName} />}
+        <ExerciseContext.Provider value={{ answers, hasStarted, startExercise, nextExample, repeatExample, undoNote, showHint, openSettings }}>
+            <Banner text={exerciseName} onClick={altVersion ? () => showElement(altVersion) : undefined} />
             {inputType === 'keyboard' && <Keyboard />}
             {inputType === 'intervals' && <IntervalsInput />}
             {inputType === 'triads' && <TriadsInput />}

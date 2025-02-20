@@ -4,6 +4,7 @@ import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext, UIContext } from '../../layers/UILayer';
 
 import Exercise from '../Exercise';
+import TriadsQuiz from '../choose/TriadsQuiz';
 import chordTypes from '../data/ChordTypes';
 
 import Triads from '../../ui/overlays/chords/Triads';
@@ -15,7 +16,6 @@ import Random from '../../ui/overlays/chords/Random';
 
 import Ranges from '../../ui/overlays/Ranges';
 import Alert from '../../ui/overlays/alert/Alert';
-import ExerciseMenu from '../../ui/menu/ExerciseMenu';
 
 function ChordExercise({type}) {
 
@@ -115,7 +115,7 @@ function ChordExercise({type}) {
         generateExample={generateChord}
         predicate={isChordCorrect}
         settingsComponent={settingsComponent}
-        menu={<ExerciseMenu/>}
+        altVersion={type==='triads' ? <TriadsQuiz /> : null}
     />
 }
 

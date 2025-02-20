@@ -8,7 +8,7 @@ import ChordExercise from '../../exercises/play/ChordExercise.jsx';
 import Overlay from '../overlays/Overlay.jsx';
 import Grid from '../../components/Grid.jsx';
 import Button from '../../components/Button.jsx';
-import ExerciseMenu from './ExerciseMenu.jsx';
+import MainMenu from './MainMenu.jsx';
 
 function ChordMenu() {
 
@@ -23,7 +23,7 @@ function ChordMenu() {
                 <Button label={dictionary.seventhchord} onClick={() => showElement(<ChordExercise type='sevenths' />)}/>
                 <Button label={dictionary.ninthchord} onClick={() => showElement(<ChordExercise type='ninths' />)}/>
                 <Button label={dictionary.eleventhchord} onClick={() => showElement(<ChordExercise type='elevenths' />)}/>
-                <Button label={dictionary.back} onClick={() => showElement(<ExerciseMenu />)}/>
+                <Button label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
                 <Button label={dictionary.thirteenthchord} onClick={() => showElement(<ChordExercise type='thirteenths' />)}/>
                 <Button label={dictionary.randomchord} onClick={() => showElement(<ChordExercise type='random' />)}/>
             </Grid>

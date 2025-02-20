@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Grid({dimx=1, dimy=1, padding=true, children}) {
+function Grid({dimx=1, dimy=1, padding=true, children, flex=1}) {
 
     let style = {
         gridTemplateColumns: `repeat(${dimx}, 1fr)`,
@@ -10,7 +10,7 @@ function Grid({dimx=1, dimy=1, padding=true, children}) {
         boxSizing: 'border-box',
         rowGap: '1vw',
         columnGap: '1vw',
-        flex: 1,
+        flex: flex,
     }
 
     return (

@@ -7,7 +7,6 @@ import Exercise from '../Exercise';
 import MelodyLength from '../../ui/overlays/MelodyLength';
 
 import MelodyType from '../../layers/enums/MelodyType';
-import ExerciseMenu from '../../ui/menu/ExerciseMenu';
 
 function MelodyExercise() {
 
@@ -45,7 +44,6 @@ function MelodyExercise() {
         generateExample={generateMelody}
         predicate={isMelodyCorrect}
         settingsComponent={<MelodyLength/>}
-        menu={<ExerciseMenu/>}
     />
 }
 

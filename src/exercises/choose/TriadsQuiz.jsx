@@ -6,7 +6,7 @@ import Exercise from '../Exercise';
 import Triads from '../../ui/overlays/chords/Triads';
 
 import chordTypes from '../../exercises/data/ChordTypes';
-import QuizMenu from '../../ui/menu/QuizMenu';
+import ChordExercise from '../play/ChordExercise';
 
 function TriadsQuiz() {
 
@@ -51,7 +51,7 @@ function TriadsQuiz() {
         settingsComponent={<Triads sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}
-        menu={<QuizMenu/>}
+        altVersion={<ChordExercise type='triads'/>}
     />
 }
 

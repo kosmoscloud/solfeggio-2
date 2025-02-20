@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { UIContext } from '../layers/UILayer';
 
 function Title({children}) {
+
+    const { styleSheet } = useContext(UIContext);
 
     const style = {
         flex: 1,
@@ -12,7 +16,10 @@ function Title({children}) {
         height: '100%',
         margin: '0.5rem',
         fontSize: 'clamp(1.5rem, 2.5vmax, 3rem)',
-        webkitTextSizeAdjust: 'none',
+        color: styleSheet.text,
+        WebkitTextSizeAdjust: 'none',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
     }
 
     return (

@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { UIContext } from '../layers/UILayer'
 
 function Select({value, onChange, children}) {
+
+    const { styleSheet } = useContext(UIContext)
 
     const containerstyle = {
         flex: 1,
         width: '100%',
         height: '100%',
         cursor: 'pointer',
-        border: '2px solid black',
+        border: '2px solid ' + styleSheet.text,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -19,9 +23,9 @@ function Select({value, onChange, children}) {
         padding: '0.5vmax',
         cursor: 'pointer',
         border: 0,
-        backgroundColor: 'white',
+        backgroundColor: styleSheet.enabled,
         borderRadius: 0,
-        color: 'black',
+        color: styleSheet.text,
         margin: 0,
         width: '100%',
         appearance: 'none',

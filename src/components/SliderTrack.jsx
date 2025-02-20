@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
+
+import { UIContext } from '../layers/UILayer';
 
 function SliderTrack ({min, max, value, isEnabled, onChange}) {
+
+    const { styleSheet } = useContext(UIContext);
+
     const minValue = min || 0;
     const maxValue = max || 100;
-    const sliderAreaRef = React.useRef();
-    const sliderBlockRef = React.useRef();
+    const sliderAreaRef = useRef();
+    const sliderBlockRef = useRef();
 
     const trackstyle = {
-        backgroundColor: '#ccc',
+        backgroundColor: styleSheet.lightbackground,
         display: 'flex',
         flex: 1,
         justifyContent: 'left',
@@ -17,13 +22,14 @@ function SliderTrack ({min, max, value, isEnabled, onChange}) {
     }
 
     const thumbstyle = {
-        backgroundColor: isEnabled ? '#fff' : '#888',
+        backgroundColor: isEnabled ? styleSheet.enabled : styleSheet.disabled,
         cursor: 'pointer',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
-        aspectRatio: '3',
+        minWidth: '8vmin',
+        height: '100%',
         borderLeft: '2px solid black',
         borderRight: '2px solid black',
         padding: '0.5vmin',
@@ -52,10 +58,10 @@ function SliderTrack ({min, max, value, isEnabled, onChange}) {
                 const { left } = sliderArea.getBoundingClientRect();
                 const newLeft = Math.min(Math.max(0, e.clientX - left - sliderBlockWidth / 2), sliderAreaWidth - sliderBlockWidth);
                 const newValue = Math.round((newLeft / (sliderAreaWidth - sliderBlockWidth)) * (maxValue - minValue) + minValue);
-                sliderBlock.style.left = `${newLeft}px`;
+                sliderBlock.style.left = `${(newValue - minValue) / (maxValue - minValue) * (sliderAreaWidth - sliderBlockWidth)}px`;
                 value = newValue;
                 onChange(newValue);
-        };
+        }
 
         const onMouseUp = () => {
             document.removeEventListener('mousemove', onMouseMove);

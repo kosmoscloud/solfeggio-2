@@ -40,10 +40,6 @@ function IOLayer({children}) {
     const [ isChangingInstrument, setIsChangingInstrument ] = useState(false);
 
     useEffect(() => {
-        console.log('isStopped:', isStopped);
-    }, [isStopped]);
-
-    useEffect(() => {
         setIsChangingInstrument(false);
     }, [currentInstrument]);
 

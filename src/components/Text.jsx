@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-function Text({children, wrap=false, center=true, lineHeight="1.5", size='normal'}) {
+import { UIContext } from '../layers/UILayer';
+
+function Text({children, wrap=false, center=true, lineHeight="1.5", size='normal', isSelected}) {
+
+    const { styleSheet } = useContext(UIContext)
 
     const style = {
         flex: 1,
+        color: isSelected ? styleSheet.enabled : styleSheet.text,
         display: 'flex',
         flexDirection: 'column',
         boxSizing: 'border-box',
         justifyContent: 'center',
-        alignItems: 'stretch',
-        webkitTextSizeAdjust: '80%',
+        WebkitTextSizeAdjust: '80%',
         whiteSpace: wrap ? "normal" : "nowrap",
         alignItems: center ? "center" : "flex-start",
         lineHeight: lineHeight,
-        fontSize: size === 'small' ? 'clamp(0.6em, 1.5vmax, 1rem)' : 'clamp(0.75rem, 1vmax, 1rem)'
+        fontSize: size === 'small' ? 'clamp(0.6em, 1.5vmax, 1rem)' : 'clamp(0.75rem, 1vmax, 1rem)',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
     };
 
     return (

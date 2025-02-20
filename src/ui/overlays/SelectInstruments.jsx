@@ -58,31 +58,30 @@ function SelectInstruments() {
     }
 
     return (
-        <Overlay minWidth="30%" minHeight="30%">
-            <FlexContainer direction='row'>
-                <FlexContainer>
-                    <Text>
-                        {tempShuffleInstruments && dictionary.selectedinstruments}
-                        {!tempShuffleInstruments && dictionary.selectedinstrument}
-                    </Text>
-                    <Checkbox label={dictionary.piano} isChecked={isChecked('piano')} onClick={() => toggleInstrument('piano')} />
-                    <Checkbox label={dictionary.guitar} isChecked={isChecked('guitar')} onClick={() => toggleInstrument('guitar')} />
-                    <Checkbox label={dictionary.marimba} isChecked={isChecked('marimba')} onClick={() => toggleInstrument('marimba')} />
-                    <Checkbox label={dictionary.violin} isChecked={isChecked('violin')} onClick={() => toggleInstrument('violin')} />
+        <div>
+            <Overlay minWidth="30%" minHeight="40%">
+                <FlexContainer direction='row'>
+                    <FlexContainer>
+                        <Text>
+                            {tempShuffleInstruments && dictionary.selectedinstruments}
+                            {!tempShuffleInstruments && dictionary.selectedinstrument}
+                        </Text>
+                        <Checkbox label={dictionary.piano} isChecked={isChecked('piano')} onClick={() => toggleInstrument('piano')} />
+                        <Checkbox label={dictionary.guitar} isChecked={isChecked('guitar')} onClick={() => toggleInstrument('guitar')} />
+                        <Checkbox label={dictionary.marimba} isChecked={isChecked('marimba')} onClick={() => toggleInstrument('marimba')} />
+                        <Checkbox label={dictionary.violin} isChecked={isChecked('violin')} onClick={() => toggleInstrument('violin')} />
+                    </FlexContainer>
+                    <FlexContainer>
+                        <Spacer length={1}/>
+                        <Checkbox label={dictionary.flute} isChecked={isChecked('flute')} onClick={() => toggleInstrument('flute')} />
+                        <Checkbox label={dictionary.trombone} isChecked={isChecked('trombone')} onClick={() => toggleInstrument('trombone')} />
+                        <Text>{dictionary.selectrandom}</Text>
+                        <Checkbox label={dictionary.yes} isChecked={tempShuffleInstruments} onClick={toggleShuffle}/>
+                    </FlexContainer>
                 </FlexContainer>
-                <FlexContainer>
-                    <Spacer length={1}/>
-                    <Checkbox label={dictionary.flute} isChecked={isChecked('flute')} onClick={() => toggleInstrument('flute')} />
-                    <Checkbox label={dictionary.trombone} isChecked={isChecked('trombone')} onClick={() => toggleInstrument('trombone')} />
-                    <Text>{dictionary.selectrandom}</Text>
-                    <Checkbox label={dictionary.yes} isChecked={tempShuffleInstruments} onClick={toggleShuffle}/>
-                </FlexContainer>
-                <FlexContainer length={0.5}>
-                    <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)}/>
-                    <Spacer length={3}/>
-                </FlexContainer>
-            </FlexContainer>
-        </Overlay>
+            </Overlay>
+            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top='80%'/>
+        </div>
     )
 }
 

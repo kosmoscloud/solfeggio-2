@@ -7,7 +7,6 @@ import Exercise from '../Exercise';
 import Sevenths from '../../ui/overlays/chords/Sevenths';
 
 import chordTypes from '../../exercises/data/ChordTypes';
-import QuizMenu from '../../ui/menu/QuizMenu';
 
 function SeventhsInversionsQuiz() {
 
@@ -53,7 +52,6 @@ function SeventhsInversionsQuiz() {
         settingsComponent={<Sevenths sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}
-        menu={<QuizMenu/>}
     />
 }
 

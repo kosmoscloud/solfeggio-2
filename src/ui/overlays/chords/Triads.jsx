@@ -51,37 +51,31 @@ function Triads({sliderEnabled=false}) {
     }
 
     return (
-        <Overlay minWidth="50%" minHeight="60%">
-            <FlexContainer>
-                <FlexContainer direction='row'>
-                    <Text center={false}>Trójdźwięki:</Text>
-                    <Text center={false}>Przewroty:</Text>
-                    <Spacer length={0.5} />
-                </FlexContainer>
+        <div>
+            <Overlay minWidth="50%" minHeight="40%">
                 <FlexContainer direction='row' length={3}>
                     <FlexContainer>
+                        <Text center={false}>Trójdźwięki:</Text>
                         <Checkbox label="Durowy" isChecked={tempEnabledTriads.includes('maj')} onClick={() => toggleTriad('maj')}/>
                         <Checkbox label="Molowy" isChecked={tempEnabledTriads.includes('min')} onClick={() => toggleTriad('min')}/>
                         <Checkbox label="Zmniejszony" isChecked={tempEnabledTriads.includes('dim')} onClick={() => toggleTriad('dim')}/>
                         <Checkbox label="Zwiększony" isChecked={tempEnabledTriads.includes('aug')} onClick={() => toggleTriad('aug')}/>
                     </FlexContainer>
                     <FlexContainer>
+                        <Text center={false}>Przewroty:</Text>
                         <Checkbox label="Postać zas." isChecked={tempEnabledTriadsInversions.includes(0)} onClick={() => toggleTriadsInversion(0)}/>
                         <Checkbox label="I przewrót" isChecked={tempEnabledTriadsInversions.includes(1)} onClick={() => toggleTriadsInversion(1)}/>
                         <Checkbox label="II przewrót" isChecked={tempEnabledTriadsInversions.includes(2)} onClick={() => toggleTriadsInversion(2)}/>
-                        <Spacer length={1} />
-                    </FlexContainer>
-                    <FlexContainer length={0.5}>
-                        <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} />
-                        {sliderEnabled && <Spacer length={1} />}
-                        {sliderEnabled && <Text>Przykłady:</Text>}
-                        {sliderEnabled && <Slider min={1} max={5} initialValue={triadsN} onChange={setTriadsN} />}
-                        {!sliderEnabled && <Spacer length={2} />}
+                        {sliderEnabled && <FlexContainer length={1}>
+                                <Text center={false}>Ilość przykładów:</Text>
+                                <Slider min={1} max={5} value={triadsN} onChange={setTriadsN} />
+                            </FlexContainer>}
+                        {!sliderEnabled && <Spacer length={1}/>}
                     </FlexContainer>
                 </FlexContainer>
-                <NoteAdjustmentSliders/>
-            </FlexContainer>
-        </Overlay>
+            </Overlay>
+            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top='80%'/>
+        </div>
     );
 
 }

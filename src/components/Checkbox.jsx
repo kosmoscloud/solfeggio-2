@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { UIContext } from '../layers/UILayer';
 
 import Text from './Text';
 
 function Checkbox({ isChecked, onClick, label }) {
+
+    const { styleSheet } = useContext(UIContext)
 
     const containerstyle = {
         display: 'flex',
@@ -15,16 +19,15 @@ function Checkbox({ isChecked, onClick, label }) {
     }
 
     const buttonstyle = {
-        backgroundColor: isChecked ? 'black' : 'white',
-        color: isChecked ? 'white' : 'black',
+        backgroundColor: isChecked ? styleSheet.text : styleSheet.enabled,
         height: '3vmin',
         aspectRatio: 1,
         cursor: 'pointer',
         fontSize: '100%',
-        border: '3px solid black',
+        border: '3px solid ' + styleSheet.text,
         display: 'flex',
         alignItems: 'flex-start',
-        boxShadow: '1vmin 1vmin',
+        boxShadow: '1vmin 1vmin' + (isChecked ? styleSheet.enabled : styleSheet.text),
     }
 
     return (

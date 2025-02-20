@@ -5,7 +5,6 @@ import { IOContext } from '../../layers/IOLayer';
 import { LanguageContext } from '../../layers/UILayer';
 
 import Exercise from '../Exercise';
-import ExerciseMenu from '../../ui/menu/ExerciseMenu';
 
 function SingleNoteExercise() {
 
@@ -35,7 +34,6 @@ function SingleNoteExercise() {
         predicate={isSingleNoteCorrect}
         settingsComponent={undefined}
         repeatEnabled={false}
-        menu={<ExerciseMenu/>}
     />
 }
 
