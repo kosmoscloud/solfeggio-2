@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext } from '../../layers/UILayer';
 
 import Exercise from '../Exercise';
 import Triads from '../../ui/overlays/chords/Triads';
+import TriadsInput from '../../ui/quizinput/TriadsInput';
 
 import chordTypes from '../../exercises/data/ChordTypes';
 import ChordExercise from '../play/ChordExercise';
+import { IOContext } from '../../layers/IOLayer';
 
 function TriadsQuiz() {
 
@@ -14,6 +16,12 @@ function TriadsQuiz() {
     const enabledTriads = useContext(GlobalSettingsContext).enabledChords.triads;
     const enabledInversions = useContext(GlobalSettingsContext).enabledInversions.triads;
     const { dictionary } = useContext(LanguageContext);
+    const { setMarkedAnswers } = useContext(IOContext);
+    const [ answerQueue, setAnswerQueue ] = useState({chord: null, inversion: null});
+
+    React.useEffect(() => {
+        console.log('answerQueue: ', answerQueue);
+    }, [answerQueue]);
 
     function generateTriad() {
         const randomTriads = Array.from({ length: triadsN }, () => enabledTriads[Math.floor(Math.random() * enabledTriads.length)]);
@@ -27,27 +35,38 @@ function TriadsQuiz() {
         ]);
     }
 
-    function isTriadCorrect(answers, generatedExample) {
-        // calculate the answers the same way they are generated, eg. [[0, 4, 7], [0, 3, 7]] => [[4, 3], [3, 4]]
-        const correctAnswers = generatedExample.map(triad => [triad[1] - triad[0], triad[2] - triad[1]]);
-        // now find the name of the chord in chordTypes, the inversion does not matter
-        const correctChords = generatedExample.map((triad, i) => {
+    function convertExampleToAnswers(example) {
+        return example.map(triad => {
             for (const chord in chordTypes['triads']) {
                 for (const inversion in chordTypes['triads'][chord]) {
-                    if (chordTypes['triads'][chord][inversion].toString() === correctAnswers[i].toString()) {
-                        return chord;
+                    if (chordTypes['triads'][chord][inversion].toString() === [triad[1] - triad[0], triad[2] - triad[1]].toString()) {
+                        return { chord: chord, inversion: parseInt(inversion) };
                     }
                 }
             }
         });
-        return answers.toString() === correctChords.toString();
+    }
+
+    function convertInputToAnswer(input) {
+        let tempAnswerQueue = answerQueue;
+        if (typeof input === 'number') tempAnswerQueue.inversion = input;
+        else if (typeof input === 'string') tempAnswerQueue.chord = input;
+        if (tempAnswerQueue.chord !== null && tempAnswerQueue.inversion !== null) {
+            setAnswerQueue({chord: null, inversion: null});
+            setMarkedAnswers([]);
+            return tempAnswerQueue;
+        }
+        setAnswerQueue(tempAnswerQueue);
+        setMarkedAnswers([tempAnswerQueue.chord, tempAnswerQueue.inversion]);
+        return
     }
 
     return <Exercise 
         name={dictionary.triads}
-        inputType='triads'
+        inputElement={<TriadsInput/>}
         generateExample={generateTriad}
-        predicate={isTriadCorrect}
+        convertExampleToAnswers={convertExampleToAnswers}
+        convertInputToAnswer={convertInputToAnswer}
         settingsComponent={<Triads sliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={false}

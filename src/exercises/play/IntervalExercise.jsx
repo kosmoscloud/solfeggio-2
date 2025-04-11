@@ -1,18 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext } from '../../layers/UILayer';
+import { IOContext } from '../../layers/IOLayer';
 
 import Exercise from '../Exercise';
 import IntervalsQuiz from '../choose/IntervalsQuiz';
 import Intervals from '../../ui/overlays/Intervals';
+import Keyboard from '../../ui/keyboard/Keyboard';
 
 import IntervalPlayingMode from '../../layers/enums/IntervalPlayingMode';
 
 function IntervalExercise() {
 
     const { effectiveScale, enabledIntervals, intervalPlayingMode:settingsIntervalPlayingMode } = useContext(GlobalSettingsContext);
+    const { setMarkedNotes } = useContext(IOContext);
+    const [ firstNote, setFirstNote ] = useState(0);
     const { dictionary } = useContext(LanguageContext);
+
+    React.useEffect(() => {
+        console.log('first note: ', firstNote);
+    }, [firstNote]);
 
     function generateInterval() {
         let intervalPlayingMode = settingsIntervalPlayingMode;
@@ -25,28 +33,38 @@ function IntervalExercise() {
             intervalPlayingMode = modes[Math.floor(Math.random() * modes.length)];
         }
 
-        let randomInterval = Array.from({ length: 2 }, () => [effectiveScale[Math.floor(Math.random() * effectiveScale.length)]]);
-        if (intervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING || intervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING) {
-            randomInterval = randomInterval.flat();
+        let randomInterval = Array.from({ length: 2 }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
+        randomInterval.sort((a, b) => a - b);
+
+        if (enabledIntervals.includes(Math.abs(randomInterval[1] - randomInterval[0]))) {
+            setMarkedNotes([randomInterval[0]]);
+            setFirstNote(randomInterval[0]);
+            return [randomInterval];
         }
-        if (intervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING) {
-            randomInterval.sort((a, b) => b - a);
-        } else {
-            randomInterval.sort((a, b) => a - b);
-        }
-        if (enabledIntervals.includes(Math.abs(randomInterval[1] - randomInterval[0]))) return randomInterval;
+
         else return generateInterval();
     }
 
-    function isIntervalCorrect(answers, generatedExample) {
-        return answers.toSorted().toString() === generatedExample.toSorted().toString();
+    function convertExampleToAnswers(example) {
+        let answers = []
+        example.forEach((interval) => {
+            answers.push({ halftones: Math.abs(interval[1] - interval[0]) });
+        });
+        return answers;
+    }
+
+    function convertInputToAnswer(input) {
+        console.log('input: ', input);
+        const answer = Math.abs(input - firstNote);
+        return { halftones: answer };
     }
 
     return <Exercise 
         name={dictionary.interval}
-        inputType='keyboard'
+        inputElement={<Keyboard/>}
         generateExample={generateInterval}
-        predicate={isIntervalCorrect}
+        convertExampleToAnswers={convertExampleToAnswers}
+        convertInputToAnswer={convertInputToAnswer}
         settingsComponent={<Intervals/>}
         includeFirstNoteInAnswers={true}
         altVersion={<IntervalsQuiz/>}

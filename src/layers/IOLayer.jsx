@@ -4,6 +4,7 @@ import { GlobalSettingsContext } from './GlobalSettingsLayer';
 
 import SoundGenerator from '../generators/SoundGenerator';
 import MidiGenerator from '../generators/MidiGenerator';
+import ReproductionMode from './enums/ReproductionMode';
 
 export const IOContext = createContext();
 
@@ -20,10 +21,11 @@ function IOLayer({children}) {
     const [ currentInstrument, setCurrentInstrument ] = useState('piano');
     const [ shuffleInstruments, setShuffleInstruments ] = useState(false);
 
+    const [ reproductionMode, setReproductionMode ] = useState(ReproductionMode.SIMULTANEOUS);
+
     // trigger is used to make sure the useEffect is called when the state is updated
     const [ trigger, setTrigger ] = useState(false);
-    const [ lastAnswer, setLastAnswer ] = useState(null);
-    const [ lastQuizAnswer, setLastQuizAnswer ] = useState(null);
+    const [ lastInput, setLastInput ] = useState(null);
     
     const [ markedNotes, setMarkedNotes ] = useState([]);
     const [ playedNotes, setPlayedNotes ] = useState([]);
@@ -71,8 +73,8 @@ function IOLayer({children}) {
         }
     }
 
-    const triggerLastAnswer = (answer) => {
-        setLastAnswer(answer);
+    const triggerLastInput = (input) => {
+        setLastInput(input);
         setTrigger(!trigger);
     }
 
@@ -107,11 +109,11 @@ function IOLayer({children}) {
             shuffleInstruments, setShuffleInstruments,
             currentInstrument, setCurrentInstrument,
             enabledInstruments, setEnabledInstruments,
+            reproductionMode, setReproductionMode,
             trigger,
-            lastAnswer, triggerLastAnswer,
+            lastInput, triggerLastInput,
             markedNotes, setMarkedNotes,
             playedNotes, setPlayedNotes,
-            lastQuizAnswer, setLastQuizAnswer,
             markedAnswers, setMarkedAnswers,
             doesBrowserSupportMIDI: doesBrowserSupportMIDI.current,
             midiAccess, setMidiAccess,

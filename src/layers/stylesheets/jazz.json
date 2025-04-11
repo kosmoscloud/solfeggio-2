@@ -1,8 +1,8 @@
 {
-    "background": "#182e00",
-    "disabled": "#5c4926",
-    "enabled": "#ffe9bf",
-    "lightbackground": "#ccc",
-    "text": "#121",
-    "selected": "#2e1e00"
+    "background": "#9c7b67",
+    "disabled": "#202803",
+    "enabled": "#4a4a4a",
+    "lightbackground": "#e0cd85",
+    "text": "#ffe3b1",
+    "selected": "#760000"
 }

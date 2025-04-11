@@ -15,6 +15,7 @@ function Select({value, onChange, children}) {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        boxShadow: "1vmin 1vmin 0 " + styleSheet.disabled
     }
 
     const selectstyle = {

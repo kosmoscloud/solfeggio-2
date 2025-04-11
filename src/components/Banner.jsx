@@ -15,13 +15,14 @@ function Banner({text, onClick}) {
         left: '10%',
         width: '80%',
         height: '6%',
+        gap: '1vmin',
     }
 
     return (
         <div style={style}>
             <Header text={text}/>
             {onClick && <FlexContainer length={0.05} padding={false} >
-                <Button label="X" shadow={false} onClick={onClick}/>
+                <Button label="»" shadow={false} onClick={onClick}/>
             </FlexContainer>}
         </div>
     )

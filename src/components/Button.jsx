@@ -4,14 +4,14 @@ import { UIContext } from "../layers/UILayer";
 
 import Text from "./Text";
 
-function Button({label, isEnabled = true, onClick, icon, shadow = true, children}) {
+function Button({label, isEnabled = true, isSelected = false, onClick, icon, shadow = true, children}) {
 
     const [isHovered, setIsHovered] = useState(false);
     const { styleSheet } = useContext(UIContext);
     let isClickable = isEnabled && onClick
 
     const style = {
-        backgroundColor: isEnabled ? (isClickable && isHovered ? styleSheet.selected : styleSheet.enabled) : styleSheet.disabled,
+        backgroundColor: isEnabled ? ((isClickable && isHovered) || isSelected ? styleSheet.selected : styleSheet.enabled) : styleSheet.disabled,
         boxShadow: shadow ? "1vmin 1vmin 0 " + styleSheet.disabled : "none",
         cursor: isClickable ? "pointer" : "default",
         border: "2px solid " + styleSheet.text,

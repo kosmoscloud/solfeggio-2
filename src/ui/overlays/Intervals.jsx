@@ -6,38 +6,41 @@ import Checkbox from '../../components/Checkbox';
 import FlexContainer from '../../components/FlexContainer';
 import Grid from '../../components/Grid';
 import Text from '../../components/Text';
-import Spacer from '../../components/FlexContainer';
 import Slider from '../../components/Slider';
 
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
 
-import IntervalPlayingMode from '../../layers/enums/IntervalPlayingMode';
-import NoteAdjustmentSliders from './noteadjustmentsliders/NoteAdjustmentSliders';
+import ReproductionMode from '../../layers/enums/ReproductionMode';
+import { IOContext } from '../../layers/IOLayer';
 
-function Intervals({ sliderEnabled = false }) {
-    const { showElement, lastOpenedElement, showAlert } = useContext(UIContext); 
+function Intervals() {
+    const { showElement, lastOpenedElement, showAlert, hideAlert } = useContext(UIContext); 
     const { enabledIntervals, setEnabledIntervals } = useContext(GlobalSettingsContext);
     const { intervalsN, setIntervalsN } = useContext(GlobalSettingsContext);
-    const { intervalPlayingMode, setIntervalPlayingMode } = useContext(GlobalSettingsContext);
+    const { reproductionMode, setReproductionMode } = useContext(IOContext);
     const [ tempIntervalsN, setTempIntervalsN ] = useState(intervalsN);
     const [ tempEnabledIntervals, setTempEnabledIntervals ] = useState(enabledIntervals);
-    const [ tempIntervalPlayingMode, setTempIntervalPlayingMode ] = useState(intervalPlayingMode);
+    const [ tempReproductionMode, setTempReproductionMode ] = useState(reproductionMode);
 
     const { dictionary } = useContext(LanguageContext);
 
     const acceptChanges = () => {
-        if (tempEnabledIntervals === enabledIntervals && tempIntervalsN === intervalsN && tempIntervalPlayingMode === intervalPlayingMode) {
+        if (tempEnabledIntervals === enabledIntervals && tempIntervalsN === intervalsN && tempReproductionMode === reproductionMode) {
             showElement(lastOpenedElement);
             return;
         }
         if (tempEnabledIntervals.length === 0) {
-            showAlert("Wybierz przynajmniej jeden interwał.");
+            showAlert(dictionary.selectatleastoneinterval);
             return;
         }
-        setIntervalPlayingMode(tempIntervalPlayingMode);
+        if (tempReproductionMode === ReproductionMode.RANDOM) {
+            setTempIntervalsN(1);
+        }
+        setReproductionMode(tempReproductionMode);
         setEnabledIntervals(tempEnabledIntervals);
         setIntervalsN(tempIntervalsN);
+        hideAlert();
         showElement(lastOpenedElement);
     };
 
@@ -48,10 +51,10 @@ function Intervals({ sliderEnabled = false }) {
 
     return (
         <div>
-            <Overlay minHeight='40%' minWidth='50%'>
+            <Overlay minHeight={tempReproductionMode === ReproductionMode.SIMULTANEOUS ? '50%' : '40%'} minWidth='50%'>
                 <FlexContainer direction='row'>
                     <FlexContainer>
-                        <FlexContainer direction='row' gap={5}>
+                        <FlexContainer direction='row' gap={5} length={5}>
                             <FlexContainer length={2}>
                                 <Text center={false}>{dictionary.intervals}</Text>
                                 <Grid dimx={3} dimy={4} padding={false} flex={4}>
@@ -73,18 +76,26 @@ function Intervals({ sliderEnabled = false }) {
                                 <Text center={false}>{dictionary.intervalplayingmode}</Text>
                                 <Grid dimx={2} dimy={1} padding={false} flex={4}>
                                     <Grid dimx={1} dimy={4} padding={false}>
-                                        <Checkbox label={dictionary.simultaneousmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SIMULTANEOUS} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SIMULTANEOUS)}}/>
-                                        <Checkbox label={dictionary.ascendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_ASCENDING} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_ASCENDING); setTempIntervalsN(1)}}/>
-                                        <Checkbox label={dictionary.descendingmode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.SEQUENTIAL_DESCENDING} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.SEQUENTIAL_DESCENDING); setTempIntervalsN(1)}}/>
-                                        <Checkbox label={dictionary.randommode} isChecked={tempIntervalPlayingMode === IntervalPlayingMode.RANDOM} onClick={() => {setTempIntervalPlayingMode(IntervalPlayingMode.RANDOM); setTempIntervalsN(1)}}/>
+                                        <Checkbox label={dictionary.simultaneousmode} isChecked={tempReproductionMode === ReproductionMode.SIMULTANEOUS} onClick={() => {setTempReproductionMode(ReproductionMode.SIMULTANEOUS)}}/>
+                                        <Checkbox label={dictionary.ascendingmode} isChecked={tempReproductionMode === ReproductionMode.ASCENDING} onClick={() => {setTempReproductionMode(ReproductionMode.ASCENDING); setTempIntervalsN(1)}}/>
+                                        <Checkbox label={dictionary.descendingmode} isChecked={tempReproductionMode === ReproductionMode.DESCENDING} onClick={() => {setTempReproductionMode(ReproductionMode.DESCENDING); setTempIntervalsN(1)}}/>
+                                        <Checkbox label={dictionary.randommode} isChecked={tempReproductionMode === ReproductionMode.RANDOM} onClick={() => {setTempReproductionMode(ReproductionMode.RANDOM); setTempIntervalsN(1)}}/>
                                     </Grid>
                                 </Grid>
                             </FlexContainer>
                         </FlexContainer>
+                        {tempReproductionMode === ReproductionMode.SIMULTANEOUS && <FlexContainer length={0.5} direction='row' padding={false}>
+                            <FlexContainer>
+                                <Text>{dictionary.numberofexamples}</Text>
+                            </FlexContainer>
+                            <FlexContainer length={2}>
+                                <Slider label={dictionary.intervalsn} min={1} max={5} value={tempIntervalsN} onChange={setTempIntervalsN}/>
+                            </FlexContainer>
+                        </FlexContainer>}
                     </FlexContainer>
                 </FlexContainer>
             </Overlay>
-            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top='80%'/>
+            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top={tempReproductionMode === ReproductionMode.SIMULTANEOUS ? '85%' : '80%'}/>
         </div>
     );
 

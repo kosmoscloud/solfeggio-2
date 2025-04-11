@@ -37,9 +37,12 @@
     "total": "en total",
     "sounds": "sonidos",
     "examples": "ejemplos",
+    "numberofexamples": "número de ejemplos",
     "notespacing": "espaciado de notas",
     "notelength": "longitud de notas",
     "time": "tiempo",
+
+    "selectatleastoneinterval": "Selecciona al menos un intervalo.",
 
     "scale": "escala",
     "firstnote": "primera nota",

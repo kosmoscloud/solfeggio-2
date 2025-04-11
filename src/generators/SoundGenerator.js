@@ -1,11 +1,15 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
+
 import { Soundfont } from 'smplr';
+
 import { AudioContext as StandardizedAudioContext } from 'standardized-audio-context';
+import { GlobalSettingsContext } from '../layers/GlobalSettingsLayer';
 
 const SoundGenerator = () => {
     const audioContextRef = useRef({});
     const instrumentsRef = useRef({});
-    const [ noteQueue, setNoteQueue ] = useState([]);
+    const { reproductionMode } = useContext(GlobalSettingsContext);
+    const [ tempReproductionMode, setTempReproductionMode ] = useState(reproductionMode);
 
     useEffect(() => {
         const loadAudioContext = async () => {

@@ -18,12 +18,20 @@ function UILayer() {
     const [ language, setLanguage ] = React.useState('pl');
     const [ dictionary, setDictionary ] = React.useState({});
     const [ symbols, setSymbols ] = React.useState({})
-    const [ styleSheet, setStyleSheet ] = React.useState({});
+    const [ styleSheet, setStyleSheet ] = React.useState(() => {
+        const savedStyleSheet = localStorage.getItem('styleSheet');
+        return savedStyleSheet ? JSON.parse(savedStyleSheet) : {};
+    });
+    const [ styleSheets, setStyleSheets ] = React.useState([]);
+
+    useEffect(() => {
+        localStorage.setItem('styleSheet', JSON.stringify(styleSheet));
+    }, [styleSheet]);
 
     useEffect(() => {
         setLanguageAndFetchDictionary(language);
         fetchAndSetSymbols();
-        fetchAndSetStyleSheet();
+        fetchStyleSheets();
 
         const handleResize = () => {
             setAspectRatio(window.innerWidth / window.innerHeight);
@@ -43,9 +51,11 @@ function UILayer() {
         setSymbols(json);
     }
 
-    const fetchAndSetStyleSheet = () => {
-        const json = require(`./stylesheets/original.json`);
-        setStyleSheet(json);
+    const fetchStyleSheets = () => {
+        const context = require.context('./stylesheets', false, /\.json$/);
+        const sheets = context.keys().map(context);
+        setStyleSheets(sheets);
+        setStyleSheet(sheets[0]);
     }
 
     const showElement = (element) => {
@@ -98,7 +108,8 @@ function UILayer() {
                 showElement, hideElement, lastOpenedElement,
                 showOverlay, hideOverlay,
                 showAlert, hideAlert,
-                aspectRatio, styleSheet }}>
+                aspectRatio, styleSheet,
+                styleSheets, setStyleSheet }}>
             <LanguageContext.Provider value={{ dictionary, symbols, language, setLanguageAndFetchDictionary }}>
                 <Background/>
                 {renderActiveElement()}

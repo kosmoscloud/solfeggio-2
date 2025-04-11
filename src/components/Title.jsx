@@ -20,6 +20,7 @@ function Title({children}) {
         WebkitTextSizeAdjust: 'none',
         WebkitUserSelect: 'none',
         MozUserSelect: 'none',
+        textShadow: "0.5vmin 0.5vmin 0 " + styleSheet.background
     }
 
     return (

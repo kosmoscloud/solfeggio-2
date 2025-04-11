@@ -34,7 +34,6 @@ function GlobalSettingsLayer({ children }) {
     const [triadsN, setTriadsN] = useState(1);
     const [seventhsN, setSeventhsN] = useState(1);
     const [melodyType, setMelodyType] = useState(MelodyType.FREE);
-    const [intervalPlayingMode, setIntervalPlayingMode] = useState(IntervalPlayingMode.SIMULTANEOUS);
 
     const setEnabledChordsByType = (type, chords) => {
         setEnabledChords({ ...enabledChords, [type]: chords });
@@ -56,7 +55,6 @@ function GlobalSettingsLayer({ children }) {
             triadsN, setTriadsN,
             seventhsN, setSeventhsN,
             melodyType, setMelodyType,
-            intervalPlayingMode, setIntervalPlayingMode,
             isMobile
         }}>
             {children}

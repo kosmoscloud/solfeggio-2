@@ -1,18 +1,37 @@
 import React, { useContext } from "react";
-import { IOContext } from "../../layers/IOLayer.jsx";
-import Key from "./key/Key.jsx";
-import "./style.css";
 import { GlobalSettingsContext } from "../../layers/GlobalSettingsLayer.jsx";
+import { IOContext } from "../../layers/IOLayer.jsx";
+import { UIContext } from "../../layers/UILayer.jsx";
+
+import Key from "./key/Key.jsx";
+
+import "./style.css";
 
 function Keyboard() {
-    const { playNotes, triggerLastAnswer, markedNotes, playedNotes } = useContext(IOContext); 
+    const { playNotes, triggerLastInput, markedNotes, playedNotes } = useContext(IOContext); 
+    const { styleSheet } = useContext(UIContext);
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const [ lowNote, highNote ] = [ effectiveScale[0] - 2, effectiveScale[effectiveScale.length - 1] + 2 ];
     const keys = generateKeys(lowNote, highNote);
 
+    React.useEffect(() => {
+        console.log('markedNotes: ', markedNotes);
+    }, [markedNotes])
+
+    const keyboardStyle = {
+        display: 'block',
+        position: 'absolute',
+        top: '14%',
+        left: '10%',
+        height: '40%',
+        width: '80%',
+        overflow: 'hidden',
+        border: "2px solid " + styleSheet.text, 
+    }
+
     function handleKeyClick(midiNote) {
         playNotes([midiNote]);
-        triggerLastAnswer(midiNote);
+        triggerLastInput(midiNote);
     }
     
     function generateKeys(lowNote, highNote) {
@@ -56,7 +75,7 @@ function Keyboard() {
     }
 
     return (
-        <div className="keyboard">
+        <div style={keyboardStyle}>
             {keys.flat().map(key => key)}
         </div>
     );

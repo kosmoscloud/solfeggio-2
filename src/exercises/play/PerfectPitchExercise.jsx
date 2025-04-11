@@ -5,35 +5,43 @@ import { IOContext } from '../../layers/IOLayer';
 import { LanguageContext } from '../../layers/UILayer';
 
 import Exercise from '../Exercise';
+import Keyboard from '../../ui/keyboard/Keyboard';
 
 function SingleNoteExercise() {
 
-    const { effectiveScale, noteSpacing } = useContext(GlobalSettingsContext);
+    const { effectiveScale, noteSpacing, setNoteSpacing } = useContext(GlobalSettingsContext);
     const { playNotes } = useContext(IOContext);
     const { dictionary } = useContext(LanguageContext);
 
-    function generateSingleNote() {
-        const sequenceLength = Math.ceil(noteSpacing * 100 / 2);
-        const randomNotes = Array.from({ length: sequenceLength }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
-        playNotes(randomNotes, 0.05, 0.05)
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve([effectiveScale[Math.floor(Math.random() * effectiveScale.length)]]);
-            }, sequenceLength * 50 + 750);
-        });
+    async function generateSingleNote() {
+        playDistractor();
+        await new Promise(resolve => setTimeout(resolve, 500));
+        return [effectiveScale[Math.floor(Math.random() * effectiveScale.length)]];
     }
 
-    function isSingleNoteCorrect(answers, generatedExample) {
-        return answers[0] === generatedExample[0];
+    function convertExampleToAnswers(example) {
+        return [example];
     }
+
+    function convertInputToAnswer(input) {
+        return [input];
+    }
+
+    async function playDistractor() {
+        const tempNoteSpacing = noteSpacing;
+        setNoteSpacing(0.5);
+        const randomNote = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
+        await playNotes([randomNote], noteSpacing, 0.5);
+        setNoteSpacing(tempNoteSpacing);
+    }
+
 
     return <Exercise 
         name={dictionary.perfectpitch}
-        inputType='keyboard'
+        inputElement={<Keyboard/>}
         generateExample={generateSingleNote}
-        predicate={isSingleNoteCorrect}
-        settingsComponent={undefined}
-        repeatEnabled={false}
+        convertExampleToAnswers={convertExampleToAnswers}
+        convertInputToAnswer={convertInputToAnswer}
     />
 }
 

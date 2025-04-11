@@ -21,12 +21,12 @@ function Alert({text, afterAlert}) {
     };
 
     return (
-        <Overlay>
+        <Overlay minHeight='15%'>
             <FlexContainer>
                 <Text wrap={true}>{text}</Text>
-                <div style={{display: 'flex', justifyContent: 'center', height: '5vmin', width: '10vmax', flex: 1}}>
+                <FlexContainer>
                     <Button label="OK" onClick={handleClick}/>
-                </div>
+                </FlexContainer>
             </FlexContainer>
         </Overlay>
     );

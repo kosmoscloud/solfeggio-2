@@ -17,13 +17,15 @@ import FlexContainer from '../../components/FlexContainer.jsx';
 import LanguageSelector from '../languageselector/LanguageSelector.jsx';
 import MelodyExercise from '../../exercises/play/MelodyExercise.jsx';
 import PerfectPitchExercise from '../../exercises/play/PerfectPitchExercise.jsx';
+import ColorChooser from '../colorchooser/ColorChooser.jsx';
 
 function MainMenu() {
 
-    const { showElement } = useContext(UIContext);
+    const { showElement, styleSheets } = useContext(UIContext);
     const { dictionary } = useContext(LanguageContext);
 
     return (
+        <div>
         <Overlay minWidth="60%" minHeight="50%">
             <FlexContainer gap={2}>
                 <FlexContainer length={1} alignItems="center">
@@ -43,6 +45,8 @@ function MainMenu() {
                 </FlexContainer>
             </FlexContainer>
         </Overlay>
+        <ColorChooser styleSheets={styleSheets} />
+        </div>
     )
 
 }

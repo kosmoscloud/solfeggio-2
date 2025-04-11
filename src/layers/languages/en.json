@@ -37,9 +37,12 @@
     "total": "total",
     "sounds": "sounds",
     "examples": "examples",
+    "numberofexamples": "number of examples",
     "notespacing": "note spacing",
     "notelength": "note length",
     "time": "time",
+
+    "selectatleastoneinterval": "Select at least one interval.",
 
     "scale": "scale",
     "firstnote": "first note",

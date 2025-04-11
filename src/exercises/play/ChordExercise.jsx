@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 
 import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext, UIContext } from '../../layers/UILayer';
+import { IOContext } from '../../layers/IOLayer';
 
 import Exercise from '../Exercise';
 import TriadsQuiz from '../choose/TriadsQuiz';
@@ -16,6 +17,7 @@ import Random from '../../ui/overlays/chords/Random';
 
 import Ranges from '../../ui/overlays/Ranges';
 import Alert from '../../ui/overlays/alert/Alert';
+import Keyboard from '../../ui/keyboard/Keyboard';
 
 function ChordExercise({type}) {
 
@@ -23,10 +25,16 @@ function ChordExercise({type}) {
     const { enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const { dictionary } = useContext(LanguageContext);
+    const { setMarkedNotes } = useContext(IOContext);
     const possibleChords = React.useMemo(() => {
             return calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
             // eslint-disable-next-line
         }, [effectiveScale, enabledChords, enabledInversions, type]);
+    const [ inputQueue, setInputQueue ] = React.useState([]);
+
+    useEffect(() => {
+        console.log('inputQueue: ', inputQueue);
+    }, [inputQueue]);
 
     useEffect(() => {
         if (possibleChords.length === 0) {
@@ -47,8 +55,42 @@ function ChordExercise({type}) {
     function generateChord() {
         const randomChord = possibleChords[Math.floor(Math.random() * possibleChords.length)];
         randomChord.sort((a, b) => a - b);
-        const chordList = randomChord.map(note => [note]);
-        return chordList;
+        setMarkedNotes([randomChord[0]]);
+        return [randomChord];
+    }
+
+    function convertExampleToAnswers(example) {
+        let chordType = translateChordToType(example[0]);
+
+        return [chordType];
+    }
+
+    function translateChordToType(chord) {
+        console.log(chord)
+        let diffchord = chord.map((note, index) => {
+            if (index === 0) return null;
+            return note - chord[index - 1];
+        }).filter(interval => interval !== null);
+
+        for (let chordType in chordTypes[type]) {
+            for (let inversion in chordTypes[type][chordType]) {
+                if (JSON.stringify(chordTypes[type][chordType][inversion]) === JSON.stringify(diffchord)) {
+                    return { chord: chordType, inversion: parseInt(inversion)};
+                }
+            }
+        }
+        return { chord: 'unknown', inversion: 0 };
+    }
+
+    function convertInputToAnswer(input) {
+        let tempInputQueue = [...inputQueue, input];
+        
+        if (tempInputQueue.length === enabledChords[type][0].length) {
+            setInputQueue([]);
+            return convertExampleToAnswers([tempInputQueue])[0];
+        }
+        setInputQueue(tempInputQueue);
+        return;
     }
 
     function calculatePossibleChords(effectiveScale, enabledChords, enabledInversions) {
@@ -94,8 +136,8 @@ function ChordExercise({type}) {
         return chords;
     }
 
-    function isChordCorrect(answers, generatedExample) {
-        return answers.sort().toString() === generatedExample.sort().toString();
+    function clearInputQueue() {
+        setInputQueue([]);
     }
 
     const settingsComponents = {
@@ -111,11 +153,13 @@ function ChordExercise({type}) {
 
     return <Exercise 
         name={name}
-        inputType='keyboard'
+        inputElement={<Keyboard />}
         generateExample={generateChord}
-        predicate={isChordCorrect}
+        convertExampleToAnswers={convertExampleToAnswers}
+        convertInputToAnswer={convertInputToAnswer}
         settingsComponent={settingsComponent}
         altVersion={type==='triads' ? <TriadsQuiz /> : null}
+        repeat={clearInputQueue}
     />
 }
 

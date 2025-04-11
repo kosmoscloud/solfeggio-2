@@ -4,23 +4,18 @@ import { ResultsContext, ExerciseContext } from '../layers/ExerciseLayer.jsx';
 import { UIContext } from '../layers/UILayer.jsx';
 import { IOContext } from '../layers/IOLayer.jsx';
 
-import Keyboard from '../ui/keyboard/Keyboard.jsx';
 import Banner from '../components/Banner.jsx';
 import ControlPanel from '../ui/controlpanel/ControlPanel.jsx';
-import IntervalsInput from '../ui/quizinput/IntervalsInput.jsx';
-import TriadsInput from '../ui/quizinput/TriadsInput.jsx';
-import TriadsInversionsInput from '../ui/quizinput/TriadsInversionsInput.jsx';
-import SeventhsInput from '../ui/quizinput/SeventhsInput.jsx';
-import SeventhsInversionsInput from '../ui/quizinput/SeventhsInversionsInput.jsx';
 
-function Exercise({ name, inputType, generateExample, predicate, settingsComponent, repeatEnabled = true, showHintEnabled = true, undoNoteEnabled = true, includeFirstNoteInAnswers = false, altVersion }) {
+function Exercise({ name, inputElement, generateExample, convertExampleToAnswers, convertInputToAnswer, settingsComponent, repeatEnabled = true, showHintEnabled = true, reproductionMode, altVersion, repeat }) {
     const exerciseName = name;
-    const { playNotes, shuffleInstruments, triggerInstrumentChange, trigger, lastAnswer, lastQuizAnswer, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
+    const { playNotes, shuffleInstruments, triggerInstrumentChange, trigger, lastInput, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes, setReproductionMode } = useContext(IOContext);
     const { updateExamplesResults, resetExamplesResults } = useContext(ResultsContext);
     const [ hasStarted, setHasStarted ] = useState(false);
     const { showElement } = useContext(UIContext);
 
     const [ generatedExample, setGeneratedExample ] = useState([]);
+    const [ correctAnswers, setCorrectAnswers ] = useState([]);
     const [ answers, setAnswers ] = useState([]);
     const prevAnswersLengthRef = useRef(playedNotes.length);
 
@@ -29,27 +24,30 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     }, [name]);
 
     useEffect(() => {
-        if (hasStarted) {
-            const correctAnswer = generatedExample[answers.length];
-            if (correctAnswer) {
-                // updateNotesResults(predicate([lastAnswer], [correctAnswer]));
-                setAnswers([...answers, lastAnswer]);
-                setPlayedNotes([...playedNotes, lastAnswer]);
-            }
-        }
-    }, [trigger]);
+        console.log('generated example: ', generatedExample);
+    }, [generatedExample]);
 
     useEffect(() => {
-        if (lastQuizAnswer) {
-            setAnswers([...answers, lastQuizAnswer]);
+        console.log('correct answers: ', correctAnswers);
+    }, [correctAnswers]);
+
+    useEffect(() => {
+        console.log('answers: ', answers);
+    }, [answers]);
+
+    useEffect(() => {
+        if (hasStarted) {
+            const newAnswer = convertInputToAnswer ? convertInputToAnswer(lastInput) : lastInput;
+            if (newAnswer) setAnswers([...answers, newAnswer]);
         }
-    }, [lastQuizAnswer]);
+    }, [trigger]);
 
     const resetResults = () => {
         resetExamplesResults();
     };
 
     const startExercise = () => {
+        setReproductionMode(reproductionMode);
         resetResults();
         setHasStarted(true);
         nextExample();
@@ -59,13 +57,9 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
         setAnswers([]);
         if (shuffleInstruments) await triggerInstrumentChange();
         const newExample = await generateExample();
-        if (includeFirstNoteInAnswers) setAnswers([newExample[0]]);
-        if (inputType === 'keyboard') {
-            setPlayedNotes([]);
-            setMarkedNotes([]);
-            if (newExample.length > 1) setMarkedNotes(Array.isArray(newExample[0]) ? newExample[0] : [newExample[0]]);
-        }
+        const newCorrectAnswers = await convertExampleToAnswers(newExample);
         setGeneratedExample(newExample);
+        setCorrectAnswers(newCorrectAnswers);
         playExample(newExample);
     };
 
@@ -78,15 +72,10 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     };
 
     const repeatExample = repeatEnabled ?  () => {
-        if (includeFirstNoteInAnswers) setAnswers([generatedExample[0]]);
-        else setAnswers([]);
+        setAnswers([]);
         setPlayedNotes([]);
+        if (repeat) repeat();
         playExample(generatedExample);
-    } : undefined;
-
-    const undoNote = undoNoteEnabled ? () => {
-        setAnswers(answers.slice(0, -1));
-        setPlayedNotes(playedNotes.slice(0, -1));
     } : undefined;
 
     const showHint = showHintEnabled ? () => {
@@ -95,8 +84,9 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
     } : undefined;
 
     useEffect(() => {
-        if (hasStarted && prevAnswersLengthRef.current !== answers.length && answers.length === generatedExample.length) {
-            const isCorrect = predicate(answers, generatedExample);
+        if (hasStarted && prevAnswersLengthRef.current !== answers.length && answers.length === correctAnswers.length) {
+            const isCorrect = JSON.stringify(answers) === JSON.stringify(correctAnswers);
+            console.log('isCorrect: ', isCorrect, 'answers: ', JSON.stringify(answers), 'correctAnswers: ', JSON.stringify(correctAnswers));
             updateExamplesResults(isCorrect);
             if (isCorrect) {
                 setMarkedNotes([]);
@@ -104,26 +94,22 @@ function Exercise({ name, inputType, generateExample, predicate, settingsCompone
                     nextExample();
                 }, 900);
             } else {
+                setAnswers([]);
                 if (repeatEnabled) setTimeout(() => repeatExample(), 900);
                 else setTimeout(() => nextExample(), 900);
             }
         }
         prevAnswersLengthRef.current = answers.length;
-    }, [answers, generatedExample]);
+    }, [answers]);
 
     const openSettings = (settingsComponent !== undefined) ? (() => {
         showElement(settingsComponent);
     }) : undefined;
 
     return (
-        <ExerciseContext.Provider value={{ answers, hasStarted, startExercise, nextExample, repeatExample, undoNote, showHint, openSettings }}>
+        <ExerciseContext.Provider value={{ answers, hasStarted, startExercise, nextExample, repeatExample, showHint, openSettings }}>
             <Banner text={exerciseName} onClick={altVersion ? () => showElement(altVersion) : undefined} />
-            {inputType === 'keyboard' && <Keyboard />}
-            {inputType === 'intervals' && <IntervalsInput />}
-            {inputType === 'triads' && <TriadsInput />}
-            {inputType === 'triadsinversions' && <TriadsInversionsInput />}
-            {inputType === 'sevenths' && <SeventhsInput />}
-            {inputType === 'seventhsinversions' && <SeventhsInversionsInput />}
+            {inputElement}
             <ControlPanel />
         </ExerciseContext.Provider>
     );
