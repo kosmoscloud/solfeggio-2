@@ -20,10 +20,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject",
+    "start": "npm start",
+    "build": "npm build",
+    "test": "npm test",
+    "eject": "npm eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -44,6 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "cracoConfig": "craco.config.js"
+  }
 }
