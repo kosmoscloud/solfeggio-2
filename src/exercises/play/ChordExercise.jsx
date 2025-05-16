@@ -27,20 +27,58 @@ function ChordExercise({type}) {
     const { dictionary } = useContext(LanguageContext);
     const { setMarkedNotes } = useContext(IOContext);
     const possibleChords = React.useMemo(() => {
-            return calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
-            // eslint-disable-next-line
-        }, [effectiveScale, enabledChords, enabledInversions, type]);
+            function calculatePossibleChords(effectiveScale, enabledChords, enabledInversions) {
+                let options = [];
+                const chords = [];
+                if (type === 'random') {
+                    enabledChords.forEach(chordLength => {
+                        for (let j = 0; j < 512; j++) {
+                            const randomNotes = new Set();
+                            while (randomNotes.size < chordLength) {
+                                const randomNote = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
+                                randomNotes.add(randomNote);
+                            }
+                            chords.push([...randomNotes]);
+                        }
+                    });
+                } else {
+                    options = chordTypes[type];
+                    options = Object.keys(options)
+                    .filter(chordType => enabledChords.includes(chordType))
+                    .reduce((arr, key) => {
+                        Object.keys(options[key])
+                            .filter(inversion => enabledInversions.includes(parseInt(inversion)))
+                            .forEach(invKey => {
+                            arr.push(options[key][invKey]);
+                            });
+                        return arr;
+                        }, []);
+        
+                    for (let i = 0; i < effectiveScale.length; i++) {
+                        options.forEach(option => {
+                            const root = effectiveScale[i];
+                            const chord = option.reduce((acc, interval) => {
+                                const lastNote = acc[acc.length - 1] || root;
+                                acc.push(lastNote + interval);
+                                return acc;
+                            }, [root]);
+                            if (chord.every(note => effectiveScale.includes(note))) chords.push(chord);                        
+                        });
+                    }
+                }
+                return chords;
+            }
+            let possibleChords = calculatePossibleChords(effectiveScale, enabledChords[type], enabledInversions[type]);
+            if (possibleChords.length === 0) {
+                showAlert(<Alert text="Nie odnaleziono żadnego akordu w wybranej skali. Zmień zakres dźwięków." afterAlert={showOverlay(<Ranges />)}/>);
+            }
+            return possibleChords;
+        }, [effectiveScale, enabledChords, enabledInversions, type, showAlert, showOverlay]);
     const [ inputQueue, setInputQueue ] = React.useState([]);
 
     useEffect(() => {
         console.log('inputQueue: ', inputQueue);
     }, [inputQueue]);
-
-    useEffect(() => {
-        if (possibleChords.length === 0) {
-            showAlert(<Alert text="Nie odnaleziono żadnego akordu w tej skali. Zmień zakres dźwięków." afterAlert={showOverlay(<Ranges />)}/>);
-        }
-    }, [possibleChords, effectiveScale]);
 
     const name = {
         'triads': dictionary.triads,
@@ -91,49 +129,6 @@ function ChordExercise({type}) {
         }
         setInputQueue(tempInputQueue);
         return;
-    }
-
-    function calculatePossibleChords(effectiveScale, enabledChords, enabledInversions) {
-
-        let options = [];
-        const chords = [];
-        if (type === 'random') {
-            enabledChords.forEach(chordLength => {
-                for (let j = 0; j < 512; j++) {
-                    const randomNotes = new Set();
-                    while (randomNotes.size < chordLength) {
-                        const randomNote = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
-                        randomNotes.add(randomNote);
-                    }
-                    chords.push([...randomNotes]);
-                }
-            });
-        } else {
-            options = chordTypes[type];
-            options = Object.keys(options)
-            .filter(chordType => enabledChords.includes(chordType))
-            .reduce((arr, key) => {
-                Object.keys(options[key])
-                    .filter(inversion => enabledInversions.includes(parseInt(inversion)))
-                    .forEach(invKey => {
-                    arr.push(options[key][invKey]);
-                    });
-                return arr;
-                }, []);
-
-            for (let i = 0; i < effectiveScale.length; i++) {
-                options.forEach(option => {
-                    const root = effectiveScale[i];
-                    const chord = option.reduce((acc, interval) => {
-                        const lastNote = acc[acc.length - 1] || root;
-                        acc.push(lastNote + interval);
-                        return acc;
-                    }, [root]);
-                    if (chord.every(note => effectiveScale.includes(note))) chords.push(chord);                        
-                });
-            }
-        }
-        return chords;
     }
 
     function clearInputQueue() {

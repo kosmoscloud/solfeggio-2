@@ -1,14 +1,10 @@
-import React, { useContext } from 'react';
-
-import { UIContext } from '../../layers/UILayer.jsx';
+import React from 'react';
 
 import LeftPanel from './leftpanel/LeftPanel.jsx';
 
 import './style.css';
 
 function ControlPanel() {
-
-    const { aspectRatio } = useContext(UIContext);
 
     return (
         <div className="control-panel">

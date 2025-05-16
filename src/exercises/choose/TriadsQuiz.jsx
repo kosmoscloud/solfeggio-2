@@ -28,7 +28,7 @@ function TriadsQuiz() {
         const randomNotes = Array.from({ length: triadsN }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
         const randomInversions = Array.from({ length: triadsN }, () => enabledInversions[Math.floor(Math.random() * enabledInversions.length)]);
 
-        return randomTriads.map((triad, i) => [
+        return randomTriads.map((triad, i) =>  [
             randomNotes[i],
             randomNotes[i] + chordTypes['triads'][triad][randomInversions[i]][0],
             randomNotes[i] + chordTypes['triads'][triad][randomInversions[i]][0] + chordTypes['triads'][triad][randomInversions[i]][1]
@@ -44,6 +44,7 @@ function TriadsQuiz() {
                     }
                 }
             }
+            return null;
         });
     }
 

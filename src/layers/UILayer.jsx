@@ -38,7 +38,7 @@ function UILayer() {
         };
         
         window.addEventListener('resize', handleResize);
-    }, []);
+    }, [language]);
     
     const setLanguageAndFetchDictionary = async (language) => {
         const json = require(`./languages/${language}.json`);

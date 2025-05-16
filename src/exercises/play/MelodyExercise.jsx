@@ -26,7 +26,7 @@ function MelodyExercise() {
 
     useEffect(() => {
         setPlayedNotes(inputQueue);
-    }, [inputQueue]);
+    }, [inputQueue, setPlayedNotes]);
 
     function generateMelody() {
         const randomMelody = [];

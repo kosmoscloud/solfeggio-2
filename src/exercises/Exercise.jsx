@@ -40,7 +40,7 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
             const newAnswer = convertInputToAnswer ? convertInputToAnswer(lastInput) : lastInput;
             if (newAnswer) setAnswers([...answers, newAnswer]);
         }
-    }, [trigger]);
+    }, [trigger, answers, convertInputToAnswer, hasStarted, lastInput]);
 
     const resetResults = () => {
         resetExamplesResults();
@@ -100,7 +100,7 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
             }
         }
         prevAnswersLengthRef.current = answers.length;
-    }, [answers]);
+    }, [answers, correctAnswers, hasStarted, nextExample, repeatExample, updateExamplesResults]);
 
     const openSettings = (settingsComponent !== undefined) ? (() => {
         showElement(settingsComponent);

@@ -1,7 +1,6 @@
 import React, { createContext, useState, useRef } from 'react';
 
 import MelodyType from './enums/MelodyType';
-import IntervalPlayingMode from './enums/IntervalPlayingMode';
 
 export const GlobalSettingsContext = createContext();
 

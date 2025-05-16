@@ -6,7 +6,6 @@ import { LanguageContext } from "../../layers/UILayer";
 
 import Checkbox from "../../components/Checkbox";
 import FlexContainer from "../../components/FlexContainer";
-import Spacer from "../../components/FlexContainer";
 import Text from "../../components/Text";
 
 import Overlay from "./Overlay";

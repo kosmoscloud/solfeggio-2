@@ -11,7 +11,6 @@ import Button from "../../../components/Button.jsx";
 import Grid from "../../../components/Grid.jsx";
 import FlexContainer from "../../../components/FlexContainer.jsx";
 import Results from "../../results/Results.jsx";
-import NoteAdjustmentSliders from "../../overlays/noteadjustmentsliders/NoteAdjustmentSliders.jsx";
 
 import "./style.css";
 

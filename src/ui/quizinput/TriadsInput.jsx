@@ -24,7 +24,7 @@ function TriadsInput() {
         const diminished = (aspectRatio <= 1.25 || isMobile) ? symbols.dim : dictionary.diminished;
         const augmented = (aspectRatio <= 1.25 || isMobile) ? symbols.aug : dictionary.augmented;
         return { major, minor, diminished, augmented }
-    }, [aspectRatio, isMobile]);
+    }, [aspectRatio, isMobile, symbols, dictionary]);
 
     const { major, minor, diminished, augmented } = labels
 

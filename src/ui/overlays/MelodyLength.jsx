@@ -5,13 +5,11 @@ import { LanguageContext, UIContext } from '../../layers/UILayer';
 
 import Slider from '../../components/Slider';
 import Text from '../../components/Text';
-import Spacer from '../../components/FlexContainer';
 import Select from "../../components/Select"
 import FlexContainer from '../../components/FlexContainer';
 
 import Overlay from './Overlay';
 import OKCancel from './okcancel/OKCancel';
-import NoteAdjustmentSliders from './noteadjustmentsliders/NoteAdjustmentSliders';
 
 import MelodyType from '../../layers/enums/MelodyType';
 

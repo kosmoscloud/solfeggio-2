@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext } from '../../layers/UILayer';

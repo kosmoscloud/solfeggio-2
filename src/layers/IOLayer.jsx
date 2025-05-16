@@ -62,7 +62,7 @@ function IOLayer({children}) {
                 midiGenerator.current.playNotes(noteQueue, noteSpacing, noteLength);
             }
         }
-    }, [currentInstrument, isChangingInstrument, isStopped, noteQueue ]);
+    }, [currentInstrument, isChangingInstrument, isStopped, noteQueue, isMidiEnabled, noteLength, noteSpacing]);
 
     const playNotes = (notes) => {
         stopPlaying();

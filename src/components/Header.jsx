@@ -2,9 +2,6 @@ import React, { useContext } from "react";
 
 import { UIContext } from "../layers/UILayer";
 
-import Results from "../ui/results/Results";
-
-import FlexContainer from "./FlexContainer";
 import Text from "./Text";
 
 function Header({isEnabled = true, text, children}) {

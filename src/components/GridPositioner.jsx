@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 function GridPositioner({children, x=1, y=1}) {
 
-    let style = {
+    let style = useRef();
+
+    style.current = {
         gridColumnStart: x,
         gridColumnEnd: x,
         gridRowStart: y,
@@ -12,15 +14,15 @@ function GridPositioner({children, x=1, y=1}) {
     }
 
     React.useEffect(() => {
-        style = {
-            ...style,
+        style.current = {
+            ...style.current,
             gridRowStart: y,
             gridRowEnd: y
         };
     }, [y]);
 
     return (
-        <div style={style}>
+        <div style={style.current}>
             {children}
         </div>
     )

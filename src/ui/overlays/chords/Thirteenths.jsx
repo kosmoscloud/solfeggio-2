@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { GlobalSettingsContext } from '../../../layers/GlobalSettingsLayer';
 import { UIContext } from '../../../layers/UILayer';
