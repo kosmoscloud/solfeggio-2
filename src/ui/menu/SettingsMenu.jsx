@@ -19,7 +19,7 @@ function SettingsMenu() {
     const { dictionary } = useContext(LanguageContext);
     
     const dimensions = useMemo(() => {
-        const dimx = aspectRatio >= 1.25 ? 2 : 1
+        const dimx = aspectRatio >= 1.25 ? 1 : 1
         const dimy = aspectRatio >= 1.25 ? 2 : 4
         return { dimx, dimy };
     }, [aspectRatio]);
@@ -30,11 +30,11 @@ function SettingsMenu() {
         <Overlay minWidth="20%" minHeight="25%">
             <Grid dimx={dimx} dimy={dimy}>
                 <Button label={dictionary.rangeandscale} onClick={() => showElement(<Ranges />)}/>
-                <Button label={dictionary.instruments} onClick={() => showElement(<SelectInstruments />)}/>
+                {/* <Button label={dictionary.instruments} onClick={() => showElement(<SelectInstruments />)}/> */}
                 <GridPositioner x={1} y={dimy}>
                     <Button label={dictionary.back} onClick={() => showElement(<MainMenu />)}/>
                 </GridPositioner>
-                <Button label={dictionary.audiomidi} onClick={() => showElement(<AudioMIDISettings />)}/>
+                {/* <Button label={dictionary.audiomidi} onClick={() => showElement(<AudioMIDISettings />)}/> */}
             </Grid>
         </Overlay>
     )

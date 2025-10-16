@@ -1,5 +1,3 @@
-import React from "react";
-
 import Header from "./Header";
 import FlexContainer from "./FlexContainer";
 import SliderTrack from "./SliderTrack";

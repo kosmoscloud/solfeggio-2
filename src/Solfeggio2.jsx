@@ -4,6 +4,7 @@ import ExerciseLayer from './layers/ExerciseLayer.jsx';
 import UILayer from './layers/UILayer.jsx';
 
 function Solfeggio2() {
+
   return (
     <div className="solfeggio2">
       <GlobalSettingsLayer>

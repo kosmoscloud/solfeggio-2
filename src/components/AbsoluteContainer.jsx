@@ -1,5 +1,3 @@
-import React from 'react';
-
 function AbsoluteContainer({children, top, left, minHeight, minWidth}) {
 
     const style = {

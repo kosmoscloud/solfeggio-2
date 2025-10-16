@@ -29,7 +29,6 @@ function ChordMenu() {
             </Grid>
         </Overlay>
     )
-
 }
 
 export default ChordMenu;

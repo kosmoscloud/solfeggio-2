@@ -1,6 +1,9 @@
 const ReproductionMode = Object.freeze ({
-    SEQUENTIAL: 'SEQUENTIAL',
+    ASCENDING: 'ASCENDING',
+    DESCENDING: 'DESCENDING',
     SIMULTANEOUS: 'SIMULTANEOUS',
+    SEQUENTIAL: 'SEQUENTIAL',
+    RANDOM: 'RANDOM',
 })
 
 export default ReproductionMode;

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext } from '../../layers/UILayer';
 
@@ -18,10 +18,6 @@ function TriadsQuiz() {
     const { dictionary } = useContext(LanguageContext);
     const { setMarkedAnswers } = useContext(IOContext);
     const [ answerQueue, setAnswerQueue ] = useState({chord: null, inversion: null});
-
-    React.useEffect(() => {
-        console.log('answerQueue: ', answerQueue);
-    }, [answerQueue]);
 
     function generateTriad() {
         const randomTriads = Array.from({ length: triadsN }, () => enabledTriads[Math.floor(Math.random() * enabledTriads.length)]);

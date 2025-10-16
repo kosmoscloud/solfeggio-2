@@ -21,7 +21,7 @@ const RangesContext = createContext();
 function Ranges() {
 
     const { firstNote, setFirstNote, lastNote, setLastNote, scale, setScale, effectiveScale, isMobile } = useContext(GlobalSettingsContext);
-    const { playNotes, setCurrentInstrument } = useContext(IOContext);
+    const { playNotes } = useContext(IOContext);
     const centerNote = effectiveScale[Math.floor(effectiveScale.length / 2)];
     const keyRange = { low: Math.max(centerNote - (isMobile ? 12 : 24), 0), high: Math.min(centerNote + (isMobile ? 12 : 24), 127) };
     const [ tempFirstNote, setTempFirstNote ] = useState(firstNote);
@@ -49,7 +49,6 @@ function Ranges() {
 
     const playTempScale = async () => {
         setIsPlayingBack(true);
-        setCurrentInstrument('piano');
         await playNotes(calculateEffectiveScale(tempFirstNote, tempLastNote, tempScale), 0.1, 0.1);
         setIsPlayingBack(false);
     }

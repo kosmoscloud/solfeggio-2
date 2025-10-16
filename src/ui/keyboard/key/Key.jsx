@@ -1,6 +1,7 @@
 import React from "react";
 import { UIContext } from "../../../layers/UILayer.jsx";
 import Dot from "../dot/Dot.jsx";
+import Text from "../../../components/Text.jsx";
 
 function Key({onClick, isWhite, left, width, midiNote, isMarked, isPlayed}) {
     
@@ -13,41 +14,29 @@ function Key({onClick, isWhite, left, width, midiNote, isMarked, isPlayed}) {
         const superscript = ["¹", "²", "³", "⁴"];
         const label = isC ? `C${subscript[octave + 1] || superscript[octave - 4] || ""}` : "";
 
-        const whiteKeyStyle = {
+        const commonKeyStyle = {
             position: "absolute",
             left: left,
             width: width,
-            backgroundColor: isHovered ? styleSheet.selected : styleSheet.enabled,
-            border: "1px solid " + styleSheet.text,
-            height: "100%",
             display: "flex",
             justifyContent: "center",
             alignItems: "flex-end",
             cursor: "pointer"
         };
 
+        const whiteKeyStyle = {
+            ...commonKeyStyle,
+            backgroundColor: isHovered ? styleSheet.selected : styleSheet.enabled,
+            border: "1px solid " + styleSheet.text,
+            height: "100%"
+        };
+
         const blackKeyStyle = {
-            position: "absolute",
-            left: left,
-            width: width,
+            ...commonKeyStyle,
             height: "63%",
             backgroundColor: isHovered ? styleSheet.selected : styleSheet.text,
             borderRadius: "0 0 5px 5px",
             zIndex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-end",
-            cursor: "pointer"
-        };
-
-        const labelStyle = {
-            position: "absolute",
-            bottom: "1%",
-            left: "30%",
-            fontSize: "0.7em",
-            color: styleSheet.text,
-            width: "100%",
-            height: "auto"
         };
     
         function playNote() {
@@ -68,7 +57,7 @@ function Key({onClick, isWhite, left, width, midiNote, isMarked, isPlayed}) {
                 {isMarked && <Dot type="marked"/>}
                 {(isPlayed && isWhite) && <div style={{position: "absolute", width: "100%", height: "100%", backgroundColor: "rgba(0, 0, 0, 0.1)"}}/>}
                 {(isPlayed && !isWhite) && <div style={{position: "absolute", width: "100%", height: "100%", backgroundColor: "rgba(255, 255, 255, 0.3)"}}/>}
-                {label && <div style={labelStyle}>{label}</div>}
+                {label && <Text>{label}</Text>}
             </div>
         );
 }

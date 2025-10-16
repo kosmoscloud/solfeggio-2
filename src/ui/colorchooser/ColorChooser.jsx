@@ -3,8 +3,7 @@ import React from 'react';
 import { UIContext } from '../../layers/UILayer';
 
 const ColorChooserButton = ({color1, color2, onClick}) => {
-
-    const { styleSheet } = React.useContext(UIContext);
+    
     const [ isHovered, setIsHovered ] = React.useState(false);
 
     const squareStyle = {
@@ -13,7 +12,7 @@ const ColorChooserButton = ({color1, color2, onClick}) => {
         height: '3vmin',
         backgroundColor: 'transparent',
         overflow: 'hidden',
-        border: '1px solid ' + styleSheet.text,
+        border: '1px solid black',
         cursor: 'pointer',
     }
 

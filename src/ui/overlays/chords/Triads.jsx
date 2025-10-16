@@ -71,7 +71,7 @@ function Triads({sliderEnabled=false}) {
                     </FlexContainer>
                     {sliderEnabled && <FlexContainer direction='row' length={1} padding={false}>
                         <FlexContainer padding={false} length={1}>
-                            <Text center={false}>Liczba dźwięków:</Text>
+                            <Text center={false}>Liczba przykładów:</Text>
                         </FlexContainer>
                         <FlexContainer padding={true} length={2}>
                             <Slider value={triadsN} onChange={setTriadsN} min={1} max={4} enabled={sliderEnabled}/>

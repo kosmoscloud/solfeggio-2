@@ -2,7 +2,7 @@ import React from 'react'
 import { UIContext } from '../../../layers/UILayer'
 import './style.css'
 
-function Dot ({ type }) {
+function Dot () {
 
     const {styleSheet} = React.useContext(UIContext);
 

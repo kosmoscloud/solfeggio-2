@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Grid({dimx=1, dimy=1, padding=true, children, flex=1}) {
 
     let style = {

@@ -14,7 +14,7 @@ import ReproductionMode from '../../layers/enums/ReproductionMode';
 function MelodyExercise() {
 
     const { effectiveScale, melodyType, melodyLength } = useContext(GlobalSettingsContext);
-    const { setMarkedNotes, setPlayedNotes, setReproductionMode } = useContext(IOContext);
+    const { markedNotes, setMarkedNotes, setPlayedNotes, setReproductionMode } = useContext(IOContext);
     const [ inputQueue, setInputQueue ] = useState([]);
     const { dictionary } = useContext(LanguageContext);
 
@@ -55,6 +55,10 @@ function MelodyExercise() {
     }
 
     function convertInputToAnswer(input) {
+        // if user plays the first note again, ignore
+        if (inputQueue.length === 1 && input === inputQueue[0]) {
+            return
+        }
         const tempInputQueue = [...inputQueue, input];
         if (tempInputQueue.length === melodyLength) {
             return tempInputQueue;

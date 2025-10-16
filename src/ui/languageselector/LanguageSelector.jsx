@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import { LanguageContext } from '../../layers/UILayer.jsx';
 
@@ -15,7 +15,6 @@ function LanguageSelector() {
             <Select onChange={(e) => setLanguageAndFetchDictionary(e.target.value)} value={language}>
                 <option value="en">English</option>
                 <option value="pl">Polski</option>
-                <option value="es">Español</option>
             </Select>
         </FlexContainer>
     );

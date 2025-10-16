@@ -9,13 +9,11 @@ import Keyboard from '../../ui/keyboard/Keyboard';
 
 function SingleNoteExercise() {
 
-    const { effectiveScale, noteSpacing, setNoteSpacing } = useContext(GlobalSettingsContext);
+    const { effectiveScale } = useContext(GlobalSettingsContext);
     const { playNotes } = useContext(IOContext);
     const { dictionary } = useContext(LanguageContext);
 
     async function generateSingleNote() {
-        playDistractor();
-        await new Promise(resolve => setTimeout(resolve, 500));
         return [effectiveScale[Math.floor(Math.random() * effectiveScale.length)]];
     }
 
@@ -28,12 +26,11 @@ function SingleNoteExercise() {
     }
 
     async function playDistractor() {
-        const tempNoteSpacing = noteSpacing;
-        setNoteSpacing(0.5);
-        const randomNote = effectiveScale[Math.floor(Math.random() * effectiveScale.length)];
-        await playNotes([randomNote], noteSpacing, 0.5);
-        setNoteSpacing(tempNoteSpacing);
-    }
+        const noteCount = 10;
+        const randomNotes = Array.from({ length: noteCount }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
+        await playNotes(randomNotes, 0.1, 0.1);
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }    
 
 
     return <Exercise 
@@ -42,6 +39,7 @@ function SingleNoteExercise() {
         generateExample={generateSingleNote}
         convertExampleToAnswers={convertExampleToAnswers}
         convertInputToAnswer={convertInputToAnswer}
+        doBeforePlayExample={playDistractor}
     />
 }
 

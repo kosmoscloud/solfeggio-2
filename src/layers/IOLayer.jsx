@@ -12,16 +12,14 @@ function IOLayer({children}) {
     
     const { noteLength, noteSpacing } = useContext(GlobalSettingsContext);
     
-    const soundGenerator = useRef(SoundGenerator());
     const doesBrowserSupportMIDI = useRef(navigator.requestMIDIAccess !== undefined);
     const midiGenerator = useRef(doesBrowserSupportMIDI ? MidiGenerator() : null);
-
+    
     const instruments = ['piano', 'guitar', 'marimba', 'violin', 'flute', 'trombone'];
     const [ enabledInstruments, setEnabledInstruments ] = useState(instruments);
-    const [ currentInstrument, setCurrentInstrument ] = useState('piano');
-    const [ shuffleInstruments, setShuffleInstruments ] = useState(false);
-
+    
     const [ reproductionMode, setReproductionMode ] = useState(ReproductionMode.SIMULTANEOUS);
+    const soundGenerator = useRef(SoundGenerator(reproductionMode));
 
     // trigger is used to make sure the useEffect is called when the state is updated
     const [ trigger, setTrigger ] = useState(false);
@@ -36,40 +34,11 @@ function IOLayer({children}) {
     const [ midiOutput, setMidiOutput ] = useState(null);
     const [ isMidiEnabled, setIsMidiEnabled ] = useState(false);
 
-    const [ noteQueue, setNoteQueue ] = useState([]);
 
-    const [ isStopped, setIsStopped ] = useState(false);
-    const [ isChangingInstrument, setIsChangingInstrument ] = useState(false);
-
-    useEffect(() => {
-        setIsChangingInstrument(false);
-    }, [currentInstrument]);
-
-    useEffect(() => {
-        if (noteQueue.length > 0 && !isChangingInstrument) {
-            if (!isMidiEnabled) {
-                const notesToPlay = noteQueue.shift();
-                for (let note of notesToPlay) {
-                    // if (isStopped) {
-                    //     setIsStopped(false);
-                    //     break;
-                    // }
-                    setTimeout(() => {
-                        soundGenerator.current.playNotes(note, noteLength, currentInstrument);
-                    }, notesToPlay.indexOf(note) * noteSpacing * 1000);
-                }
-            } else {
-                midiGenerator.current.playNotes(noteQueue, noteSpacing, noteLength);
-            }
-        }
-    }, [currentInstrument, isChangingInstrument, isStopped, noteQueue, isMidiEnabled, noteLength, noteSpacing]);
-
-    const playNotes = (notes) => {
-        stopPlaying();
-        if (isMidiEnabled === false) {
-            setNoteQueue([...noteQueue, notes]);
-        } else {
-            midiGenerator.current.playNotes(notes, noteSpacing, noteLength);
+    const playNotes = async (notes, length = noteLength, spacing = noteSpacing) => {
+        for (let i = 0; i < notes.length; i++) {
+            await soundGenerator.current.playNotes(notes[i], length, reproductionMode);
+            if (i < notes.length - 1) await new Promise(resolve => setTimeout(resolve, spacing * 1000));
         }
     }
 
@@ -79,35 +48,12 @@ function IOLayer({children}) {
     }
 
     const stopPlaying = () => {
-        setIsStopped(true);
         soundGenerator.current.stopPlaying();
-    }
-
-    function setCurrentInstrumentSync(instrument) {
-        return new Promise((resolve) => {
-            setCurrentInstrument(instrument);
-            resolve();
-        });
-    }
-
-    const triggerInstrumentChange = async () => {
-        setIsChangingInstrument(true);
-        const randomInstrument = enabledInstruments[Math.floor(Math.random() * enabledInstruments.length)];
-        if (randomInstrument === currentInstrument) {
-            return triggerInstrumentChange();
-        }
-        if (!isMidiEnabled) {
-            await setCurrentInstrumentSync(randomInstrument);
-        } else {
-            //midiGenerator.current.setRandomInstrument();
-        }
     }
 
     return (
         <IOContext.Provider value={{
-            playNotes, stopPlaying, triggerInstrumentChange,
-            shuffleInstruments, setShuffleInstruments,
-            currentInstrument, setCurrentInstrument,
+            playNotes, stopPlaying,
             enabledInstruments, setEnabledInstruments,
             reproductionMode, setReproductionMode,
             trigger,

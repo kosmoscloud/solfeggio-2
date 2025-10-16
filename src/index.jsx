@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Solfeggio2 from './Solfeggio2';
 import reportWebVitals from './reportWebVitals';

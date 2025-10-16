@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 
 import { ResultsContext, ExerciseContext } from '../layers/ExerciseLayer.jsx';
 import { UIContext } from '../layers/UILayer.jsx';
@@ -7,47 +7,60 @@ import { IOContext } from '../layers/IOLayer.jsx';
 import Banner from '../components/Banner.jsx';
 import ControlPanel from '../ui/controlpanel/ControlPanel.jsx';
 
-function Exercise({ name, inputElement, generateExample, convertExampleToAnswers, convertInputToAnswer, settingsComponent, repeatEnabled = true, showHintEnabled = true, reproductionMode, altVersion, repeat }) {
+import { useFeatureFlagEnabled } from 'posthog-js/react';
+import { GlobalSettingsContext } from '../layers/GlobalSettingsLayer.jsx';
+
+function Exercise({ name, inputElement, generateExample, convertExampleToAnswers, convertInputToAnswer, settingsComponent, repeatEnabled = true, showHintEnabled = true, altVersion, repeat, doBeforePlayExample }) {
     const exerciseName = name;
-    const { playNotes, shuffleInstruments, triggerInstrumentChange, trigger, lastInput, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes, setReproductionMode } = useContext(IOContext);
+    const { playNotes, shuffleInstruments, triggerInstrumentChange, trigger, lastInput, markedNotes, setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
     const { updateExamplesResults, resetExamplesResults } = useContext(ResultsContext);
     const [ hasStarted, setHasStarted ] = useState(false);
     const { showElement } = useContext(UIContext);
+    const { user } = useContext(GlobalSettingsContext);
 
     const [ generatedExample, setGeneratedExample ] = useState([]);
     const [ correctAnswers, setCorrectAnswers ] = useState([]);
     const [ answers, setAnswers ] = useState([]);
     const prevAnswersLengthRef = useRef(playedNotes.length);
 
+    const isAnswersLoggingFeatureEnabled = useFeatureFlagEnabled('enable-answers-logging');
+    const isAnswersLoggingEnabled = user === 'dev' || isAnswersLoggingFeatureEnabled;
+
+    useEffect(() => {
+        console.log('feature flag enable-answers-logging: ', isAnswersLoggingFeatureEnabled);
+        console.log('user: ', user);
+    }, [isAnswersLoggingFeatureEnabled]);
+    
     useEffect(() => {
         setHasStarted(false);
+        setMarkedNotes([]);
+        setPlayedNotes([]);
     }, [name]);
 
     useEffect(() => {
-        console.log('generated example: ', generatedExample);
-    }, [generatedExample]);
+        if (isAnswersLoggingEnabled) {
+            console.log('generated example: ', generatedExample, 'correct answers: ', correctAnswers);
+        }
+    }, [generatedExample, correctAnswers]);
 
     useEffect(() => {
-        console.log('correct answers: ', correctAnswers);
-    }, [correctAnswers]);
-
-    useEffect(() => {
-        console.log('answers: ', answers);
+        if (isAnswersLoggingEnabled) {
+            console.log('answers: ', answers);
+        }
     }, [answers]);
 
     useEffect(() => {
         if (hasStarted) {
             const newAnswer = convertInputToAnswer ? convertInputToAnswer(lastInput) : lastInput;
-            if (newAnswer) setAnswers([...answers, newAnswer]);
+            if (newAnswer) setAnswers(arr => [...arr, newAnswer]);
         }
-    }, [trigger, answers, convertInputToAnswer, hasStarted, lastInput]);
+    }, [trigger]);
 
     const resetResults = () => {
         resetExamplesResults();
     };
 
     const startExercise = () => {
-        setReproductionMode(reproductionMode);
         resetResults();
         setHasStarted(true);
         nextExample();
@@ -63,12 +76,9 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
         playExample(newExample);
     };
 
-    const playExample = (example) => {
-        if (Array.isArray(example[0]) && example[0].length === 1) {
-            playNotes([example.flat()]);
-        } else {
-            playNotes(example);
-        }    
+    const playExample = async (example) => {
+        if (doBeforePlayExample) await doBeforePlayExample();
+        await playNotes(example);
     };
 
     const repeatExample = repeatEnabled ?  () => {

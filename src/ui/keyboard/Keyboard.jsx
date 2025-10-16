@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { GlobalSettingsContext } from "../../layers/GlobalSettingsLayer.jsx";
 import { IOContext } from "../../layers/IOLayer.jsx";
 import { UIContext } from "../../layers/UILayer.jsx";
@@ -13,10 +13,6 @@ function Keyboard() {
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const [ lowNote, highNote ] = [ effectiveScale[0] - 2, effectiveScale[effectiveScale.length - 1] + 2 ];
     const keys = generateKeys(lowNote, highNote);
-
-    React.useEffect(() => {
-        console.log('markedNotes: ', markedNotes);
-    }, [markedNotes])
 
     const keyboardStyle = {
         display: 'block',

@@ -1,28 +1,30 @@
-import React, { useEffect, createContext } from 'react';
+import { useEffect, useContext, useState, createContext } from 'react';
 
 import Alert from '../ui/overlays/alert/Alert';
 import MainMenu from '../ui/menu/MainMenu';
 
 import Background from '../components/Background';
 
+import { IOContext } from './IOLayer';
 export const UIContext = createContext();
 export const LanguageContext = createContext();
 
 function UILayer() {
     
-    const [ activeElement, setActiveElement ] = React.useState(<MainMenu />);
-    const [ activeOverlay, setActiveOverlay ] = React.useState(null);
-    const [ activeAlert, setActiveAlert ] = React.useState(null);
-    const [ lastOpenedElement, setLastOpenedElement ] = React.useState(null);
-    const [ aspectRatio, setAspectRatio ] = React.useState(window.innerWidth / window.innerHeight);
-    const [ language, setLanguage ] = React.useState('pl');
-    const [ dictionary, setDictionary ] = React.useState({});
-    const [ symbols, setSymbols ] = React.useState({})
-    const [ styleSheet, setStyleSheet ] = React.useState(() => {
+    const { stopPlaying } = useContext(IOContext);
+    const [ activeElement, setActiveElement ] = useState(<MainMenu />);
+    const [ activeOverlay, setActiveOverlay ] = useState(null);
+    const [ activeAlert, setActiveAlert ] = useState(null);
+    const [ lastOpenedElement, setLastOpenedElement ] = useState(null);
+    const [ aspectRatio, setAspectRatio ] = useState(window.innerWidth / window.innerHeight);
+    const [ language, setLanguage ] = useState('pl');
+    const [ dictionary, setDictionary ] = useState({});
+    const [ symbols, setSymbols ] = useState({})
+    const [ styleSheet, setStyleSheet ] = useState(() => {
         const savedStyleSheet = localStorage.getItem('styleSheet');
         return savedStyleSheet ? JSON.parse(savedStyleSheet) : {};
     });
-    const [ styleSheets, setStyleSheets ] = React.useState([]);
+    const [ styleSheets, setStyleSheets ] = useState([]);
 
     useEffect(() => {
         localStorage.setItem('styleSheet', JSON.stringify(styleSheet));
@@ -59,6 +61,7 @@ function UILayer() {
     }
 
     const showElement = (element) => {
+        stopPlaying();
         if (activeElement) {
             setLastOpenedElement(activeElement);
         }

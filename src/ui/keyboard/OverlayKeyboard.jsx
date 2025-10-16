@@ -1,4 +1,3 @@
-import React from "react";
 import Key from "./key/Key.jsx";
 import "./style.css";
 

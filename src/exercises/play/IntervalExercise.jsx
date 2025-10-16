@@ -18,10 +18,6 @@ function IntervalExercise() {
     const [ firstNote, setFirstNote ] = useState(0);
     const { dictionary } = useContext(LanguageContext);
 
-    React.useEffect(() => {
-        console.log('first note: ', firstNote);
-    }, [firstNote]);
-
     function generateInterval() {
         let intervalPlayingMode = settingsIntervalPlayingMode;
         if (intervalPlayingMode === IntervalPlayingMode.RANDOM) {
@@ -54,7 +50,6 @@ function IntervalExercise() {
     }
 
     function convertInputToAnswer(input) {
-        console.log('input: ', input);
         const answer = Math.abs(input - firstNote);
         return { halftones: answer };
     }

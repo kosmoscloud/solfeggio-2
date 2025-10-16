@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useMemo, useContext, useState } from 'react';
 
 import { GlobalSettingsContext } from '../../layers/GlobalSettingsLayer';
 import { LanguageContext, UIContext } from '../../layers/UILayer';
@@ -25,8 +25,9 @@ function ChordExercise({type}) {
     const { enabledChords, enabledInversions } = useContext(GlobalSettingsContext);
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const { dictionary } = useContext(LanguageContext);
-    const { setMarkedNotes } = useContext(IOContext);
-    const possibleChords = React.useMemo(() => {
+    const { setMarkedNotes, playedNotes, setPlayedNotes } = useContext(IOContext);
+    const [generatedExample, setGeneratedExample] = useState(null);
+    const possibleChords = useMemo(() => {
             function calculatePossibleChords(effectiveScale, enabledChords, enabledInversions) {
                 let options = [];
                 const chords = [];
@@ -74,11 +75,7 @@ function ChordExercise({type}) {
             }
             return possibleChords;
         }, [effectiveScale, enabledChords, enabledInversions, type, showAlert, showOverlay]);
-    const [ inputQueue, setInputQueue ] = React.useState([]);
-
-    useEffect(() => {
-        console.log('inputQueue: ', inputQueue);
-    }, [inputQueue]);
+    const [ inputQueue, setInputQueue ] = useState([]);
 
     const name = {
         'triads': dictionary.triads,
@@ -94,17 +91,22 @@ function ChordExercise({type}) {
         const randomChord = possibleChords[Math.floor(Math.random() * possibleChords.length)];
         randomChord.sort((a, b) => a - b);
         setMarkedNotes([randomChord[0]]);
+        setPlayedNotes([]);
+        setInputQueue([randomChord[0]]);
+        setGeneratedExample(randomChord);
         return [randomChord];
     }
 
     function convertExampleToAnswers(example) {
         let chordType = translateChordToType(example[0]);
+        if (type === 'random') {
+            return example;
+        }
 
         return [chordType];
     }
 
     function translateChordToType(chord) {
-        console.log(chord)
         let diffchord = chord.map((note, index) => {
             if (index === 0) return null;
             return note - chord[index - 1];
@@ -121,10 +123,14 @@ function ChordExercise({type}) {
     }
 
     function convertInputToAnswer(input) {
-        let tempInputQueue = [...inputQueue, input];
-        
-        if (tempInputQueue.length === enabledChords[type][0].length) {
+        let tempInputQueue = inputQueue.includes(input) ? [...inputQueue] : [...inputQueue, input];
+        setPlayedNotes([...playedNotes, input]);
+        if (tempInputQueue.length === generatedExample.length) {
             setInputQueue([]);
+            tempInputQueue = tempInputQueue.sort((a, b) => a - b);
+            if (type === 'random') {
+                return tempInputQueue;
+            }
             return convertExampleToAnswers([tempInputQueue])[0];
         }
         setInputQueue(tempInputQueue);
@@ -132,6 +138,7 @@ function ChordExercise({type}) {
     }
 
     function clearInputQueue() {
+        setPlayedNotes([]);
         setInputQueue([]);
     }
 
