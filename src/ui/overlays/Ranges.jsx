@@ -54,6 +54,7 @@ function Ranges() {
     }
 
     const onNotePlayed = async (midiNote) => {
+        playNotes([midiNote], 0.1, 0);
         if (isListeningForFirstNote) {
             await setTempFirstNote(midiNote);
             setIsListeningForFirstNote(false);
