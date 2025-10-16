@@ -104,5 +104,7 @@
     "simultaneousmode": "na raz",
     "ascendingmode": "do góry",
     "descendingmode": "w dół",
-    "playbacksettings": "ustawienia odtwarzania"
+    "playbacksettings": "ustawienia odtwarzania",
+
+    "app_description": "Solfeggio-2 to aplikacja do kształcenia słuchu, wzorowana na programie Solfeggio autorstwa Mariusza Brzezińskiego, oryginalnie na Atari ST.\n\nWersja 0.0.1 aplikacji została napisana przez Macieja Komosę, studenta Reżyserii Dźwięku na Akademii Muzycznej w Krakowie. Projekt jest wciąż rozwijany.\n\nW przypadku pytań lub sugestii proszę o kontakt: maciej.komosa@amkp.edu.pl."
 }
