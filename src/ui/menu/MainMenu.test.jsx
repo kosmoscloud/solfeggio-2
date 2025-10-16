@@ -2,10 +2,6 @@ import { render, screen } from '@testing-library/react';
 
 import MainMenu from './MainMenu';
 
-jest.mock('posthog-js/react', () => ({
-    useFeatureFlagEnabled: jest.fn(),
-}));
-
 jest.mock('../../layers/UILayer.jsx', () => {
     const React = require('react');
     const mockDictionary = {
@@ -61,7 +57,6 @@ describe('MainMenu', () => {
 
     it('renders all main menu buttons', () => {
         // arrange
-        require('posthog-js/react').useFeatureFlagEnabled.mockReturnValue(false);
         let mockDictionary = require('../../layers/UILayer.jsx').LanguageContext._currentValue.dictionary;
         // act
         render(<MainMenu />);
@@ -76,8 +71,6 @@ describe('MainMenu', () => {
     });
 
     it('renders ColorChooser if feature flag is enabled', () => {
-        // arrange
-        require('posthog-js/react').useFeatureFlagEnabled.mockReturnValue(true);
         // act
         render(<MainMenu />);
         // assert
@@ -85,8 +78,6 @@ describe('MainMenu', () => {
     });
 
     it('does not render ColorChooser if feature flag is disabled', () => {
-        // arrange
-        require('posthog-js/react').useFeatureFlagEnabled.mockReturnValue(false);
         // act
         render(<MainMenu />);
         // assert

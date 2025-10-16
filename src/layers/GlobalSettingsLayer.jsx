@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef } from 'react';
+import { createContext, useState, useRef } from 'react';
 
 import MelodyType from './enums/MelodyType';
 
@@ -6,7 +6,6 @@ export const GlobalSettingsContext = createContext();
 
 function GlobalSettingsLayer({ children }) {
     const {isMobile} = useRef(window.innerWidth < 768);
-    const user = import.meta.env.VITE_USER || 'prod';
     const [firstNote, setFirstNote] = useState(isMobile ? 60 : 48);
     const [lastNote, setLastNote] = useState(72);
     const [scale, setScale] = useState('chromatic');
@@ -55,7 +54,7 @@ function GlobalSettingsLayer({ children }) {
             triadsN, setTriadsN,
             seventhsN, setSeventhsN,
             melodyType, setMelodyType,
-            isMobile, user
+            isMobile
         }}>
             {children}
         </GlobalSettingsContext.Provider>

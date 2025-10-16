@@ -14,7 +14,7 @@ import ReproductionMode from '../../layers/enums/ReproductionMode';
 function MelodyExercise() {
 
     const { effectiveScale, melodyType, melodyLength } = useContext(GlobalSettingsContext);
-    const { markedNotes, setMarkedNotes, setPlayedNotes, setReproductionMode } = useContext(IOContext);
+    const { setMarkedNotes, setPlayedNotes, setReproductionMode } = useContext(IOContext);
     const [ inputQueue, setInputQueue ] = useState([]);
     const { dictionary } = useContext(LanguageContext);
 

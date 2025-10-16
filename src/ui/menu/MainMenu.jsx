@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { useFeatureFlagEnabled } from 'posthog-js/react'
 
 import { UIContext, LanguageContext } from '../../layers/UILayer.jsx';
 

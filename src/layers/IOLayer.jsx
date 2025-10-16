@@ -1,9 +1,8 @@
-import React, { createContext, useState, useRef, useEffect, useContext } from 'react';
+import { createContext, useState, useRef, useContext } from 'react';
 
 import { GlobalSettingsContext } from './GlobalSettingsLayer';
 
 import SoundGenerator from '../generators/SoundGenerator';
-import MidiGenerator from '../generators/MidiGenerator';
 import ReproductionMode from './enums/ReproductionMode';
 
 export const IOContext = createContext();
@@ -13,7 +12,7 @@ function IOLayer({children}) {
     const { noteLength, noteSpacing } = useContext(GlobalSettingsContext);
     
     const doesBrowserSupportMIDI = useRef(navigator.requestMIDIAccess !== undefined);
-    const midiGenerator = useRef(doesBrowserSupportMIDI ? MidiGenerator() : null);
+    //const midiGenerator = useRef(doesBrowserSupportMIDI ? MidiGenerator() : null);
     
     const instruments = ['piano', 'guitar', 'marimba', 'violin', 'flute', 'trombone'];
     const [ enabledInstruments, setEnabledInstruments ] = useState(instruments);

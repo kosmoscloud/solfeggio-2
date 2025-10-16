@@ -26,7 +26,7 @@ function SingleNoteExercise() {
     }
 
     async function playDistractor() {
-        const noteCount = 10;
+        const noteCount = 20;
         const randomNotes = Array.from({ length: noteCount }, () => effectiveScale[Math.floor(Math.random() * effectiveScale.length)]);
         await playNotes(randomNotes, 0.1, 0.1);
         await new Promise(resolve => setTimeout(resolve, 500));

@@ -7,7 +7,6 @@ import { IOContext } from '../layers/IOLayer.jsx';
 import Banner from '../components/Banner.jsx';
 import ControlPanel from '../ui/controlpanel/ControlPanel.jsx';
 
-import { useFeatureFlagEnabled } from 'posthog-js/react';
 import { GlobalSettingsContext } from '../layers/GlobalSettingsLayer.jsx';
 
 function Exercise({ name, inputElement, generateExample, convertExampleToAnswers, convertInputToAnswer, settingsComponent, repeatEnabled = true, showHintEnabled = true, altVersion, repeat, doBeforePlayExample }) {
@@ -22,14 +21,6 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
     const [ correctAnswers, setCorrectAnswers ] = useState([]);
     const [ answers, setAnswers ] = useState([]);
     const prevAnswersLengthRef = useRef(playedNotes.length);
-
-    const isAnswersLoggingFeatureEnabled = useFeatureFlagEnabled('enable-answers-logging');
-    const isAnswersLoggingEnabled = user === 'dev' || isAnswersLoggingFeatureEnabled;
-
-    useEffect(() => {
-        console.log('feature flag enable-answers-logging: ', isAnswersLoggingFeatureEnabled);
-        console.log('user: ', user);
-    }, [isAnswersLoggingFeatureEnabled]);
     
     useEffect(() => {
         setHasStarted(false);
@@ -37,17 +28,17 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
         setPlayedNotes([]);
     }, [name]);
 
-    useEffect(() => {
-        if (isAnswersLoggingEnabled) {
-            console.log('generated example: ', generatedExample, 'correct answers: ', correctAnswers);
-        }
-    }, [generatedExample, correctAnswers]);
+    // useEffect(() => {
+    //     if (isAnswersLoggingEnabled) {
+    //         console.log('generated example: ', generatedExample, 'correct answers: ', correctAnswers);
+    //     }
+    // }, [generatedExample, correctAnswers]);
 
-    useEffect(() => {
-        if (isAnswersLoggingEnabled) {
-            console.log('answers: ', answers);
-        }
-    }, [answers]);
+    // useEffect(() => {
+    //     if (isAnswersLoggingEnabled) {
+    //         console.log('answers: ', answers);
+    //     }
+    // }, [answers]);
 
     useEffect(() => {
         if (hasStarted) {

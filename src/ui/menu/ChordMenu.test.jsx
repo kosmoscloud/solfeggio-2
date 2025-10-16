@@ -2,10 +2,6 @@ import { render, screen } from '@testing-library/react';
 
 import ChordMenu from './ChordMenu';
 
-jest.mock('posthog-js/react', () => ({
-    useFeatureFlagEnabled: jest.fn(),
-}));
-
 jest.mock('../../layers/UILayer.jsx', () => {
     const React = require('react');
     const mockDictionary = {
