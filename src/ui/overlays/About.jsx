@@ -1,25 +1,28 @@
-import React, {useContext} from "react";
+import { useContext } from "react";
 
-import { OverlaysContext } from "../../layers/OverlayLayer.js";
-import Overlay from "./Overlay.jsx";
-import Button from "../../components/button/Button.jsx";
+import { UIContext } from "../../layers/UILayer";
+import { LanguageContext } from "../../layers/UILayer";
 
-import Text from "../../components/text/Text";
+import OK from "./ok/OK";
+import FlexContainer from "../../components/FlexContainer";
+import Text from "../../components/Text";
 
-import "./style.css";
+import Overlay from "./Overlay";
 
 function About() {
 
-    const { hideAlert } = useContext(OverlaysContext);
+    const { showElement, lastOpenedElement } = useContext(UIContext);
+    const { dictionary } = useContext(LanguageContext);
 
     return (
-        <Overlay minHeight="20%" minWidth="50%">
-            <FlexContainer>
-                <Text wrap={true}>Program Solfeggio-2 służy do ćwiczenia słuchu muzycznego.</Text>
-                <Button label='OK' onClick={hideAlert}/>
-            </FlexContainer>
-        </Overlay>
-    );
+        <div>
+            <Overlay minWidth="60%" minHeight="30%">
+                <FlexContainer>
+                    <Text center={false}>{dictionary.outputinterface}:</Text>
+                </FlexContainer>
+            </Overlay>
+            <OK onOK={() => showElement(lastOpenedElement)} top='75%'/>
+        </div>)
 }
 
 export default About;

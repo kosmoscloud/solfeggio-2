@@ -1,10 +1,11 @@
 import { useContext } from 'react';
 
-import { UIContext } from '../layers/UILayer';
+import { UIContext, showElement } from '../layers/UILayer';
+import About from '../ui/overlays/About.jsx';
 
 function Title({children}) {
 
-    const { styleSheet } = useContext(UIContext);
+    const { styleSheet, showElement } = useContext(UIContext);
 
     const style = {
         flex: 1,
@@ -20,11 +21,12 @@ function Title({children}) {
         WebkitTextSizeAdjust: 'none',
         WebkitUserSelect: 'none',
         MozUserSelect: 'none',
-        textShadow: "0.5vmin 0.5vmin 0 " + styleSheet.background
+        textShadow: "0.5vmin 0.5vmin 0 " + styleSheet.background,
+        cursor: 'help'
     }
 
     return (
-        <div style={style}>
+        <div style={style} onClick={() => showElement(<About />)}>
             {children}
         </div>
     );
