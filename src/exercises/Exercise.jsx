@@ -15,7 +15,6 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
     const { updateExamplesResults, resetExamplesResults } = useContext(ResultsContext);
     const [ hasStarted, setHasStarted ] = useState(false);
     const { showElement } = useContext(UIContext);
-    const { user } = useContext(GlobalSettingsContext);
 
     const [ generatedExample, setGeneratedExample ] = useState([]);
     const [ correctAnswers, setCorrectAnswers ] = useState([]);

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { UIContext, showElement } from '../layers/UILayer';
+import { UIContext } from '../layers/UILayer';
 import About from '../ui/overlays/About.jsx';
 
 function Title({children}) {
