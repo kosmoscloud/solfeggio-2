@@ -13,7 +13,7 @@ import OKCancel from "./okcancel/OKCancel";
 
 function AudioMIDISettings() {
 
-    const { isMidiEnabled, setIsMidiEnabled, doesBrowserSupportMIDI } = useContext(IOContext);
+    const { isMidiEnabled, setIsMidiEnabled, midiAccess } = useContext(IOContext);
     const [ tempIsMidiEnabled, tempSetIsMidiEnabled ] = useState(isMidiEnabled);
 
     const { showElement, lastOpenedElement, showAlert } = useContext(UIContext);
@@ -25,7 +25,7 @@ function AudioMIDISettings() {
     }
 
     const setMidi = (value) => {
-        if (!doesBrowserSupportMIDI) {
+        if (!midiAccess) {
             showAlert("Twoja przeglądarka nie obsługuje MIDI.");
             return;
         }

@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useMIDINotes } from "@react-midi/hooks";
 import { GlobalSettingsContext } from "../../layers/GlobalSettingsLayer.jsx";
 import { IOContext } from "../../layers/IOLayer.jsx";
 import { UIContext } from "../../layers/UILayer.jsx";
@@ -13,6 +14,13 @@ function Keyboard() {
     const { effectiveScale } = useContext(GlobalSettingsContext);
     const [ lowNote, highNote ] = [ effectiveScale[0] - 2, effectiveScale[effectiveScale.length - 1] + 2 ];
     const keys = generateKeys(lowNote, highNote);
+    const activeNotes = useMIDINotes({ channel: 1 });
+
+    useEffect(() => {
+        for (let note of activeNotes) {
+            handleKeyClick(note.note);
+        }
+    }, [activeNotes]);
 
     const keyboardStyle = {
         display: 'block',

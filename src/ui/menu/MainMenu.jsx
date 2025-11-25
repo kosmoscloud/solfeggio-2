@@ -6,7 +6,7 @@ import IntervalsQuiz from '../../exercises/choose/IntervalsQuiz.jsx';
 import TriadsQuiz from '../../exercises/choose/TriadsQuiz.jsx';
 
 import ChordMenu from './ChordMenu.jsx';
-import Ranges from '../overlays/Ranges.jsx';
+import SettingsMenu from './SettingsMenu.jsx';
 
 import Overlay from '../overlays/Overlay.jsx';
 import Text from '../../components/Text.jsx';
@@ -41,7 +41,7 @@ function MainMenu() {
                         <Button label={dictionary.chords} onClick={() => showElement(<ChordMenu />)}/>
                         <Button label={dictionary.melody} onClick={() => showElement(<MelodyExercise />)}/>
                         <Button label={dictionary.perfectpitch} onClick={() => showElement(<PerfectPitchExercise />)}/>
-                        <Button label={dictionary.rangeandscale} onClick={() => showElement(<Ranges />)}/>
+                        <Button label={dictionary.settings} onClick={() => showElement(<SettingsMenu />)}/>
                     </Grid>
                 </FlexContainer>
             </FlexContainer>

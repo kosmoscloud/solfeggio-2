@@ -43,6 +43,11 @@
     "time": "czas",
 
     "selectatleastoneinterval": "Wybierz przynajmniej jeden interwał.",
+    "midiio": "MIDI I/O",
+    "midiinputsettings": "Ustawienia wejścia MIDI",
+    "enablemidiinput": "włącz wejście MIDI",
+    "midinotavailable": "MIDI nie jest włączone lub nie jest dostępne w tej przeglądarce.",
+    "nomidiinputs": "Brak dostępnych wejść MIDI",
 
     "scale": "skala",
     "firstnote": "pierwsza nuta",

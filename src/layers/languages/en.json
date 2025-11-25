@@ -43,6 +43,11 @@
     "time": "time",
 
     "selectatleastoneinterval": "Select at least one interval.",
+    "midiio": "MIDI I/O",
+    "midiinputsettings": "MIDI input settings",
+    "enablemidiinput": "enable MIDI input",
+    "midinotavailable": "MIDI not enabled or not available in this browser.",
+    "nomidiinputs": "No MIDI inputs available",
 
     "scale": "scale",
     "firstnote": "first note",
