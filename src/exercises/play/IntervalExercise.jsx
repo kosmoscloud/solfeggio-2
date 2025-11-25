@@ -50,6 +50,7 @@ function IntervalExercise() {
     }
 
     function convertInputToAnswer(input) {
+        if (input === firstNote) return null;
         const answer = Math.abs(input - firstNote);
         return { halftones: answer };
     }
