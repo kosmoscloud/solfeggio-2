@@ -9,5 +9,8 @@
   },
   "github": {
     "release": true
+  },
+  "hooks": {
+    "after:bump": "npm run deploy"
   }
 }
