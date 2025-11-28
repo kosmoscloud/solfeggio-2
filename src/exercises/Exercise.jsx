@@ -6,8 +6,7 @@ import { IOContext } from '../layers/IOLayer.jsx';
 
 import Banner from '../components/Banner.jsx';
 import ControlPanel from '../ui/controlpanel/ControlPanel.jsx';
-
-import { GlobalSettingsContext } from '../layers/GlobalSettingsLayer.jsx';
+import { isArray } from 'tone';
 
 function Exercise({ name, inputElement, generateExample, convertExampleToAnswers, convertInputToAnswer, settingsComponent, repeatEnabled = true, showHintEnabled = true, altVersion, repeat, doBeforePlayExample }) {
     const exerciseName = name;
@@ -20,6 +19,7 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
     const [ correctAnswers, setCorrectAnswers ] = useState([]);
     const [ answers, setAnswers ] = useState([]);
     const prevAnswersLengthRef = useRef(playedNotes.length);
+    const [ isHintListEmpty, setIsHintListEmpty ] = useState(false);
     
     useEffect(() => {
         setHasStarted(false);
@@ -58,6 +58,7 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
 
     const nextExample = async () => {
         setAnswers([]);
+        setIsHintListEmpty(false);
         if (shuffleInstruments) await triggerInstrumentChange();
         const newExample = await generateExample();
         const newCorrectAnswers = await convertExampleToAnswers(newExample);
@@ -78,9 +79,10 @@ function Exercise({ name, inputElement, generateExample, convertExampleToAnswers
         playExample(generatedExample);
     } : undefined;
 
-    const showHint = showHintEnabled ? () => {
-        if (markedNotes.length === generatedExample.length) return;
-        setMarkedNotes([...markedNotes, Array.isArray(generatedExample[0]) ? generatedExample[markedNotes.length][0] : generatedExample[markedNotes.length]]);
+    const showHint = (showHintEnabled && !isHintListEmpty) ? () => {
+        let tempGeneratedExample = (isArray(generatedExample[0]) ? generatedExample[0] : generatedExample).sort((a, b) => a - b);
+        if (markedNotes.length + 1 === tempGeneratedExample.length) setIsHintListEmpty(true);
+        setMarkedNotes([...markedNotes, Array.isArray(tempGeneratedExample[0]) ? tempGeneratedExample[markedNotes.length][0] : tempGeneratedExample[markedNotes.length]]);
     } : undefined;
 
     useEffect(() => {

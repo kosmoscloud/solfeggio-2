@@ -38,7 +38,7 @@ function IntervalQuiz() {
         generateExample={generateInterval}
         convertExampleToAnswers={convertExampleToAnswers}
         convertInputToAnswer={convertInputToAnswer}
-        settingsComponent={<Intervals sliderEnabled={true}/>}
+        settingsComponent={<Intervals nExamplesSliderEnabled={true} />}
         showHintEnabled={false}
         undoNoteEnabled={true}
         altVersion={<IntervalExercise />}

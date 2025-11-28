@@ -14,7 +14,7 @@ import OKCancel from './okcancel/OKCancel';
 import ReproductionMode from '../../layers/enums/ReproductionMode';
 import { IOContext } from '../../layers/IOLayer';
 
-function Intervals() {
+function Intervals({ nExamplesSliderEnabled = false }) {
     const { showElement, lastOpenedElement, showAlert, hideAlert } = useContext(UIContext); 
     const { enabledIntervals, setEnabledIntervals } = useContext(GlobalSettingsContext);
     const { intervalsN, setIntervalsN } = useContext(GlobalSettingsContext);
@@ -22,6 +22,8 @@ function Intervals() {
     const [ tempIntervalsN, setTempIntervalsN ] = useState(intervalsN);
     const [ tempEnabledIntervals, setTempEnabledIntervals ] = useState(enabledIntervals);
     const [ tempReproductionMode, setTempReproductionMode ] = useState(reproductionMode);
+
+    const showNExamplesSlider = nExamplesSliderEnabled && tempReproductionMode === ReproductionMode.SIMULTANEOUS;
 
     const { dictionary } = useContext(LanguageContext);
 
@@ -51,7 +53,7 @@ function Intervals() {
 
     return (
         <div>
-            <Overlay minHeight={tempReproductionMode === ReproductionMode.SIMULTANEOUS ? '50%' : '40%'} minWidth='50%'>
+            <Overlay minHeight={showNExamplesSlider ? '50%' : '40%'} minWidth='50%'>
                 <FlexContainer direction='row'>
                     <FlexContainer>
                         <FlexContainer direction='row' gap={5} length={5}>
@@ -84,7 +86,7 @@ function Intervals() {
                                 </Grid>
                             </FlexContainer>
                         </FlexContainer>
-                        {tempReproductionMode === ReproductionMode.SIMULTANEOUS && <FlexContainer length={0.5} direction='row' padding={false}>
+                        { showNExamplesSlider && <FlexContainer length={0.5} direction='row' padding={false}>
                             <FlexContainer>
                                 <Text>{dictionary.numberofexamples}</Text>
                             </FlexContainer>
@@ -95,7 +97,7 @@ function Intervals() {
                     </FlexContainer>
                 </FlexContainer>
             </Overlay>
-            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top={tempReproductionMode === ReproductionMode.SIMULTANEOUS ? '85%' : '80%'}/>
+            <OKCancel onOK={acceptChanges} onCancel={() => showElement(lastOpenedElement)} top={showNExamplesSlider ? '85%' : '80%'}/>
         </div>
     );
 

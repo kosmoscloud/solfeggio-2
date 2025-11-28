@@ -61,7 +61,7 @@ function IntervalExercise() {
         generateExample={generateInterval}
         convertExampleToAnswers={convertExampleToAnswers}
         convertInputToAnswer={convertInputToAnswer}
-        settingsComponent={<Intervals/>}
+        settingsComponent={<Intervals nExamplesSliderEnabled={false} />}
         includeFirstNoteInAnswers={true}
         altVersion={<IntervalsQuiz/>}
     />
