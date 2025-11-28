@@ -30,7 +30,8 @@
     "test": "react-scripts test",
     "eject": "npm eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "release": "release-it"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "^16.3.0"
+    "@testing-library/react": "^16.3.0",
+    "release-it": "^19.0.6"
   }
 }
