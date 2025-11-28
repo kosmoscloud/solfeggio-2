@@ -22,6 +22,7 @@ import ColorChooser from '../colorchooser/ColorChooser.jsx';
 
 function MainMenu() {
 
+    const { version } = require('../../../package.json');
     const { showElement, styleSheets } = useContext(UIContext);
     const { dictionary } = useContext(LanguageContext);
 
@@ -31,7 +32,7 @@ function MainMenu() {
             <FlexContainer gap={2}>
                 <FlexContainer length={1} alignItems="center">
                     <Title>Solfeggio-2</Title>
-                    <Text>v0.0.1</Text>
+                    <Text>v{version}</Text>
                 </FlexContainer>
                 <LanguageSelector />
                 <FlexContainer length={3}>
