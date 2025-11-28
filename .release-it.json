@@ -8,9 +8,10 @@
     "commitMessage": "wprowadzenie wersji v${version}"
   },
   "github": {
-    "release": true
+    "release": true,
+    "changeLog": "auto"
   },
   "hooks": {
-    "after:bump": "npm run deploy"
+    "after:release": "npm run deploy"
   }
 }
